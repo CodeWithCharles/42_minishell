@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:36:02 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/28 12:49:08 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/01/28 13:03:26 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ void	ft_cd(
 		path = args[0];
 	if (chdir(path) == -1)
 	{
-		ft_putstr_fd("cd: ", 2);
-		ft_putstr_fd(strerror(errno), 2);
-		ft_putstr_fd(": ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putstr_fd("\n", 2);
+		fd_printf(
+			2,
+			"cd: %s : %s\n",
+			strerror(errno),
+			path);
 	}
 }

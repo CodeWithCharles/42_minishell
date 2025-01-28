@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:49:33 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/28 12:55:01 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/01/28 13:00:45 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ void	ft_pwd(void)
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 	{
-		ft_putstr_fd("pwd: error retrieving current directory: ", 2);
-		ft_putstr_fd(strerror(errno), 2);
-		ft_putstr_fd("\n", 2);
+		fd_printf(
+			2,
+			"pwd: error retrieving current directory: %s \n",
+			strerror(errno));
 		return ;
 	}
 	ft_putstr_fd(cwd, 1);
