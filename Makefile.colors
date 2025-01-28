@@ -1,0 +1,26 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile.colors                                    :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/01/28 11:26:29 by cpoulain          #+#    #+#              #
+#    Updated: 2025/01/28 11:27:25 by cpoulain         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+# Term colors
+
+TERM_RESET		:=	\032[0m
+TERM_BLACK		:=	\032[30m
+TERM_RED		:=	\032[31m
+TERM_GREEN		:=	\032[32m
+TERM_YELLOW		:=	\032[33m
+TERM_BLUE		:=	\032[34m
+TERM_MAGENTA	:=	\032[35m
+TERM_CYAN		:=	\032[36m
+TERM_WHITE		:=	\032[37m
+
+TERM_UP			:=	\032[1A
+TERM_CLEAR_LINE	:=	\032[2K\r
