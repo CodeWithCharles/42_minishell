@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:36:02 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/28 12:48:34 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/01/28 12:49:08 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,4 @@ void	ft_cd(
 		ft_putstr_fd(path, 2);
 		ft_putstr_fd("\n", 2);
 	}
-}
-
-int main(int ac, char **av)
-{
-	av++;
-	ft_cd(av);
-	return (0);
 }
