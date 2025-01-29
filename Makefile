@@ -6,7 +6,7 @@
 #    By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 16:33:26 by cpoulain          #+#    #+#              #
-#    Updated: 2025/01/28 11:57:25 by cpoulain         ###   ########.fr        #
+#    Updated: 2025/01/28 16:24:23 by cpoulain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,12 +56,12 @@ norminette:
 # Binary / Lib generation
 
 $(TARGET): $(THDPTY_LIBFT_H) $(OBJS)
-	@mkdir -p $(@D)
-	@$(CC) $(OBJS) -I$(INC_DIR) $(LIBFT_TARGET) -o $@ $(LIBFLAGS) $(CFLAGS)
+	mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(OBJS) -I$(INC_DIR) $(LIBFT_TARGET) -o $@ $(LFLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(@D)
-	@$(CC) -c $< -o $@ -I$(INC_DIR) $(CFLAGS)
+	mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $< -o $@ -I$(INC_DIR)
 
 # Third party compilation
 
