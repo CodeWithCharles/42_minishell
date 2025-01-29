@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:16:47 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/29 11:46:07 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/29 12:32:00 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,15 @@ typedef struct s_minishell_ctx
 //		Bultins
 
 void	ft_pwd(
+			t_minishell_ctx *ctx);
+
+//		Pathing
+
+int		is_valid_builtin(
+			const char *name);
+
+void	get_cmd(
+			t_cmd *cmd,
 			t_minishell_ctx *ctx);
 
 //		Error
