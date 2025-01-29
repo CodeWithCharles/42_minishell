@@ -6,12 +6,11 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:03:10 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/28 12:45:47 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/01/29 11:44:34 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include "../../third_party/42_libft_full/libft.h"
 
 /**
  * @brief		Mimics the behavior of the Unix 'echo' command.
@@ -22,12 +21,14 @@
  * 				by a single space when printed.
  */
 void	ft_echo(
-			char **args
-			)
+	t_minishell_ctx *ctx,
+	char **args
+)
 {
 	int		i;
 	int		n_flag;
 
+	(void)ctx;
 	i = 0;
 	n_flag = 0;
 	if (args[0] && !ft_strcmp(args[0], "-n"))

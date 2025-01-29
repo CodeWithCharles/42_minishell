@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:49:33 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/28 13:00:45 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/01/29 11:47:11 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,18 @@
  * 				process to the standard output.
  */
 
-void	ft_pwd(void)
+void	ft_pwd(
+	t_minishell_ctx *ctx
+)
 {
 	char	*cwd;
 
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 	{
-		fd_printf(
-			2,
-			"pwd: error retrieving current directory: %s \n",
-			strerror(errno));
+		print_cmd_errno_error(ctx, ERR_PWD_CUR_DIR, "pwd", strerror(errno));
 		return ;
 	}
 	ft_putstr_fd(cwd, 1);
+	ft_putchar_fd('\n', 1);
 }

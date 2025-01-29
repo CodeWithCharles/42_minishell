@@ -6,14 +6,11 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:36:02 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/28 13:03:26 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/01/29 11:43:43 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include "../../third_party/42_libft_full/libft.h"
-#include <errno.h>
-#include <string.h>
 
 /**
  * @brief		Mimics the behavior of the Unix 'cd' command.
@@ -24,8 +21,9 @@
  * 				changed to the home directory of the user.
  */
 void	ft_cd(
-			char **args
-			)
+	t_minishell_ctx *ctx,
+	char **args
+)
 {
 	char	*home;
 	char	*path;
@@ -35,7 +33,7 @@ void	ft_cd(
 		home = getenv("HOME");
 		if (!home)
 		{
-			ft_putstr_fd("cd: HOME not set\n", 2);
+			print_arg_error(ctx, ERR_CD_HOME_NOT_SET, "cd");
 			return ;
 		}
 		path = home;
