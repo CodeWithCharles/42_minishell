@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 12:49:33 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/29 12:35:08 by onkeltag         ###   ########.fr       */
+/*   Created: 2025/01/29 15:34:47 by onkeltag          #+#    #+#             */
+/*   Updated: 2025/01/29 15:35:05 by onkeltag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief		Mimics the behavior of the Unix 'pwd' command.
+ * @brief		Mimics the behavior of the Unix 'env' command.
  *
- * @details 	This function prints the current working directory of the
- * 				process to the standard output.
+ * @details 	This function prints the environment variables of the shell to the
+ * 				standard output.
  */
-
-void	ft_pwd(
+void	ft_env(
 	t_minishell_ctx *ctx
 )
 {
-	char	*cwd;
+	t_list	*env;
 
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
+	env = ctx->envp;
+	while (env)
 	{
-		print_cmd_errno_error(ctx, ERR_PWD_CUR_DIR, "pwd", strerror(errno));
-		return ;
+		ft_putstr_fd(((t_env_var *)env->content)->var_name, 1);
+		ft_putstr_fd("=", 1);
+		ft_putstr_fd(((t_env_var *)env->content)->value, 1);
+		ft_putstr_fd("\n", 1);
+		env = env->next;
 	}
-	ft_putstr_fd(cwd, 1);
-	ft_putchar_fd('\n', 1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:16:47 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/29 11:46:07 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:37:38 by onkeltag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 
 // Include our .h
 
-# include "builtins.h"
 # include "minishell.h"
 # include "libft.h"
-# include "env.h"
 # include "error.h"
 # include "colors.h"
 # include "utils.h"
@@ -55,12 +53,10 @@ typedef struct s_minishell_ctx
 	char	*p_name;
 }	t_minishell_ctx;
 
+# include "builtins.h"
+# include "env.h"
+
 //	Functions
-
-//		Bultins
-
-void	ft_pwd(
-			t_minishell_ctx *ctx);
 
 //		Error
 
