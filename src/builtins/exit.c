@@ -6,12 +6,11 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:10:16 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/28 13:22:10 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/01/29 11:44:13 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include "../../third_party/42_libft_full/libft.h"
 
 /**
  * @brief		Mimics the behavior of the Unix 'exit' command.
@@ -22,8 +21,9 @@
  */
 
 void	ft_exit(
-			char **args
-			)
+	t_minishell_ctx *ctx,
+	char **args
+)
 {
 	int		status;
 
@@ -32,7 +32,7 @@ void	ft_exit(
 	{
 		if (!ft_isdigit(args[0][0]))
 		{
-			fd_printf(2, "exit: %s: numeric argument required\n", args[0]);
+			print_arg_error(ctx, ERR_ARG_MUST_BE_INT, "exit");
 			exit(255);
 		}
 		status = ft_atoi(args[0]);

@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:16:47 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/29 11:09:18 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/29 11:46:07 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <string.h>
+# include <errno.h>
 
 //	ENUMS
 
@@ -55,11 +57,27 @@ typedef struct s_minishell_ctx
 
 //	Functions
 
+//		Bultins
+
+void	ft_pwd(
+			t_minishell_ctx *ctx);
+
 //		Error
 
 void	print_gen_error(
 			t_minishell_ctx *ctx,
 			const char *error);
+
+void	print_arg_error(
+			t_minishell_ctx *ctx,
+			const char *error,
+			const char *cmd_name);
+
+void	print_cmd_errno_error(
+			t_minishell_ctx *ctx,
+			const char *error,
+			const char *cmd_name,
+			const char *errno_error);
 
 //		Prompting
 
