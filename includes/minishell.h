@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:16:47 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/29 11:03:13 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/29 11:09:18 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	print_gen_error(
 
 //		Prompting
 
-char	*build_prompt_message(t_minishell_ctx *ctx);
+char	*build_prompt_message(
+			t_minishell_ctx *ctx);
 
 //		Colors
 

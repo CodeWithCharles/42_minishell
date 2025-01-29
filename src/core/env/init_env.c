@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:23:24 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/28 12:52:02 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/29 11:10:06 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ static t_env_var	*parse_to_env_var(
 
 // Header implementations
 
-t_list	*init_env(char **envp)
+t_list	*init_env(
+	char **envp
+)
 {
 	t_list	*start;
 
@@ -35,7 +37,9 @@ t_list	*init_env(char **envp)
 
 // Static implementations
 
-t_env_var	*parse_to_env_var(char *envp_var)
+t_env_var	*parse_to_env_var(
+	char *envp_var
+)
 {
 	t_env_var	*env_var;
 	char		*equal_pos;

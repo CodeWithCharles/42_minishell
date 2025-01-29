@@ -6,13 +6,15 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:24:43 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/28 18:30:41 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/29 11:10:31 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-char	*build_prompt_message(t_minishell_ctx *ctx)
+char	*build_prompt_message(
+	t_minishell_ctx *ctx
+)
 {
 	char	*message;
 	char	*tmp;

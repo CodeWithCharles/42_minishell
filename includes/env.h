@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:24:22 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/28 12:49:22 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/29 11:09:32 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ typedef struct s_env_var
 // Functions
 
 t_list	*init_env(
-			char **envp
-			);
+			char **envp);
 
 #endif

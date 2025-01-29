@@ -6,13 +6,16 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:51:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/29 11:05:31 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/29 11:11:06 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static	t_should_continue	handle_input(char *input, t_should_free should_free)
+static	t_should_continue	handle_input(
+	char *input,
+	t_should_free should_free
+)
 {
 	char	**argv;
 
@@ -28,7 +31,11 @@ static	t_should_continue	handle_input(char *input, t_should_free should_free)
 	return (SHOULD_CONTINUE);
 }
 
-int	main(int argc, char **argv, char **envp)
+int	main(
+	int argc,
+	char **argv,
+	char **envp
+)
 {
 	t_minishell_ctx	ctx;
 	char			*prompt_message;
