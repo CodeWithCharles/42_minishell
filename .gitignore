@@ -2,3 +2,4 @@ libftfull.a
 binaries/
 includes/libft.h
 build/
+third_party/*/

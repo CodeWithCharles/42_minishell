@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                            :+:      :+:    :+:   */
+/*   ft_free_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 13:06:01 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/29 11:04:31 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/01/29 11:00:34 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/01/29 11:05:43 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#include "../../includes/minishell.h"
 
-# define ERR_TOO_MANY_ARGS	"%s%s:\tToo many arguments.\n%s"
-# define ERR_INT_ERR_ALLOC	"%s%s:\tInternal alloc error.\n%s"
+// Header implementations
 
-#endif
+void	ft_free_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split && split[i])
+		free(split[i++]);
+	free(split);
+}
