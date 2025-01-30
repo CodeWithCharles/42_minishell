@@ -3,6 +3,7 @@
 		"*.sqlbook": "sql",
 		"*.ndjson": "jsonl",
 		"*.dbclient-js": "javascript",
-		"libft.h": "c"
+		"libft.h": "c",
+		"stdbool.h": "c"
 	}
 }

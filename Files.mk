@@ -6,3 +6,4 @@ FILES	=																	\
 	env/ft_setenv env/ft_unsetenv minishell pathing/get_cmd					\
 	pathing/is_valid_builtin utils/ft_free_split utils/ft_last_exit_code	\
 	utils/ft_lstremove utils/ft_which utils/term_colors						\
+

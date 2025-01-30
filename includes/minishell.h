@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:16:47 by cpoulain          #+#    #+#             */
 /*   Updated: 2025/01/30 17:04:28 by cpoulain         ###   ########.fr       */
@@ -54,8 +54,7 @@ typedef enum e_should_free
 
 //		Bultins
 
-void	ft_pwd(
-			t_minishell_ctx *ctx);
+//	Functions
 
 //		Pathing
 

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:10:16 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/29 11:44:13 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/29 12:50:18 by onkeltag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 /**
  * @brief		Mimics the behavior of the Unix 'exit' command.

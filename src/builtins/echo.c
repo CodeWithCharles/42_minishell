@@ -6,43 +6,113 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:03:10 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/29 11:44:34 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/30 17:00:35 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
+#include <stdbool.h>
 
-/**
- * @brief		Mimics the behavior of the Unix 'echo' command.
- *
- * @details 	This function prints the provided arguments to the standard
- * 				outuput. If the first argument is "-n", it suppresses the
- * 				new line at the end of the output. Each argument is seperated
- * 				by a single space when printed.
- */
+bool	is_n_flag(
+	char *arg,
+	bool n_option
+)
+{
+	if (arg[0] != '-' || arg[1] != '\0')
+		return (false);
+	++arg;
+	while (*arg)
+	{
+		if (*arg++ != 'n')
+			return (false);
+		n_option = false;
+	}
+	return (true);
+}
+
+static void	_handle_env_var(
+			t_minishell_ctx *ctx,
+			char **arg
+)
+{
+	char	*env_name;
+	char	*env_value;
+
+	if ((*arg)[1] == '?')
+	{
+		// fd_printf(STDOUT_FILENO, "%d", ft_last_exit_code(-1));
+		(*arg) += 2;
+		return ;
+	}
+	env_name = get_env_name(*arg + 1);
+	if (!env_name)
+		fd_printf(STDOUT_FILENO, "$");
+	else
+	{
+		env_value = get_env_value(ctx, env_name);
+		if (env_value)
+		{
+			fd_printf(STDOUT_FILENO, "%s", env_value);
+			free(env_value);
+			(*arg) += ft_strlen(env_name);
+		}
+		free(env_name);
+	}
+}
+
+static void	_print_arg(
+	t_minishell_ctx *ctx,
+	char *arg,
+	bool in_single_quotes,
+	bool in_double_quotes
+)
+{
+	while (*arg)
+	{
+		if ((*arg == '\'' && !in_double_quotes)
+			|| (*arg == '"' && !in_single_quotes))
+		{
+			++arg;
+			continue ;
+		}
+		else if (!in_single_quotes && *arg == '$')
+			_handle_env_var(ctx, &arg);
+		else if (*arg == ' ')
+			fd_printf(STDOUT_FILENO, " ");
+		else
+			fd_printf(STDOUT_FILENO, "%c", *arg);
+		++arg;
+	}
+}
+
 void	ft_echo(
 	t_minishell_ctx *ctx,
 	char **args
 )
 {
-	int		i;
-	int		n_flag;
+	bool	n_option;
+	bool	in_single_quotes;
+	bool	in_double_quotes;
 
 	(void)ctx;
-	i = 0;
-	n_flag = 0;
-	if (args[0] && !ft_strcmp(args[0], "-n"))
+	n_option = false;
+	in_single_quotes = false;
+	in_double_quotes = false;
+	while (*args && ft_strncmp(*args, "-n", 2) == 0)
 	{
-		n_flag = 1;
-		i++;
+		++args;
+		n_option = true;
 	}
-	while (args[i])
+	while (*args)
 	{
-		ft_putstr_fd(args[i], 1);
-		if (args[i + 1])
-			ft_putstr_fd(" ", 1);
-		i++;
+		if ((*args)[0] == '\'')
+			in_single_quotes = !in_single_quotes;
+		else if ((*args)[0] == '"')
+			in_double_quotes = !in_double_quotes;
+		_print_arg(ctx, *args, in_single_quotes, in_double_quotes);
+		if (*++args)
+			fd_printf(STDOUT_FILENO, " ");
 	}
-	if (!n_flag)
-		ft_putstr_fd("\n", 1);
+	if (!n_option)
+		fd_printf(STDOUT_FILENO, "\n");
 }
