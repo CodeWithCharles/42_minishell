@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_cmd.c                                          :+:      :+:    :+:   */
+/*   ft_setenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 12:21:12 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/30 17:00:30 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/01/30 15:43:33 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/01/30 15:49:50 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,25 @@
 
 // Header implementations
 
-void	get_cmd(
-	t_minishell_ctx *ctx,
-	t_cmd *cmd
+void	ft_setenv(
+	char *variable
 )
 {
-	char	*cmd_path;
+	t_list	*envp;
+	int		replaced;
 
-	if (!is_valid_builtin(cmd->argv[0]))
+	envp = *ft_envp(NULL);
+	replaced = 0;
+	while (envp && !replaced)
 	{
-		cmd_path = ft_which(cmd->argv[0]);
-		if (cmd_path)
+		if (ft_env_varcmp((char *)envp->content, variable))
 		{
-			free(cmd->argv[0]);
-			cmd->argv[0] = cmd_path;
+			replaced = 1;
+			free(envp->content);
+			envp->content = ft_strdup(variable);
 		}
-		else
-		{
-			print_arg_error(ctx, ERR_CMD_NOT_FOUND, cmd->argv[0]);
-			cmd->fd_in = INVALID_FD;
-			cmd->fd_out = INVALID_FD;
-			cmd->exit_code = 127;
-		}
+		envp = envp->next;
 	}
+	if (!replaced)
+		ft_lstadd_back(ft_envp(NULL), ft_lstnew(ft_strdup(variable)));
 }

@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_env_path.c                                     :+:      :+:    :+:   */
+/*   ft_envp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 12:55:52 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/29 12:59:34 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/01/30 15:23:30 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/01/30 15:49:27 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*get_env_path(
-	t_minishell_ctx *ctx
+// Header implementations
+
+t_list	**ft_envp(
+	char **envp
 )
 {
-	t_list	*current;
+	static t_list	*saved_envp = NULL;
+	size_t			i;
 
-	current = ctx->envp;
-	while (current)
-	{
-		if (ft_strncmp(get_env_var_name(current), "PATH", 4) == 0)
-			return (get_env_var_value(current));
-		current = current->next;
-	}
+	if (envp == NULL)
+		return (&saved_envp);
+	i = 0;
+	while (envp[i])
+		ft_lstadd_back(&saved_envp, ft_lstnew(ft_strdup(envp[i++])));
 	return (NULL);
 }

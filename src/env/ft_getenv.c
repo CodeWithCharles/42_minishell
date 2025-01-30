@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_cmd.c                                          :+:      :+:    :+:   */
+/*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 12:21:12 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/30 17:00:30 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/01/30 15:35:08 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/01/30 15:49:41 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,18 @@
 
 // Header implementations
 
-void	get_cmd(
-	t_minishell_ctx *ctx,
-	t_cmd *cmd
+char	*ft_getenv(
+	char *name
 )
 {
-	char	*cmd_path;
+	t_list	*envp;
 
-	if (!is_valid_builtin(cmd->argv[0]))
-	{
-		cmd_path = ft_which(cmd->argv[0]);
-		if (cmd_path)
-		{
-			free(cmd->argv[0]);
-			cmd->argv[0] = cmd_path;
-		}
-		else
-		{
-			print_arg_error(ctx, ERR_CMD_NOT_FOUND, cmd->argv[0]);
-			cmd->fd_in = INVALID_FD;
-			cmd->fd_out = INVALID_FD;
-			cmd->exit_code = 127;
-		}
-	}
+	if (ft_strcmp(name, "?") == 0)
+		return (ft_itoa(ft_last_exit_code(-1)));
+	envp = *ft_envp(NULL);
+	while (envp && !ft_env_varcmp((char *)envp->content, name))
+		envp = envp->next;
+	if (!envp)
+		return (NULL);
+	return (ft_strchr((char *)envp->content, '=') + 1);
 }

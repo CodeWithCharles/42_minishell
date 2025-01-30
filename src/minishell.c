@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:51:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/29 11:48:02 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:57:20 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(
 	ctx.p_name = argv[0];
 	if (argc > 1)
 		return (print_gen_error(&ctx, ERR_TOO_MANY_ARGS), 0);
-	ctx.envp = init_env(envp);
+	ft_envp(envp);
 	setup_signals();
 	while (1)
 	{

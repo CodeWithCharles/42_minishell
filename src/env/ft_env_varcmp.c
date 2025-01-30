@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_cmd.c                                          :+:      :+:    :+:   */
+/*   ft_env_varcmp.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 12:21:12 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/30 17:00:30 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/01/30 15:32:06 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/01/30 15:49:33 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,18 @@
 
 // Header implementations
 
-void	get_cmd(
-	t_minishell_ctx *ctx,
-	t_cmd *cmd
+int	ft_env_varcmp(
+	char *s1, char *s2
 )
 {
-	char	*cmd_path;
+	size_t	n1len;
+	size_t	n2len;
 
-	if (!is_valid_builtin(cmd->argv[0]))
-	{
-		cmd_path = ft_which(cmd->argv[0]);
-		if (cmd_path)
-		{
-			free(cmd->argv[0]);
-			cmd->argv[0] = cmd_path;
-		}
-		else
-		{
-			print_arg_error(ctx, ERR_CMD_NOT_FOUND, cmd->argv[0]);
-			cmd->fd_in = INVALID_FD;
-			cmd->fd_out = INVALID_FD;
-			cmd->exit_code = 127;
-		}
-	}
+	n1len = 0;
+	while (s1[n1len] && s1[n1len] != '=')
+		++n1len;
+	n2len = 0;
+	while (s2[n2len] && s2[n2len] != '=')
+		++n2len;
+	return (n1len == n2len && ft_strncmp(s1, s2, ft_strchr(s1, '=') - s1) == 0);
 }
