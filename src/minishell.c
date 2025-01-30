@@ -55,7 +55,7 @@ int	main(
 	ctx.p_name = argv[0];
 	if (argc > 1)
 		return (print_gen_error(&ctx, ERR_TOO_MANY_ARGS), 0);
-	ctx.envp = init_env(envp);
+	ft_envp(envp);
 	setup_signals();
 	while (1)
 	{

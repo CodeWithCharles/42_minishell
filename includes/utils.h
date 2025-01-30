@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:59:54 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/30 16:34:52 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/01/30 17:00:06 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,17 @@ char	**spooq(
 			char sep);
 
 char	*ft_strtok_quotes(char *str, char sep);
+
+int		ft_last_exit_code(
+			int exit_code);
+
+void	ft_lstremove(
+			t_list **lst,
+			void (*del)()
+			);
+
+char	*ft_which(
+			const char	*cmd
+			);
 
 #endif

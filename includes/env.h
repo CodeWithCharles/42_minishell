@@ -16,15 +16,9 @@
 # include "libft.h"
 # include "minishell.h"
 
-typedef struct s_env_var
-{
-	char	*var_name;
-	char	*value;
-}	t_env_var;
-
 // Functions
 
-t_list	*init_env(
+t_list	**ft_envp(
 			char **envp);
 
 char	*get_env_value(
@@ -33,5 +27,18 @@ char	*get_env_value(
 
 char	*get_env_name(
 			char *arg);
+
+char	*ft_getenv(
+			char *name);
+
+void	ft_setenv(
+			char *variable);
+
+void	ft_unsetenv(
+			char *name);
+
+int		ft_env_varcmp(
+			char *s1,
+			char *s2);
 
 #endif
