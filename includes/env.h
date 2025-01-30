@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:24:22 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/29 15:37:29 by onkeltag         ###   ########.fr       */
+/*   Updated: 2025/01/30 16:54:52 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,8 @@ t_list	*init_env(
 char	*get_env_value(
 			t_minishell_ctx *ctx,
 			char *name);
+
+char	*get_env_name(
+			char *arg);
 
 #endif

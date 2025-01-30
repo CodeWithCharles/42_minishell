@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:51:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/29 12:27:40 by onkeltag         ###   ########.fr       */
+/*   Updated: 2025/01/30 16:37:13 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static	t_should_continue	handle_input(
 
 	if (input == NULL)
 		return (ft_putchar_fd('\n', 1), SHOULD_NOT_CONTINUE);
-	argv = ft_split(input, ' ');
+	argv = spooq(input, ' ');
 	if (!argv)
 		return (free(input), SHOULD_NOT_CONTINUE);
 	add_history(input);

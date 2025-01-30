@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:34:47 by onkeltag          #+#    #+#             */
-/*   Updated: 2025/01/29 15:35:05 by onkeltag         ###   ########.fr       */
+/*   Updated: 2025/01/30 17:01:44 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 /**
  * @brief		Mimics the behavior of the Unix 'env' command.
  *
- * @details 	This function prints the environment variables of the shell to the
- * 				standard output.
+ * @details 	This function prints the environment variables
+ * 				of the shell to the standard output.
  */
 void	ft_env(
 	t_minishell_ctx *ctx
