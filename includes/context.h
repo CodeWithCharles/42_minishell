@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_env_data.c                                     :+:      :+:    :+:   */
+/*   context.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 12:34:59 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/29 12:37:46 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/01/30 17:02:55 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/01/30 17:04:11 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#ifndef CONTEXT_H
+# define CONTEXT_H
 
-char	*get_env_var_name(
-	t_list	*node
-)
-{
-	return (((t_env_var *)node->content)->var_name);
-}
+// Minishell context
 
-char	*get_env_var_value(
-	t_list	*node
-)
+typedef struct s_minishell_ctx
 {
-	return (((t_env_var *)node->content)->value);
-}
+	t_list	*envp;
+	char	*p_name;
+}	t_minishell_ctx;
+
+#endif
