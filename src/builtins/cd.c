@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:36:02 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/30 10:50:58 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/01/30 11:00:36 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_cd(
 
 	if (!args[0])
 	{
-		home = getenv("HOME");
+		home = get_env_value(ctx, "HOME");
 		if (!home)
 		{
 			print_arg_error(ctx, ERR_CD_HOME_NOT_SET, "cd");

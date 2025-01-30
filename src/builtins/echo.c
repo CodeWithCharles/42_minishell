@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:03:10 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/29 16:49:02 by onkeltag         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:24:02 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ char	*get_env_name(
 	return (name);
 }
 
-static bool	is_n_flag(
+bool	is_n_flag(
 	char *arg,
-	bool *n_option
+	bool n_option
 )
 {
 	if (arg[0] != '-' || arg[1] != '\0')
@@ -49,9 +49,75 @@ static bool	is_n_flag(
 	{
 		if (*arg++ != 'n')
 			return (false);
-		*n_option = false;
+		n_option = false;
 	}
 	return (true);
+}
+
+// void	ft_echo(
+// 	t_minishell_ctx *ctx,
+// 	char **args
+// )
+// {
+// 	bool	n_option;
+
+// 	(void)ctx;
+// 	n_option = true;
+// 	while (*args)
+// 	{
+// 		if (!is_n_flag(*args, &n_option))
+// 			break ;
+// 		++args;
+// 	}
+// 	while (*args)
+// 	{
+// 		fd_printf(STDOUT_FILENO, "%s", *args++);
+// 		if (*args)
+// 			fd_printf(STDOUT_FILENO, " ");
+// 	}
+// 	if (n_option)
+// 		fd_printf(STDOUT_FILENO, "\n");
+// }
+
+static void	_print_arg(
+	t_minishell_ctx *ctx,
+	char *arg,
+	bool in_single_quotes,
+	bool in_double_quotes
+)
+{
+	while (*arg)
+	{
+		if ((*arg == '\'' && !in_double_quotes)
+			|| (*arg == '"' && !in_single_quotes))
+		{
+			++arg;
+			continue ;
+		}
+		else if (!in_single_quotes && *arg == '$')
+		{
+			char	*env_name = get_env_name(arg + 1);
+			if (env_name)
+			{
+				char	*env_value = get_env_value(ctx, env_name);
+				if (env_value)
+				{
+					fd_printf(STDOUT_FILENO, "%s", env_value);
+					free(env_value);
+					arg += ft_strlen(env_name);
+				}
+				free(env_name);
+			}
+			else
+				fd_printf(STDOUT_FILENO, "$");
+
+		}
+		else if (*arg == ' ')
+			fd_printf(STDOUT_FILENO, " ");
+		else
+			fd_printf(STDOUT_FILENO, "%c", *arg);
+		++arg;
+	}
 }
 
 void	ft_echo(
@@ -60,21 +126,28 @@ void	ft_echo(
 )
 {
 	bool	n_option;
+	bool	in_single_quotes;
+	bool	in_double_quotes;
 
 	(void)ctx;
-	n_option = true;
-	while (*args)
+	n_option = false;
+	in_single_quotes = false;
+	in_double_quotes = false;
+	while (*args && ft_strncmp(*args, "-n", 2) == 0)
 	{
-		if (!is_n_flag(*args, &n_option))
-			break ;
 		++args;
+		n_option = true;
 	}
 	while (*args)
 	{
-		fd_printf(STDOUT_FILENO, "%s", *args++);
-		if (*args)
+		if ((*args)[0] == '\'')
+			in_single_quotes = !in_single_quotes;
+		else if ((*args)[0] == '"')
+			in_double_quotes = !in_double_quotes;
+		_print_arg(ctx, *args, in_single_quotes, in_double_quotes);
+		if (*++args)
 			fd_printf(STDOUT_FILENO, " ");
 	}
-	if (n_option)
+	if (!n_option)
 		fd_printf(STDOUT_FILENO, "\n");
 }
