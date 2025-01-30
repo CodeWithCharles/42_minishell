@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:03:10 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/30 17:00:35 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/01/30 17:30:04 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@ static void	_handle_env_var(
 	char	*env_name;
 	char	*env_value;
 
+	(void)ctx;
 	if ((*arg)[1] == '?')
 	{
-		// fd_printf(STDOUT_FILENO, "%d", ft_last_exit_code(-1));
+		fd_printf(STDOUT_FILENO, "%d", ft_last_exit_code(-1));
 		(*arg) += 2;
 		return ;
 	}
@@ -49,14 +50,14 @@ static void	_handle_env_var(
 		fd_printf(STDOUT_FILENO, "$");
 	else
 	{
-		env_value = get_env_value(ctx, env_name);
+		env_value = ft_getenv(env_name);
+		if (!env_value)
+			env_value = ft_strdup("");
 		if (env_value)
 		{
 			fd_printf(STDOUT_FILENO, "%s", env_value);
-			free(env_value);
 			(*arg) += ft_strlen(env_name);
 		}
-		free(env_name);
 	}
 }
 

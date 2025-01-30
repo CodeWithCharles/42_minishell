@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:36:03 by onkeltag          #+#    #+#             */
-/*   Updated: 2025/01/30 16:54:25 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/01/30 17:27:27 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,28 +46,28 @@ char	*get_env_name(
  * 				the function returns the value of the variable.
  * 				If the variable is not found, the function returns NULL.
  */
-char	*get_env_value(
-	t_minishell_ctx *ctx,
-	char *name
-)
-{
-	t_list		*env;
-	t_env_var	*var;
+// char	*get_env_value(
+// 	t_minishell_ctx *ctx,
+// 	char *name
+// )
+// {
+// 	t_list		*env;
+// 	t_env_var	*var;
 
-	if (!ctx || !ctx->envp || !name)
-		return (ft_strdup(""));
-	env = ctx->envp;
-	while (env)
-	{
-		var = (t_env_var *)env->content;
-		if (var && var->var_name && !ft_strcmp(var->var_name, name))
-		{
-			if (var->value)
-				return (ft_strdup(var->value));
-			else
-				return (ft_strdup(""));
-		}
-		env = env->next;
-	}
-	return (ft_strdup(""));
-}
+// 	if (!ctx || !ctx->envp || !name)
+// 		return (ft_strdup(""));
+// 	env = ctx->envp;
+// 	while (env)
+// 	{
+// 		var = ft_getenv(get_env_name);
+// 		if (var && var->var_name && !ft_strcmp(var->var_name, name))
+// 		{
+// 			if (var->value)
+// 				return (ft_strdup(var->value));
+// 			else
+// 				return (ft_strdup(""));
+// 		}
+// 		env = env->next;
+// 	}
+// 	return (ft_strdup(""));
+// }
