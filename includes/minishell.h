@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:16:47 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/29 11:46:07 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/30 17:04:28 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 
 // Include our .h
 
-# include "builtins.h"
-# include "minishell.h"
 # include "libft.h"
+# include "context.h"
+# include "builtins.h"
 # include "env.h"
 # include "error.h"
 # include "colors.h"
 # include "utils.h"
+# include "cmd.h"
 
 // Include libs
 
@@ -30,6 +31,8 @@
 # include <signal.h>
 # include <string.h>
 # include <errno.h>
+# include <sys/stat.h>
+# include <stdbool.h>
 
 //	ENUMS
 
@@ -47,20 +50,20 @@ typedef enum e_should_free
 	SHOULD_NOT_FREE = 0,
 }	t_should_free;
 
-// Minishell context
-
-typedef struct s_minishell_ctx
-{
-	t_list	*envp;
-	char	*p_name;
-}	t_minishell_ctx;
-
 //	Functions
 
 //		Bultins
 
-void	ft_pwd(
-			t_minishell_ctx *ctx);
+//	Functions
+
+//		Pathing
+
+int		is_valid_builtin(
+			const char *name);
+
+void	get_cmd(
+			t_minishell_ctx *ctx,
+			t_cmd *cmd);
 
 //		Error
 

@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 10:59:54 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/30 17:00:06 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/01/31 08:56:23 by jcheron           #+#    #+#             */
+/*   Updated: 2025/01/31 09:08:55 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "minishell.h"
 
-// Functions
+void	ft_export(
+	t_minishell_ctx *ctx,
+	char **args
+)
+{
+	char	*name;
+	char	*value;
+	t_list	*node;
 
-void	ft_free_split(
-			char **split);
-
-char	**spooq(
-			char *str,
-			char sep);
-
-char	*ft_strtok_quotes(char *str, char sep);
-
-int		ft_last_exit_code(
-			int exit_code);
-
-void	ft_lstremove(
-			t_list **lst,
-			void (*del)()
-			);
-
-char	*ft_which(
-			const char	*cmd
-			);
-
-#endif
+	(void)ctx;
+	if (!args || !ft_strchr(*args, '='))
+	{
+		fd_printf(STDERR_FILENO, "export : invalid format\n");
+		return ;
+	}
+	// skip $ && return NAME=VALUE
+}

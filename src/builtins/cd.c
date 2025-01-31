@@ -6,11 +6,11 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:36:02 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/29 11:43:43 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/30 17:19:04 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 /**
  * @brief		Mimics the behavior of the Unix 'cd' command.
@@ -30,7 +30,7 @@ void	ft_cd(
 
 	if (!args[0])
 	{
-		home = getenv("HOME");
+		home = ft_getenv("HOME");
 		if (!home)
 		{
 			print_arg_error(ctx, ERR_CD_HOME_NOT_SET, "cd");

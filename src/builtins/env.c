@@ -1,39 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 10:59:54 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/30 17:00:06 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/01/29 15:34:47 by onkeltag          #+#    #+#             */
+/*   Updated: 2025/01/30 17:18:45 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "minishell.h"
 
-// Functions
+/**
+ * @brief		Mimics the behavior of the Unix 'env' command.
+ *
+ * @details 	This function prints the environment variables
+ * 				of the shell to the standard output.
+ */
+void	ft_env(
+	t_minishell_ctx *ctx
+)
+{
+	t_list	*env;
 
-void	ft_free_split(
-			char **split);
-
-char	**spooq(
-			char *str,
-			char sep);
-
-char	*ft_strtok_quotes(char *str, char sep);
-
-int		ft_last_exit_code(
-			int exit_code);
-
-void	ft_lstremove(
-			t_list **lst,
-			void (*del)()
-			);
-
-char	*ft_which(
-			const char	*cmd
-			);
-
-#endif
+	(void)ctx;
+	env = *ft_envp(NULL);
+	while (env)
+	{
+		fd_printf(STDOUT_FILENO, "%s\n", (char *)env->content);
+		env = env->next;
+	}
+}

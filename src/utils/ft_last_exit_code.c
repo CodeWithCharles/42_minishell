@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   ft_last_exit_code.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 10:59:54 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/30 17:00:06 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/01/30 15:54:10 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/01/30 17:31:08 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "../../includes/minishell.h"
 
-// Functions
+// Header implementations
 
-void	ft_free_split(
-			char **split);
+int	ft_last_exit_code(
+	int exit_code
+)
+{
+	static int	last_exit_code = 0;
 
-char	**spooq(
-			char *str,
-			char sep);
-
-char	*ft_strtok_quotes(char *str, char sep);
-
-int		ft_last_exit_code(
-			int exit_code);
-
-void	ft_lstremove(
-			t_list **lst,
-			void (*del)()
-			);
-
-char	*ft_which(
-			const char	*cmd
-			);
-
-#endif
+	if (exit_code == -1)
+		return (last_exit_code);
+	last_exit_code = exit_code;
+	return (last_exit_code);
+}

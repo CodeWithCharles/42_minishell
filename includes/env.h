@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:24:22 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/29 11:09:32 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/30 16:54:52 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,31 @@
 # define ENV_H
 
 # include "libft.h"
-
-typedef struct s_env_var
-{
-	char	*var_name;
-	char	*value;
-}	t_env_var;
+# include "minishell.h"
 
 // Functions
 
-t_list	*init_env(
+t_list	**ft_envp(
 			char **envp);
+
+char	*get_env_value(
+			t_minishell_ctx *ctx,
+			char *name);
+
+char	*get_env_name(
+			char *arg);
+
+char	*ft_getenv(
+			char *name);
+
+void	ft_setenv(
+			char *variable);
+
+void	ft_unsetenv(
+			char *name);
+
+int		ft_env_varcmp(
+			char *s1,
+			char *s2);
 
 #endif

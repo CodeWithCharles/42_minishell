@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:51:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/29 11:48:02 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/30 16:37:13 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static	t_should_continue	handle_input(
 	char *input,
+	t_minishell_ctx *ctx,
 	t_should_free should_free
 )
 {
@@ -21,10 +22,17 @@ static	t_should_continue	handle_input(
 
 	if (input == NULL)
 		return (ft_putchar_fd('\n', 1), SHOULD_NOT_CONTINUE);
-	argv = ft_split(input, ' ');
+	argv = spooq(input, ' ');
 	if (!argv)
 		return (free(input), SHOULD_NOT_CONTINUE);
 	add_history(input);
+	if (execute_builtin(ctx, argv))
+	{
+		ft_free_split(argv);
+		if (should_free)
+			free(input);
+		return (SHOULD_CONTINUE);
+	}
 	if (should_free)
 		free(input);
 	ft_free_split(argv);
@@ -47,7 +55,7 @@ int	main(
 	ctx.p_name = argv[0];
 	if (argc > 1)
 		return (print_gen_error(&ctx, ERR_TOO_MANY_ARGS), 0);
-	ctx.envp = init_env(envp);
+	ft_envp(envp);
 	setup_signals();
 	while (1)
 	{
@@ -56,7 +64,7 @@ int	main(
 			return (print_gen_error(&ctx, ERR_INT_ERR_ALLOC), 0);
 		input = readline(prompt_message);
 		free(prompt_message);
-		if (!handle_input(input, SHOULD_FREE))
+		if (!handle_input(input, &ctx, SHOULD_FREE))
 			break ;
 	}
 	return (0);

@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:49:33 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/29 11:47:11 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/29 12:35:08 by onkeltag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../third_party/42_libft_full/libft.h"
-#include <errno.h>
-#include <string.h>
+#include "minishell.h"
 
 /**
  * @brief		Mimics the behavior of the Unix 'pwd' command.
