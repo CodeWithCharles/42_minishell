@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:01:59 by onkeltag          #+#    #+#             */
-/*   Updated: 2025/01/31 12:31:27 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/01/31 14:08:07 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,6 @@ void	ft_pwd(
 			t_minishell_ctx *ctx);
 
 void	ft_unset(
-			t_minishell_ctx *ctx,
-			char **args);
-
-int		execute_builtin(
 			t_minishell_ctx *ctx,
 			char **args);
 

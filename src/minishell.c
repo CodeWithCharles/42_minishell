@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:51:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 12:40:11 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/01/31 14:09:11 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static	t_should_continue	handle_input(
 {
 	char	**argv;
 
+	(void)ctx;
 	if (input == NULL)
 		return (ft_putchar_fd('\n', 1), SHOULD_NOT_CONTINUE);
 	if (ft_strlen(input) == 0)
@@ -37,13 +38,13 @@ static	t_should_continue	handle_input(
 		i++;
 	}
 	add_history(input);
-	if (execute_builtin(ctx, argv))
+	/*if (execute_builtin(ctx, argv))
 	{
 		ft_free_split(argv);
 		if (should_free)
 			free(input);
 		return (SHOULD_CONTINUE);
-	}
+	}*/
 	if (should_free)
 		free(input);
 	ft_free_split(argv);

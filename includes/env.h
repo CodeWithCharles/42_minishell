@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:24:22 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/30 16:54:52 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/01/31 13:13:45 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,8 @@ void	ft_unsetenv(
 int		ft_env_varcmp(
 			char *s1,
 			char *s2);
+
+int		ft_envp_tab(
+			char ***envp_tab);
 
 #endif
