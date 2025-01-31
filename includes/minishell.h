@@ -6,7 +6,7 @@
 /*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:16:47 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 13:59:47 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/31 19:44:56 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@
 # include <sys/stat.h>
 # include <stdbool.h>
 # include <fcntl.h>
-
-# define TMP_EMPTY_PATH	"/tmp/minishell_empty"
+# include <sys/wait.h>
 
 //	ENUMS
 
@@ -111,5 +110,34 @@ int		is_builtin_pipeable(
 int		handle_redirection(
 			t_minishell_ctx *ctx,
 			t_cmd *cmd);
+
+void	close_pipes(
+			int cmd_count,
+			int pipes[][2]);
+
+void	close_fds_if_open(
+			t_cmd *cmd);
+
+int		setup_pipes(
+			t_minishell_ctx *ctx,
+			int cmd_count,
+			int (*pipes)[2]);
+
+int		fork_command(
+			t_minishell_ctx *ctx,
+			t_cmd *cmd,
+			t_executing_ctx *exec_ctx);
+
+void	setup_redirections(
+			t_cmd *cmd,
+			t_executing_ctx *exec_ctx);
+
+void	handle_here_doc(
+			t_minishell_ctx *ctx,
+			t_cmd *cmd);
+
+int		setup_cmd_fd_io(
+			t_minishell_ctx *ctx,
+			t_list *cmd_list);
 
 #endif
