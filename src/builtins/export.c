@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 08:56:23 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/31 09:08:55 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/01/31 13:53:07 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ void	ft_export(
 	t_list	*node;
 
 	(void)ctx;
+	(void)name;
+	(void)value;
+	(void)node;
 	if (!args || !ft_strchr(*args, '='))
 	{
 		fd_printf(STDERR_FILENO, "export : invalid format\n");

@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:13:25 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 11:02:58 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/31 11:53:17 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ typedef struct s_redir
 
 typedef struct s_cmd
 {
-	char		*cmd_name;
-	char		**cmd_args;
-	t_redir		redir_in;
-	t_redir		redir_out;
-	int			fd_in;
-	int			fd_out;
-	int			exit_code;
+	char			*cmd_name;
+	char			**cmd_args;
+	t_redir			redir_in;
+	t_redir			redir_out;
+	int				fd_in;
+	int				fd_out;
+	int				exit_code;
 }	t_cmd;
 
 #endif
