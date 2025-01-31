@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:16:47 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 13:59:47 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/31 14:28:11 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 // Include our .h
 
 # include "libft.h"
+# include "cmd.h"
 # include "context.h"
 # include "builtins.h"
 # include "env.h"
 # include "error.h"
 # include "colors.h"
 # include "utils.h"
-# include "cmd.h"
 
 // Include libs
 

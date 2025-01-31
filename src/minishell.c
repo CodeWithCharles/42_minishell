@@ -6,11 +6,51 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:51:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 14:09:11 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/01/31 18:04:18 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+// static	t_should_continue	handle_input(
+// 	char *input,
+// 	t_minishell_ctx *ctx,
+// 	t_should_free should_free
+// )
+// {
+// 	char	**argv;
+
+// 	(void)ctx;
+// 	if (input == NULL)
+// 		return (ft_putchar_fd('\n', 1), SHOULD_NOT_CONTINUE);
+// 	if (ft_strlen(input) == 0)
+// 		return (free(input), SHOULD_CONTINUE);
+// 	argv = spooq(input, ' ');
+// 	if (!argv)
+// 		return (free(input), SHOULD_NOT_CONTINUE);
+// 	int i = 0;
+// 	fd_printf(STDOUT_FILENO, "input: %s\n", input);
+// 	while (argv[i] != NULL)
+// 	{
+// 		char *expanded_arg = expand_variables_in_input(ctx, argv[i]);
+// 		free(argv[i]);
+// 		argv[i] = expanded_arg;
+// 		fd_printf(STDOUT_FILENO, "argv[%d]: %s\n", i, argv[i]);
+// 		i++;
+// 	}
+// 	add_history(input);
+// 	/*if (execute_builtin(ctx, argv))
+// 	{
+// 		ft_free_split(argv);
+// 		if (should_free)
+// 			free(input);
+// 		return (SHOULD_CONTINUE);
+// 	}*/
+// 	if (should_free)
+// 		free(input);
+// 	ft_free_split(argv);
+// 	return (SHOULD_CONTINUE);
+// }
 
 static	t_should_continue	handle_input(
 	char *input,
@@ -18,23 +58,32 @@ static	t_should_continue	handle_input(
 	t_should_free should_free
 )
 {
-	char	**argv;
+	t_cmd	*cmds;
 
 	(void)ctx;
 	if (input == NULL)
 		return (ft_putchar_fd('\n', 1), SHOULD_NOT_CONTINUE);
 	if (ft_strlen(input) == 0)
 		return (free(input), SHOULD_CONTINUE);
-	argv = spooq(input, ' ');
-	if (!argv)
+	cmds = parse_commands(ctx, input);
+	if (!cmds)
 		return (free(input), SHOULD_NOT_CONTINUE);
 	int i = 0;
-	while (argv[i] != NULL)
+	fd_printf(STDOUT_FILENO, "input: %s\n", input);
+	while (cmds[i].cmd_name)
 	{
-		// Appliquer l'expansion des variables sur chaque argument
-		char *expanded_arg = expand_variables_in_input(ctx, argv[i]);
-		free(argv[i]);  // Libérer l'ancien argument
-		argv[i] = expanded_arg;  // Remplacer par l'argument expansé
+		fd_printf(STDOUT_FILENO, "cmd_name: %s\n", cmds[i].cmd_name);
+		int j = 0;
+		while (cmds[i].cmd_args[j])
+		{
+			fd_printf(STDOUT_FILENO, "cmd_redirect_type: %d\n", cmds[i].redir_in.type);
+			fd_printf(STDOUT_FILENO, "cmd_redirect_file: %s\n", cmds[i].redir_in.file);
+			fd_printf(STDOUT_FILENO, "cmd_args[%d]: %s\n", j, cmds[i].cmd_args[j]);
+			fd_printf(STDOUT_FILENO, "cmd_args[%d] expanded: %s\n", j, expand_variables_in_input(ctx, cmds[i].cmd_args[j]));
+			fd_printf(STDOUT_FILENO, "cmd_redyrect_out_type: %d\n", cmds[i].redir_out.type);
+			fd_printf(STDOUT_FILENO, "cmd_redyrect_out_file: %s\n", cmds[i].redir_out.file);
+			j++;
+		}
 		i++;
 	}
 	add_history(input);
@@ -47,7 +96,7 @@ static	t_should_continue	handle_input(
 	}*/
 	if (should_free)
 		free(input);
-	ft_free_split(argv);
+	// ft_free_split(argv);
 	return (SHOULD_CONTINUE);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:59:54 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 12:31:54 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/01/31 14:27:36 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,9 @@ char	*expand_variables_in_input(
 char	*expand_variables_in_input(
 			t_minishell_ctx *ctx,
 			char			*input);
+
+t_cmd	*parse_commands(
+	t_minishell_ctx *ctx,
+	char *input);
 
 #endif
