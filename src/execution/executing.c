@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_command.c                                  :+:      :+:    :+:   */
+/*   executing.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:16:42 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 14:02:27 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:39:32 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ static void	execute_builtin(
 		ft_env(ctx);
 	else if (ft_strcmp(cmd->cmd_name, "export") == 0)
 		ft_export(ctx, cmd->cmd_args);
-	/*else if (ft_strcmp(cmd->cmd_name, "unset") == 0)
-		ft_unset(ctx, cmd->cmd_args);*/
 	else if (ft_strcmp(cmd->cmd_name, "exit") == 0)
 		ft_exit(ctx, cmd->cmd_args);
 	else
@@ -69,8 +67,7 @@ static void	execute_builtin(
 int	fork_command(
 	t_minishell_ctx *ctx,
 	t_cmd *cmd,
-	int *pids,
-	int index
+	t_executing_ctx *exec_ctx
 )
 {
 	int		cmd_pid;
@@ -83,12 +80,14 @@ int	fork_command(
 		return (ft_free_split(envp), RET_ERR);
 	if (cmd_pid == 0)
 	{
+		setup_redirections(cmd, exec_ctx);
+		close_pipes(exec_ctx->cmd_count, exec_ctx->pipes);
 		if (is_valid_builtin(cmd->cmd_name))
 			execute_builtin(ctx, cmd);
 		else
 			execute_external(ctx, cmd, envp);
 	}
 	else
-		pids[index] = cmd_pid;
+		exec_ctx->pids[exec_ctx->curr_idx] = cmd_pid;
 	return (ft_free_split(envp), RET_OK);
 }

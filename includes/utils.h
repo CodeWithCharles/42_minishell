@@ -6,12 +6,16 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:59:54 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 12:31:54 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/01/31 19:35:52 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
+
+# define TMP_EMPTY_PATH	"/tmp/minishell_empty"
+# define TMP_HERE_DOC_PATH	"/tmp/minishell_here_doc"
+# define HERE_DOC_PREFIX	"here_doc> "
 
 // Functions
 
