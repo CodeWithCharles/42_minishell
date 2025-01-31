@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:59:35 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/30 17:01:41 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/31 13:32:49 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_which(
 		cmd_path = NULL;
 		if (ft_strncmp(cmd, "./", 2))
 		{
-			path = ft_getenv("PATH=");
+			path = ft_getenv("PATH");
 			if (!path)
 				return (NULL);
 			path += 4;

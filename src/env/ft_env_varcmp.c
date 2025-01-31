@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:32:06 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/30 15:49:33 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/31 13:33:44 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ int	ft_env_varcmp(
 	n2len = 0;
 	while (s2[n2len] && s2[n2len] != '=')
 		++n2len;
-	return (n1len == n2len && ft_strncmp(s1, s2, ft_strchr(s1, '=') - s1) == 0);
+	return (n1len == n2len && ft_strncmp(s1, s2, n1len) == 0);
 }

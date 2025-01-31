@@ -6,7 +6,7 @@
 /*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:16:47 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/30 17:04:28 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/31 13:59:47 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@
 # include <errno.h>
 # include <sys/stat.h>
 # include <stdbool.h>
+# include <fcntl.h>
+
+# define TMP_EMPTY_PATH	"/tmp/minishell_empty"
 
 //	ENUMS
 
@@ -99,5 +102,14 @@ int		is_any_command_active(
 			int is_it);
 
 void	setup_signals(void);
+
+//		Executing
+
+int		is_builtin_pipeable(
+			const char *name);
+
+int		handle_redirection(
+			t_minishell_ctx *ctx,
+			t_cmd *cmd);
 
 #endif

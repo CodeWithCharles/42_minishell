@@ -1,39 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_cmd.c                                          :+:      :+:    :+:   */
+/*   ft_envp_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 12:21:12 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 13:46:12 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/01/31 12:32:31 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/01/31 13:53:32 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// Header implementations
-
-void	get_cmd(
-	t_minishell_ctx *ctx,
-	t_cmd *cmd
-)
+int	ft_envp_tab(char ***envp_tab)
 {
-	char	*cmd_path;
+	t_list	*envp_list;
+	size_t	size;
+	size_t	i;
 
-	if (!is_valid_builtin(cmd->cmd_name))
+	i = 0;
+	envp_list = *ft_envp(NULL);
+	size = ft_lstsize(envp_list);
+	*envp_tab = malloc((size + 1) * sizeof(void *));
+	if (!*envp_tab)
+		return (RET_ERR);
+	while (envp_list)
 	{
-		cmd_path = ft_which(cmd->cmd_name);
-		free(cmd->cmd_name);
-		if (cmd_path)
-			cmd->cmd_name = cmd_path;
-		else
-		{
-			print_arg_error(ctx, ERR_CMD_NOT_FOUND, cmd->cmd_name);
-			cmd->fd_in = INVALID_FD;
-			cmd->fd_out = INVALID_FD;
-			cmd->cmd_name = NULL;
-			cmd->exit_code = CODE_CMD_NOT_FOUND;
-		}
+		(*envp_tab)[i++] = envp_list->content;
+		envp_list = envp_list->next;
 	}
+	(*envp_tab)[i] = NULL;
+	return (RET_OK);
 }
