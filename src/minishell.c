@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:51:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 14:02:03 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/31 14:09:11 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,20 @@ static	t_should_continue	handle_input(
 	(void)ctx;
 	if (input == NULL)
 		return (ft_putchar_fd('\n', 1), SHOULD_NOT_CONTINUE);
+	if (ft_strlen(input) == 0)
+		return (free(input), SHOULD_CONTINUE);
 	argv = spooq(input, ' ');
 	if (!argv)
 		return (free(input), SHOULD_NOT_CONTINUE);
+	int i = 0;
+	while (argv[i] != NULL)
+	{
+		// Appliquer l'expansion des variables sur chaque argument
+		char *expanded_arg = expand_variables_in_input(ctx, argv[i]);
+		free(argv[i]);  // Libérer l'ancien argument
+		argv[i] = expanded_arg;  // Remplacer par l'argument expansé
+		i++;
+	}
 	add_history(input);
 	/*if (execute_builtin(ctx, argv))
 	{
