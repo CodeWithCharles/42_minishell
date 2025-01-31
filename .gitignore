@@ -4,3 +4,5 @@ includes/libft.h
 build/
 third_party/*/
 .vscode/
+outfile*
+infile*
