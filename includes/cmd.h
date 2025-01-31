@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:13:25 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 09:58:21 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/01/31 11:02:58 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,25 @@
 
 typedef enum e_file_type
 {
-	FILE_INPUT,
-	FILE_OUTPUT,
-	FILE_APPEND,
-	FILE_HEREDOC,
-	FILE_NO_REDIRECT,
-}	t_file_type;
+	REDIR_NONE,
+	REDIR_INPUT,
+	REDIR_OUTPUT,
+	REDIR_APPEND,
+	REDIR_HEREDOC,
+}	t_redir_type;
 
-typedef struct s_file
+typedef struct s_redir
 {
-	char		*name;
-	t_file_type	type;
-}	t_file;
+	char			*file;
+	t_redir_type	type;
+}	t_redir;
 
 typedef struct s_cmd
 {
-	t_file_type	type;
 	char		*cmd_name;
 	char		**cmd_args;
-	int			fd_infile;
-	int			fd_outfile;
+	t_redir		redir_in;
+	t_redir		redir_out;
 	int			fd_in;
 	int			fd_out;
 	int			exit_code;

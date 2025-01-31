@@ -6,7 +6,7 @@
 /*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:16:47 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/30 17:04:28 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/31 10:30:56 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,10 @@ int		is_any_command_active(
 			int is_it);
 
 void	setup_signals(void);
+
+//		Executing
+
+int		is_builtin_pipeable(
+			const char *name);
 
 #endif
