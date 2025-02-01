@@ -6,7 +6,7 @@
 /*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:03:10 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/01 10:37:51 by onkeltag         ###   ########.fr       */
+/*   Updated: 2025/02/01 14:57:53 by onkeltag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 #include <stdbool.h>
 
 static bool	_is_n_flag(
-	char *arg,
-	bool *n_option
-)
-{
-	if (arg[0] != '-')
-		return (false);
-	++arg;
-	while (*arg)
-	{
-		if (*arg++ != 'n')
-		{
-			n_option = false;
-			return (n_option);
-		}
-	}
-	return (n_option);
-}
+				char *arg,
+				bool *n_option);
 
+/**
+ * @brief		Mimics the behavior of the Unix 'echo' command.
+ *
+ * @details 	This function will print the arguments to the standard output
+ * 				followed by a newline. If the -n option is provided, the newline
+ * 				will not be printed.
+ *
+ * @param ctx	The minishell context
+ * @param args	The arguments
+ *
+ * @return void
+ *
+ * @author jcheron
+ * @date 2025/01/28 12:03:10
+ */
 void	ft_echo(
 	t_minishell_ctx *ctx,
 	char **args
@@ -55,4 +55,37 @@ void	ft_echo(
 	}
 	if (n_option)
 		fd_printf(STDOUT_FILENO, "\n");
+}
+
+/**
+ * @brief Check if the argument is the -n flag
+ *
+ * @details This function will check if the argument is the -n flag and set the
+ * 			n_option flag accordingly.
+ *
+ * @param arg The argument to check
+ * @param n_option The n_option flag
+ *
+ * @return bool true if the argument is the -n flag, false otherwise.
+ *
+ * @author jcheron
+ * @date 2025/01/28 12:03:10
+ */
+static bool	_is_n_flag(
+	char *arg,
+	bool *n_option
+)
+{
+	if (arg[0] != '-')
+		return (false);
+	++arg;
+	while (*arg)
+	{
+		if (*arg++ != 'n')
+		{
+			n_option = false;
+			return (n_option);
+		}
+	}
+	return (n_option);
 }

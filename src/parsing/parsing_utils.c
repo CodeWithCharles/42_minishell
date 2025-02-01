@@ -6,12 +6,24 @@
 /*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 10:54:43 by onkeltag          #+#    #+#             */
-/*   Updated: 2025/02/01 11:47:58 by onkeltag         ###   ########.fr       */
+/*   Updated: 2025/02/01 14:51:11 by onkeltag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Count the number of elements in a split
+ *
+ * @details This function will count the number of elements in a split
+ *
+ * @param split The split to count
+ *
+ * @return int The number of elements in the split
+ *
+ * @author jcheron
+ * @date 2025/02/01 11:47:58
+ */
 static int	_ft_split_count(char **split)
 {
 	int	count;
@@ -24,6 +36,18 @@ static int	_ft_split_count(char **split)
 	return (count);
 }
 
+/**
+ * @brief Initialize the command structures
+ *
+ * @details This function will initialize the command structures
+ *
+ * @param cmds The commands to initialize
+ *
+ * @return t_cmd* The command structures
+ *
+ * @author jcheron
+ * @date 2025/02/01 11:47:58
+ */
 t_cmd	*init_cmd_structs(
 	char **cmds
 )
@@ -38,6 +62,20 @@ t_cmd	*init_cmd_structs(
 	return (cmd_structs);
 }
 
+/**
+ * @brief Parse a single command
+ *
+ * @details This function will parse a single command and fill the command
+ * 			structure with the command name, arguments and redirections.
+ *
+ * @param ctx The minishell context
+ * @param cmd The command structure
+ *
+ * @return t_cmd* The command structure containing the parsed command
+ *
+ * @author jcheron
+ * @date 2025/02/01 11:47:58
+ */
 void	parse_single_cmd(
 	t_minishell_ctx *ctx,
 	t_cmd *cmd,
@@ -67,6 +105,21 @@ void	parse_single_cmd(
 	cmd->cmd_args[k] = NULL;
 }
 
+/**
+ * @brief Parse the input redirection
+ *
+ * @details This function will parse the input redirection setting the command
+ * 			structure with the input redirection type and file.
+ *
+ * @param ctx The minishell context
+ * @param cmd The command structure
+ * @param args The arguments
+ *
+ * @return void
+ *
+ * @author jcheron
+ * @date 2025/02/01 11:47:58
+ */
 void	parse_redir_input(
 	t_minishell_ctx *ctx,
 	t_cmd *cmd,
@@ -90,6 +143,22 @@ void	parse_redir_input(
 	}
 }
 
+/**
+ * @brief Parse the output redirection
+ *
+ * @details This function will parse the output redirection setting the command
+ * 			structure with the output redirection type and file.
+ *
+ * @param ctx The minishell context
+ * @param cmd The command structure
+ * @param k The index
+ * @param args The arguments
+ *
+ * @return void
+ *
+ * @author jcheron
+ * @date 2025/02/01 11:47:58
+ */
 void	parse_redir_output(
 	t_minishell_ctx *ctx,
 	t_cmd *cmd,

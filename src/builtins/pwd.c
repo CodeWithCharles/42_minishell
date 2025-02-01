@@ -6,7 +6,7 @@
 /*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:49:33 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/29 12:35:08 by onkeltag         ###   ########.fr       */
+/*   Updated: 2025/02/01 14:58:53 by onkeltag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
  *
  * @details 	This function prints the current working directory of the
  * 				process to the standard output.
+ *
+ * @param ctx	The minishell context
+ *
+ * @return void
+ *
+ * @author JCHERON
+ * @date 2025/01/28 12:49:33
  */
 
 void	ft_pwd(

@@ -6,12 +6,26 @@
 /*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:21:46 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/01 11:24:47 by onkeltag         ###   ########.fr       */
+/*   Updated: 2025/02/01 14:50:14 by onkeltag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Parse a single command
+ *
+ * @details This function will parse a commands and fill the command
+ * 			structure with the command name, arguments and redirections.
+ *
+ * @param ctx The minishell context
+ * @param cmd The command structure
+ *
+ * @return t_cmd* The command structure containing the parsed commands
+ *
+ * @author jcheron
+ * @date 2025/01/31 14:21:46
+ */
 t_cmd	*parse_commands(
 	t_minishell_ctx *ctx,
 	char *input

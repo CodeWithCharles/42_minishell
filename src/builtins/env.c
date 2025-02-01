@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:34:47 by onkeltag          #+#    #+#             */
-/*   Updated: 2025/01/30 17:18:45 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/01 14:58:10 by onkeltag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
  *
  * @details 	This function prints the environment variables
  * 				of the shell to the standard output.
+ *
+ * @param ctx	The minishell context
+ *
+ * @return void
+ *
+ * @author jcheron
+ * @date 2025/01/29 15:34:47
  */
 void	ft_env(
 	t_minishell_ctx *ctx
