@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:03:10 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/31 13:04:49 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/01 10:37:51 by onkeltag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ static bool	_is_n_flag(
 		if (*arg++ != 'n')
 		{
 			n_option = false;
-			return (false);
+			return (n_option);
 		}
 	}
-	return (true);
+	return (n_option);
 }
 
 void	ft_echo(

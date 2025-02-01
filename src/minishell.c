@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:51:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 18:04:18 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/01 10:41:32 by onkeltag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ static	t_should_continue	handle_input(
 		int j = 0;
 		while (cmds[i].cmd_args[j])
 		{
-			fd_printf(STDOUT_FILENO, "cmd_redirect_type: %d\n", cmds[i].redir_in.type);
-			fd_printf(STDOUT_FILENO, "cmd_redirect_file: %s\n", cmds[i].redir_in.file);
 			fd_printf(STDOUT_FILENO, "cmd_args[%d]: %s\n", j, cmds[i].cmd_args[j]);
 			fd_printf(STDOUT_FILENO, "cmd_args[%d] expanded: %s\n", j, expand_variables_in_input(ctx, cmds[i].cmd_args[j]));
-			fd_printf(STDOUT_FILENO, "cmd_redyrect_out_type: %d\n", cmds[i].redir_out.type);
-			fd_printf(STDOUT_FILENO, "cmd_redyrect_out_file: %s\n", cmds[i].redir_out.file);
 			j++;
 		}
+		fd_printf(STDOUT_FILENO, "cmd_redirect_in_type: %d\n", cmds[i].redir_in.type);
+		fd_printf(STDOUT_FILENO, "cmd_redirect_in_file: %s\n", cmds[i].redir_in.file);
+		fd_printf(STDOUT_FILENO, "cmd_redirect_out_type: %d\n", cmds[i].redir_out.type);
+		fd_printf(STDOUT_FILENO, "cmd_redirect_out_file: %s\n", cmds[i].redir_out.file);
 		i++;
 	}
 	add_history(input);
