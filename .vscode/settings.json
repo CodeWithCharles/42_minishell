@@ -4,6 +4,7 @@
 		"*.ndjson": "jsonl",
 		"*.dbclient-js": "javascript",
 		"libft.h": "c",
-		"stdbool.h": "c"
+		"stdbool.h": "c",
+		"minishell.h": "c"
 	}
 }

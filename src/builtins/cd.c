@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:36:02 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/30 17:19:04 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/01 14:55:41 by onkeltag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@
  * 				process to the directory provided as the first argument. If
  * 				no argument is provided, the current working directory is
  * 				changed to the home directory of the user.
+ *
+ * @param ctx	The minishell context
+ * @param args	The arguments
+ *
+ * @return void
+ *
+ * @author jcheron
+ * @date 2025/01/30 17:19:04
  */
 void	ft_cd(
 	t_minishell_ctx *ctx,
