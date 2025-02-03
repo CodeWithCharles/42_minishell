@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 10:54:43 by onkeltag          #+#    #+#             */
-/*   Updated: 2025/02/03 09:06:03 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/03 09:34:12 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,8 @@ void	parse_redir_input(
 	int	i;
 
 	i = 0;
-	if (!(*args)[i])
+	if (ft_strcmp((*args)[0], "<") != 0
+		&& ft_strcmp((*args)[0], "<<") != 0)
 	{
 		cmd->redir_in.type = REDIR_NONE;
 		cmd->redir_in.file = NULL;
@@ -172,6 +173,13 @@ void	parse_redir_output(
 	char ***args
 )
 {
+	if (!(*args)[k] || (ft_strcmp((*args)[k], ">") != 0
+		&& ft_strcmp((*args)[k], ">>") != 0))
+	{
+		cmd->redir_out.type = REDIR_NONE;
+		cmd->redir_out.file = NULL;
+		return ;
+	}
 	while ((*args)[k]
 		&& (ft_strcmp((*args)[k], ">") == 0
 		|| ft_strcmp((*args)[k], ">>") == 0))

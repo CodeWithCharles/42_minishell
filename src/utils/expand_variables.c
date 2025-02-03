@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variables.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:02:27 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/01 11:48:31 by onkeltag         ###   ########.fr       */
+/*   Updated: 2025/02/03 10:16:33 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,11 @@ int	expand_variable(
 	char	*var_name;
 	char	*var_value;
 
+	if (!ft_isalnum(input[*i]) && input[*i] != '_')
+	{
+		expanded[(*j)++] = '$';
+		return (0);
+	}
 	start = *i;
 	while (ft_isalnum(input[*i]) || input[*i] == '_')
 		(*i)++;
