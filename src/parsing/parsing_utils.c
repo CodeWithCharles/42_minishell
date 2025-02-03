@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 10:54:43 by onkeltag          #+#    #+#             */
-/*   Updated: 2025/02/01 14:51:11 by onkeltag         ###   ########.fr       */
+/*   Updated: 2025/02/03 09:06:03 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	parse_single_cmd(
 		return ;
 	k = 0;
 	while (args[k]
-		&& ft_strcmp(args[k], ">") != 0 && ft_strcmp(args[k], ">>") != 0)
+		&& (ft_strcmp(args[k], ">") != 0 && ft_strcmp(args[k], ">>") != 0))
 	{
 		cmd->cmd_args[k] = expand_variables_in_input(ctx, args[k]);
 		k++;
@@ -129,6 +129,12 @@ void	parse_redir_input(
 	int	i;
 
 	i = 0;
+	if (!(*args)[i])
+	{
+		cmd->redir_in.type = REDIR_NONE;
+		cmd->redir_in.file = NULL;
+		return ;
+	}
 	while ((*args)[i]
 		&& (ft_strcmp((*args)[i], "<") == 0
 		|| ft_strcmp((*args)[i], "<<") == 0))
@@ -176,8 +182,6 @@ void	parse_redir_output(
 			cmd->redir_out.type = REDIR_APPEND;
 		(*args)++;
 		cmd->redir_out.file = expand_variables_in_input(ctx, (*args)[k]);
-		if ((*args)[k + 1] == NULL)
-			break ;
 		(*args)++;
 	}
 }

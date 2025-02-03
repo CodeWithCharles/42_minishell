@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   parse_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:21:46 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/01 14:50:14 by onkeltag         ###   ########.fr       */
+/*   Updated: 2025/02/03 08:21:44 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief Parse a single command
+ * @brief Parse commands
  *
- * @details This function will parse a commands and fill the command
+ * @details This function will parse commands and fill the command
  * 			structure with the command name, arguments and redirections.
  *
  * @param ctx The minishell context
