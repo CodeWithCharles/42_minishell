@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:49:23 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 19:44:26 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:48:28 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 
 static int	_setup_exec_ctx(
 	t_minishell_ctx *ctx,
-	t_list *cmd_list,
+	t_cmd *cmd_list,
 	t_executing_ctx *exec_ctx
 )
 {
-	exec_ctx->cmd_count = ft_lstsize(cmd_list);
+	exec_ctx->cmd_count = ft_cmd_count(cmd_list);
 	if (exec_ctx->cmd_count == 0)
 		return (RET_OK);
 	exec_ctx->pids = malloc(sizeof(int) * exec_ctx->cmd_count);
@@ -37,7 +37,7 @@ static int	_setup_exec_ctx(
 		if (setup_pipes(ctx, exec_ctx->cmd_count, exec_ctx->pipes) == RET_ERR)
 			return (free(exec_ctx->pids), free(exec_ctx->pipes), RET_ERR);
 	}
-	return (setup_cmd_fd_io(ctx, cmd_list));
+	return (setup_cmd_fd_io(ctx, cmd_list, exec_ctx->cmd_count));
 }
 
 static void	_clean_exec_ctx(
@@ -80,32 +80,42 @@ static void	_wait_for_childrens(
 	ft_last_exit_code(exit_code);
 }
 
-void	execute_pipeline(
-	t_minishell_ctx *ctx,
-	t_list *cmd_list
+int	check_exit(
+	t_cmd *cmd_list,
+	t_executing_ctx *exec_ctx
 )
 {
-	t_list			*node;
+	if (ft_strcmp(cmd_list[exec_ctx->curr_idx].cmd_name, "exit") == 0
+		&& !cmd_list[exec_ctx->curr_idx + 1].cmd_name)
+		return (1);
+	return (0);
+}
+void	execute_pipeline(
+	t_minishell_ctx *ctx,
+	t_cmd *cmd_list
+)
+{
 	t_executing_ctx	exec_ctx;
 
 	exec_ctx = (t_executing_ctx){};
 	if (_setup_exec_ctx(ctx, cmd_list, &exec_ctx) == RET_ERR
 		|| exec_ctx.cmd_count <= 0)
 		return ;
-	node = cmd_list;
-	while (node)
+	while (exec_ctx.curr_idx < exec_ctx.cmd_count)
 	{
-		if (fork_command(ctx, (t_cmd *)node->content, &exec_ctx) == RET_ERR)
+		if (check_exit(cmd_list, &exec_ctx))
+			execute_builtin(ctx, &cmd_list[exec_ctx.curr_idx]);
+		else if (fork_command(ctx,
+				&cmd_list[exec_ctx.curr_idx], &exec_ctx) == RET_ERR)
 		{
-			if (node->next
-				&& ((t_cmd *)node->next->content)->redir_in.type == REDIR_NONE)
+			if (exec_ctx.curr_idx + 1 < exec_ctx.cmd_count
+				&& cmd_list[exec_ctx.curr_idx + 1].redir_in.type == REDIR_NONE)
 			{
-				((t_cmd *)node->next->content)->redir_in.type = REDIR_EMPTY;
-				((t_cmd *)node->next->content)->redir_in.file
+				cmd_list[exec_ctx.curr_idx + 1].redir_in.type = REDIR_EMPTY;
+				cmd_list[exec_ctx.curr_idx + 1].redir_in.file
 					= ft_strdup(TMP_EMPTY_PATH);
 			}
 		}
-		node = node->next;
 		++(exec_ctx.curr_idx);
 	}
 	_wait_for_childrens(ctx, &exec_ctx);

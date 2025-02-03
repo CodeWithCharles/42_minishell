@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:16:42 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 18:39:32 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:48:45 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	execute_external(
 	free(cmd_name);
 }
 
-static void	execute_builtin(
+void	execute_builtin(
 	t_minishell_ctx *ctx,
 	t_cmd *cmd
 )
@@ -57,6 +57,8 @@ static void	execute_builtin(
 		ft_export(ctx, cmd->cmd_args);
 	else if (ft_strcmp(cmd->cmd_name, "exit") == 0)
 		ft_exit(ctx, cmd->cmd_args);
+	else if (ft_strcmp(cmd->cmd_name, "echo") == 0)
+		ft_echo(ctx, cmd->cmd_args);
 	else
 	{
 		print_arg_error(ctx, ERR_CMD_NOT_EXECUTABLE, cmd->cmd_name);

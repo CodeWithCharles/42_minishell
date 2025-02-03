@@ -6,7 +6,7 @@
 /*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:03:10 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/01 14:57:53 by onkeltag         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:59:12 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	ft_echo(
 	}
 	if (n_option)
 		fd_printf(STDOUT_FILENO, "\n");
+	exit (0);
 }
 
 /**

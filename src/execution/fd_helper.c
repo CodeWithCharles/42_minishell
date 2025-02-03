@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:44:28 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 19:41:17 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:24:36 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,22 @@ static int	_setup_outfile_fd(
 
 int	setup_cmd_fd_io(
 	t_minishell_ctx *ctx,
-	t_list *cmd_list
+	t_cmd *cmd_list,
+	int cmd_count
 )
 {
-	t_list	*node;
-	t_cmd	*cmd;
+	int		i;
 
-	node = cmd_list;
-	while (node)
+	i = 0;
+	while (i < cmd_count)
 	{
-		cmd = (t_cmd *)node->content;
-		if (cmd->redir_in.file && _setup_infile_fd(ctx, cmd) == RET_ERR)
+		if (cmd_list[i].redir_in.file
+			&& _setup_infile_fd(ctx, &cmd_list[i]) == RET_ERR)
 			return (RET_ERR);
-		if (cmd->redir_out.file && _setup_outfile_fd(ctx, cmd) == RET_ERR)
+		if (cmd_list[i].redir_out.file
+			&& _setup_outfile_fd(ctx, &cmd_list[i]) == RET_ERR)
 			return (RET_ERR);
-		node = node->next;
+		++i;
 	}
 	return (RET_OK);
 }

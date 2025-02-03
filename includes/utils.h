@@ -6,7 +6,7 @@
 /*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:59:54 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/01 11:46:23 by onkeltag         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:12:37 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,8 @@ void	parse_redir_output(
 t_cmd	*parse_commands(
 			t_minishell_ctx *ctx,
 			char *input);
+
+int		ft_cmd_count(
+			t_cmd *cmd_list);
 
 #endif

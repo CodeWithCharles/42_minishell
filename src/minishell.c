@@ -6,7 +6,7 @@
 /*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:51:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/01 10:41:32 by onkeltag         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:27:34 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,38 +65,13 @@ static	t_should_continue	handle_input(
 		return (ft_putchar_fd('\n', 1), SHOULD_NOT_CONTINUE);
 	if (ft_strlen(input) == 0)
 		return (free(input), SHOULD_CONTINUE);
+	add_history(input);
 	cmds = parse_commands(ctx, input);
 	if (!cmds)
 		return (free(input), SHOULD_NOT_CONTINUE);
-	int i = 0;
-	fd_printf(STDOUT_FILENO, "input: %s\n", input);
-	while (cmds[i].cmd_name)
-	{
-		fd_printf(STDOUT_FILENO, "cmd_name: %s\n", cmds[i].cmd_name);
-		int j = 0;
-		while (cmds[i].cmd_args[j])
-		{
-			fd_printf(STDOUT_FILENO, "cmd_args[%d]: %s\n", j, cmds[i].cmd_args[j]);
-			fd_printf(STDOUT_FILENO, "cmd_args[%d] expanded: %s\n", j, expand_variables_in_input(ctx, cmds[i].cmd_args[j]));
-			j++;
-		}
-		fd_printf(STDOUT_FILENO, "cmd_redirect_in_type: %d\n", cmds[i].redir_in.type);
-		fd_printf(STDOUT_FILENO, "cmd_redirect_in_file: %s\n", cmds[i].redir_in.file);
-		fd_printf(STDOUT_FILENO, "cmd_redirect_out_type: %d\n", cmds[i].redir_out.type);
-		fd_printf(STDOUT_FILENO, "cmd_redirect_out_file: %s\n", cmds[i].redir_out.file);
-		i++;
-	}
-	add_history(input);
-	/*if (execute_builtin(ctx, argv))
-	{
-		ft_free_split(argv);
-		if (should_free)
-			free(input);
-		return (SHOULD_CONTINUE);
-	}*/
+	execute_pipeline(ctx, cmds);
 	if (should_free)
 		free(input);
-	// ft_free_split(argv);
 	return (SHOULD_CONTINUE);
 }
 

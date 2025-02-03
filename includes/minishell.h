@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:16:47 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 19:44:56 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:49:00 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,15 @@ void	handle_here_doc(
 
 int		setup_cmd_fd_io(
 			t_minishell_ctx *ctx,
-			t_list *cmd_list);
+			t_cmd *cmd_list,
+			int cmd_count);
+
+void	execute_pipeline(
+			t_minishell_ctx *ctx,
+			t_cmd *cmd_list);
+
+void	execute_builtin(
+			t_minishell_ctx *ctx,
+			t_cmd *cmd);
 
 #endif

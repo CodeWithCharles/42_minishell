@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:35:08 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/30 17:14:14 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/03 18:29:37 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ char	*ft_getenv(
 		envp = envp->next;
 	if (!envp)
 		return (NULL);
-	return (ft_strchr((char *)envp->content, '=') + 1);
+	return (ft_strdup(ft_strchr((char *)envp->content, '=') + 1));
 }

@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:59:35 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 13:32:49 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:16:09 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,9 @@ static char	*_join_cmd_path(
 	cmd_path = malloc(cmd_len + path_len + 2);
 	if (!cmd_path)
 		return (NULL);
-	ft_memcpy(cmd_path, *path, path_len);
-	cmd_path[path_len + 1] = '/';
-	ft_memcpy(cmd_path + path_len + 1, cmd, cmd_len + 1);
-	cmd_path[cmd_len + path_len + 1] = '\0';
+	ft_strlcpy(cmd_path, *path, path_len + 1);
+	cmd_path[path_len] = '/';
+	ft_strlcpy(cmd_path + path_len + 1, cmd, cmd_len + 1);
 	(*path) += path_len;
 	return (cmd_path);
 }
