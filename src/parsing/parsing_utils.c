@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 10:54:43 by onkeltag          #+#    #+#             */
-/*   Updated: 2025/02/03 09:34:12 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/03 20:23:23 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_cmd	*init_cmd_structs(
 
 	cmd_count = _ft_split_count(cmds);
 	cmd_structs = malloc(sizeof(t_cmd) * (cmd_count + 1));
+	ft_bzero(cmd_structs, sizeof(t_cmd));
 	if (!cmd_structs)
 		return (ft_free_split(cmds), NULL);
 	return (cmd_structs);

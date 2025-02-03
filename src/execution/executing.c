@@ -6,11 +6,22 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:16:42 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/03 18:48:45 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/03 20:11:16 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	_custom_exit(
+	char **envp,
+	int exit_code,
+	t_cmd *cmd
+)
+{
+	ft_free_split(envp);
+	free(cmd->cmd_name);
+	exit(exit_code);
+}
 
 static void	execute_external(
 	t_minishell_ctx *ctx,
@@ -18,28 +29,18 @@ static void	execute_external(
 	char **envp
 )
 {
-	char	*cmd_name;
-
-	cmd_name = ft_strdup(cmd->cmd_name);
-	if (!cmd_name)
-	{
-		print_gen_error(ctx, ERR_INT_ERR_ALLOC);
-		exit(CODE_CANNOT_ALLOC);
-	}
 	get_cmd(ctx, cmd);
 	if (cmd->exit_code == CODE_CMD_NOT_FOUND)
-		exit(CODE_CMD_NOT_FOUND);
+		_custom_exit(envp, CODE_CMD_NOT_FOUND, cmd);
 	if (cmd->redir_in.type != REDIR_NONE)
 		dup2(cmd->fd_in, STDIN_FILENO);
 	if (cmd->redir_out.type != REDIR_NONE)
 		dup2(cmd->fd_out, STDOUT_FILENO);
 	if (execve(cmd->cmd_name, cmd->cmd_args, envp) == -1)
 	{
-		print_arg_error(ctx, ERR_CMD_NOT_EXECUTABLE, cmd_name);
-		free(cmd_name);
-		exit(CODE_CMD_NOT_EXECUTABLE);
+		print_arg_error(ctx, ERR_CMD_NOT_EXECUTABLE, cmd->cmd_name);
+		_custom_exit(envp, CODE_CMD_NOT_EXECUTABLE, cmd);
 	}
-	free(cmd_name);
 }
 
 void	execute_builtin(

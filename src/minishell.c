@@ -6,7 +6,7 @@
 /*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:51:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/03 17:27:34 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/03 20:02:31 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ static	t_should_continue	handle_input(
 		return (free(input), SHOULD_CONTINUE);
 	add_history(input);
 	cmds = parse_commands(ctx, input);
+	if (should_free)
+		free(input);
 	if (!cmds)
 		return (free(input), SHOULD_NOT_CONTINUE);
 	execute_pipeline(ctx, cmds);
-	if (should_free)
-		free(input);
 	return (SHOULD_CONTINUE);
 }
 

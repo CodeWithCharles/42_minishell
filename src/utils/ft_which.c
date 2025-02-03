@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:59:35 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/03 18:16:09 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/03 20:18:07 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_which(
 	const char *cmd
 )
 {
-	const char	*path;
+	char		*path;
 	char		*cmd_path;
 
 	cmd_path = ft_strdup(cmd);
@@ -52,6 +52,7 @@ char	*ft_which(
 				return (NULL);
 			path += 4;
 			cmd_path = _find_cmd_path(cmd, path);
+			free(path - 4);
 		}
 	}
 	return (cmd_path);
