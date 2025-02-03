@@ -23,6 +23,10 @@ typedef struct s_expand_vars
 	int		in_double_quote;
 }	t_expand_vars;
 
+# define TMP_EMPTY_PATH	"/tmp/minishell_empty"
+# define TMP_HERE_DOC_PATH	"/tmp/minishell_here_doc"
+# define HERE_DOC_PREFIX	"here_doc> "
+
 // Functions
 
 void	ft_free_split(

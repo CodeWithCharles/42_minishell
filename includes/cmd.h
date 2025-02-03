@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:13:25 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 11:53:17 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:43:24 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef enum e_file_type
 	REDIR_OUTPUT,
 	REDIR_APPEND,
 	REDIR_HEREDOC,
+	REDIR_EMPTY,
 }	t_redir_type;
 
 typedef struct s_redir
@@ -40,5 +41,14 @@ typedef struct s_cmd
 	int				fd_out;
 	int				exit_code;
 }	t_cmd;
+
+typedef struct s_executing_ctx
+{
+	int	*pids;
+	int	curr_idx;
+	int	cmd_count;
+	int	(*pipes)[2];
+	int	fd_empty;
+}	t_executing_ctx;
 
 #endif
