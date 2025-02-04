@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 10:54:43 by onkeltag          #+#    #+#             */
-/*   Updated: 2025/02/04 11:41:16 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/04 13:38:19 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ t_cmd	*init_cmd_structs(
 
 	cmd_count = _ft_split_count(cmds);
 	cmd_structs = malloc(sizeof(t_cmd) * (cmd_count + 1));
-	ft_bzero(cmd_structs, sizeof(t_cmd));
 	if (!cmd_structs)
 		return (ft_free_split(cmds), NULL);
+	ft_bzero(cmd_structs, sizeof(t_cmd) * (cmd_count + 1));
 	return (cmd_structs);
 }
 
@@ -89,6 +89,8 @@ void	parse_single_cmd(
 	args = spooq(cmd_str, ' ');
 	if (!args)
 		return ;
+	cmd->fd_in = -1;
+	cmd->fd_out = -1;
 	parse_redir_input(ctx, cmd, &args);
 	cmd->cmd_name = expand_variables_in_input(ctx, args[0]);
 	cmd->cmd_args = malloc(sizeof(char *) * (_ft_split_count(args) + 1));
@@ -103,7 +105,8 @@ void	parse_single_cmd(
 	}
 	parse_redir_output(ctx, cmd, k, &args);
 	cmd->cmd_args[k] = NULL;
-	ft_free_split(args);
+	if (args)
+		ft_free_split(args);
 }
 
 /**

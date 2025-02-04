@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:44:28 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/03 17:24:36 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:52:53 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ static int	_setup_infile_fd(
 	if (cmd->redir_in.type == REDIR_HEREDOC)
 		handle_here_doc(ctx, cmd);
 	else if (cmd->redir_in.type != REDIR_NONE)
-		cmd->fd_in = open(cmd->redir_in.file, O_RDONLY, 0644);
-	if (cmd->fd_in == INVALID_FD)
 	{
-		print_gen_error(ctx, ERR_COULD_NOT_OPEN_IN);
-		cmd->fd_in = open(TMP_EMPTY_PATH, O_RDONLY | O_CREAT | O_TRUNC, 0644);
+		cmd->fd_in = open(cmd->redir_in.file, O_RDONLY, 0644);
 		if (cmd->fd_in == INVALID_FD)
-			return (close_fds_if_open(cmd), RET_ERR);
+		{
+			print_gen_error(ctx, ERR_COULD_NOT_OPEN_IN);
+			return (RET_ERR);
+		}
 	}
 	return (RET_OK);
 }
@@ -43,10 +43,9 @@ static int	_setup_outfile_fd(
 		cmd->fd_out = open(cmd->redir_out.file, out_flags | O_APPEND, 0644);
 	else if (cmd->redir_out.type != REDIR_NONE)
 		cmd->fd_out = open(cmd->redir_out.file, out_flags | O_TRUNC, 0644);
-	if (cmd->fd_out == INVALID_FD)
+	if (cmd->fd_out == INVALID_FD && cmd->redir_out.type != REDIR_NONE)
 	{
 		print_gen_error(ctx, ERR_COULD_NOT_OPEN_OUT);
-		close_fds_if_open(cmd);
 		return (RET_ERR);
 	}
 	return (RET_OK);

@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:43:52 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 19:43:08 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:50:36 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ void	setup_redirections(
 	t_executing_ctx *exec_ctx
 )
 {
-	if (cmd->fd_in != INVALID_FD)
+	if (cmd->fd_in != INVALID_FD && cmd->redir_in.type != REDIR_NONE)
 		dup2(cmd->fd_in, STDIN_FILENO);
-	else if (exec_ctx->curr_idx > 0)
-		dup2(exec_ctx->pipes[exec_ctx->curr_idx - 1][0], STDIN_FILENO);
-	if (cmd->fd_out != INVALID_FD)
+	if (cmd->fd_out != INVALID_FD && cmd->redir_out.type != REDIR_NONE)
 		dup2(cmd->fd_out, STDOUT_FILENO);
-	else if (exec_ctx->curr_idx < exec_ctx->cmd_count - 1)
+	else if (exec_ctx->curr_idx < exec_ctx->cmd_count)
 		dup2(exec_ctx->pipes[exec_ctx->curr_idx][1], STDOUT_FILENO);
-	if (exec_ctx->curr_idx > 0
-		&& exec_ctx->pipes[exec_ctx->curr_idx - 1][0] != INVALID_FD)
-		close(exec_ctx->pipes[exec_ctx->curr_idx - 1][0]);
-	if (exec_ctx->curr_idx < exec_ctx->cmd_count - 1
-		&& exec_ctx->pipes[exec_ctx->curr_idx][1] != INVALID_FD)
+	if (exec_ctx->pipes[exec_ctx->curr_idx][0] != INVALID_FD)
+		close(exec_ctx->pipes[exec_ctx->curr_idx][0]);
+	if (exec_ctx->pipes[exec_ctx->curr_idx][1] != INVALID_FD)
 		close(exec_ctx->pipes[exec_ctx->curr_idx][1]);
+	if (cmd->fd_in != INVALID_FD)
+		close(cmd->fd_in);
+	if (cmd->fd_out != INVALID_FD)
+		close(cmd->fd_out);
 }
 
 int	setup_pipes(
@@ -44,7 +44,7 @@ int	setup_pipes(
 	int	i;
 
 	i = 0;
-	while (i < cmd_count - 1)
+	while (i < cmd_count)
 	{
 		if (pipe(pipes[i]) == -1)
 		{

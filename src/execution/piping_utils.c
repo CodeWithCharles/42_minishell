@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:45:59 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 17:45:03 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:21:35 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,16 @@ void	close_fds_if_open(t_cmd *cmd)
 	}
 }
 
+void	close_pipe(
+	int pipe[2]
+)
+{
+	if (pipe[0] > 0)
+		close(pipe[0]);
+	if (pipe[1] > 0)
+		close(pipe[1]);
+}
+
 void	close_pipes(
 	int cmd_count,
 	int pipes[][2]
@@ -34,10 +44,6 @@ void	close_pipes(
 	int	i;
 
 	i = 0;
-	while (i < cmd_count - 1)
-	{
-		close(pipes[i][0]);
-		close(pipes[i][1]);
-		++i;
-	}
+	while (i < cmd_count)
+		close_pipe(pipes[i++]);
 }

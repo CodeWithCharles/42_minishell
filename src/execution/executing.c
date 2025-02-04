@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:16:42 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/04 09:56:26 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:16:29 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 static void	_custom_exit(
 	char **envp,
-	int exit_code,
-	t_cmd *cmd
+	int exit_code
 )
 {
-	ft_free_split(envp);
-	free(cmd->cmd_name);
+	if (envp)
+		ft_free_split(envp);
 	exit(exit_code);
 }
 
@@ -31,22 +30,19 @@ static void	execute_external(
 {
 	get_cmd(ctx, cmd);
 	if (cmd->exit_code == CODE_CMD_NOT_FOUND)
-		_custom_exit(envp, CODE_CMD_NOT_FOUND, cmd);
-	if (cmd->redir_in.type != REDIR_NONE)
-		dup2(cmd->fd_in, STDIN_FILENO);
-	if (cmd->redir_out.type != REDIR_NONE)
-		dup2(cmd->fd_out, STDOUT_FILENO);
+		_custom_exit(envp, CODE_CMD_NOT_FOUND);
 	if (execve(cmd->cmd_name, cmd->cmd_args, envp) == -1)
 	{
 		print_arg_error(ctx, ERR_CMD_NOT_EXECUTABLE, cmd->cmd_name);
-		_custom_exit(envp, CODE_CMD_NOT_EXECUTABLE, cmd);
+		_custom_exit(envp, CODE_CMD_NOT_EXECUTABLE);
 	}
 }
 
 void	execute_builtin(
 	t_minishell_ctx *ctx,
 	t_executing_ctx *exec_ctx,
-	t_cmd *cmd
+	t_cmd *cmd,
+	char **envp
 )
 {
 	if (ft_strcmp(cmd->cmd_name, "cd") == 0)
@@ -66,6 +62,10 @@ void	execute_builtin(
 		print_arg_error(ctx, ERR_CMD_NOT_EXECUTABLE, cmd->cmd_name);
 		exit(CODE_CMD_NOT_EXECUTABLE);
 	}
+	ft_free_post_builtin(exec_ctx, envp);
+	ft_free_cmd(cmd);
+	free(cmd);
+	exit(0);
 }
 
 int	fork_command(
@@ -87,7 +87,7 @@ int	fork_command(
 		setup_redirections(cmd, exec_ctx);
 		close_pipes(exec_ctx->cmd_count, exec_ctx->pipes);
 		if (is_valid_builtin(cmd->cmd_name))
-			execute_builtin(ctx, exec_ctx, cmd);
+			execute_builtin(ctx, exec_ctx, cmd, envp);
 		else
 			execute_external(ctx, cmd, envp);
 	}

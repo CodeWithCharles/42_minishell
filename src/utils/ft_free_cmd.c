@@ -6,13 +6,13 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 09:44:50 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/04 11:16:13 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/04 13:28:37 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	ft_free_cmd(
+void	ft_free_cmd(
 	t_cmd *cmd
 )
 {

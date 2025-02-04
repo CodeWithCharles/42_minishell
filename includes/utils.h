@@ -6,7 +6,7 @@
 /*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:59:54 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/04 11:20:42 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:02:57 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,6 @@ char	*expand_variables_in_input(
 			t_minishell_ctx *ctx,
 			char			*input);
 
-char	*expand_variables_in_input(
-			t_minishell_ctx *ctx,
-			char			*input);
-
 void	init_expand_vars(
 			t_expand_vars *vars);
 
@@ -91,8 +87,14 @@ t_cmd	*parse_commands(
 int		ft_cmd_count(
 			t_cmd *cmd_list);
 
+void	ft_free_cmd(
+			t_cmd *cmd);
+
 void	ft_free_cmd_list(
 			t_cmd **cmd,
 			int cmd_count);
+
+void	close_pipe(
+			int pipe[2]);
 
 #endif

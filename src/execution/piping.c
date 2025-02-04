@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:49:23 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/04 11:26:35 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:26:14 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static int	_setup_exec_ctx(
 	exec_ctx->pids = malloc(sizeof(int) * exec_ctx->cmd_count);
 	if (!exec_ctx->pids)
 		return (print_gen_error(ctx, ERR_INT_ERR_ALLOC), RET_ERR);
-	if (exec_ctx->cmd_count > 1)
+	if (exec_ctx->cmd_count > 0)
 	{
-		exec_ctx->pipes = malloc(sizeof(int [2]) * (exec_ctx->cmd_count - 1));
+		exec_ctx->pipes = malloc(sizeof(int [2]) * (exec_ctx->cmd_count));
 		if (!exec_ctx->pipes)
 		{
 			print_gen_error(ctx, ERR_INT_ERR_ALLOC);
@@ -53,35 +53,25 @@ void	_clean_exec_ctx(
 	}
 }
 
-static void	_wait_for_childrens(
-	t_minishell_ctx *ctx,
-	t_executing_ctx *exec_ctx
-)
+static void	_wait_for_childrens(void)
 {
-	int		i;
-	int		status;
-	int		exit_code;
-	pid_t	pid;
+	int		cur_status;
+	int		final_status;
+	pid_t	cur_pid;
+	pid_t	prev_pid;
 
-	i = 0;
-	exit_code = 0;
-	while (i < exec_ctx->cmd_count)
+	final_status = 0;
+	prev_pid = waitpid(-1, &final_status, 0);
+	while (prev_pid > 0)
 	{
-		pid = waitpid(exec_ctx->pids[i], &status, 0);
-		if (pid == -1)
-		{
-			if (errno == ECHILD)
-				break ;
-			print_gen_error(ctx, ERR_WAITPID);
-			exit_code = CODE_EXEC_FAILED;
-		}
-		else if (WIFEXITED(status))
-			exit_code = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			exit_code = 128 + WTERMSIG(status);
-		++i;
+		cur_pid = waitpid(-1, &cur_status, 0);
+		if (prev_pid < cur_pid)
+			final_status = cur_status;
+		prev_pid = cur_pid;
 	}
-	ft_last_exit_code(exit_code);
+	if (final_status == 131)
+		ft_putstr_fd("Quit (core dumped)\n", 2);
+	ft_last_exit_code((int)(final_status % 255));
 }
 
 int	check_exit(
@@ -94,6 +84,7 @@ int	check_exit(
 		return (1);
 	return (0);
 }
+
 void	execute_pipeline(
 	t_minishell_ctx *ctx,
 	t_cmd *cmd_list
@@ -108,7 +99,7 @@ void	execute_pipeline(
 	while (exec_ctx.curr_idx < exec_ctx.cmd_count)
 	{
 		if (check_exit(cmd_list, &exec_ctx))
-			execute_builtin(ctx, &exec_ctx, &cmd_list[exec_ctx.curr_idx]);
+			execute_builtin(ctx, &exec_ctx, &cmd_list[exec_ctx.curr_idx], NULL);
 		else if (fork_command(ctx,
 				&cmd_list[exec_ctx.curr_idx], &exec_ctx) == RET_ERR)
 		{
@@ -122,6 +113,6 @@ void	execute_pipeline(
 		}
 		++(exec_ctx.curr_idx);
 	}
-	_wait_for_childrens(ctx, &exec_ctx);
+	_wait_for_childrens();
 	_clean_exec_ctx(&exec_ctx);
 }
