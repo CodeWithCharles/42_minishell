@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:51:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/03 20:02:31 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/04 11:15:14 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,12 @@ static	t_should_continue	handle_input(
 		return (free(input), SHOULD_CONTINUE);
 	add_history(input);
 	cmds = parse_commands(ctx, input);
-	if (should_free)
-		free(input);
 	if (!cmds)
 		return (free(input), SHOULD_NOT_CONTINUE);
+	if (should_free)
+		free(input);
 	execute_pipeline(ctx, cmds);
+	ft_free_cmd_list(&cmds, ft_cmd_count(cmds));
 	return (SHOULD_CONTINUE);
 }
 
@@ -103,5 +104,6 @@ int	main(
 		if (!handle_input(input, &ctx, SHOULD_FREE))
 			break ;
 	}
+	ft_lstclear(ft_envp(NULL), free);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:16:47 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/03 18:49:00 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/04 11:11:38 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,12 @@ void	execute_pipeline(
 			t_minishell_ctx *ctx,
 			t_cmd *cmd_list);
 
+void	_clean_exec_ctx(
+			t_executing_ctx *exec_ctx);
+
 void	execute_builtin(
 			t_minishell_ctx *ctx,
+			t_executing_ctx *exec_ctx,
 			t_cmd *cmd);
 
 #endif

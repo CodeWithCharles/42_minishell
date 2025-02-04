@@ -1,27 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_split.c                                    :+:      :+:    :+:   */
+/*   ft_free_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 11:00:34 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/04 11:20:36 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/02/04 09:44:50 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/02/04 11:16:13 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// Header implementations
+static void	ft_free_cmd(
+	t_cmd *cmd
+)
+{
+	if (cmd->cmd_name)
+		free(cmd->cmd_name);
+	if (cmd->cmd_args)
+		ft_free_split(cmd->cmd_args);
+}
 
-void	ft_free_split(
-	char **split
+void	ft_free_cmd_list(
+	t_cmd **cmd_list,
+	int cmd_count
 )
 {
 	int	i;
 
 	i = 0;
-	while (split && split[i])
-		free(split[i++]);
-	free(split);
+	while (i < cmd_count)
+		ft_free_cmd(&(*cmd_list)[i++]);
+	free(*cmd_list);
+	*cmd_list = NULL;
 }

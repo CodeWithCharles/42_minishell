@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:10:16 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/01 14:58:35 by onkeltag         ###   ########.fr       */
+/*   Updated: 2025/02/04 11:12:13 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,27 @@
 
 void	ft_exit(
 	t_minishell_ctx *ctx,
+	t_executing_ctx *exec_ctx,
+	t_cmd *cmd_list,
 	char **args
 )
 {
 	int		status;
 
 	status = 0;
+	ft_lstclear(ft_envp(NULL), free);
 	if (args[0])
 	{
 		if (!ft_isdigit(args[0][0]))
 		{
 			print_arg_error(ctx, ERR_ARG_MUST_BE_INT, "exit");
+			ft_free_cmd_list(&cmd_list, exec_ctx->cmd_count);
+			_clean_exec_ctx(exec_ctx);
 			exit(255);
 		}
 		status = ft_atoi(args[0]);
 	}
+	ft_free_cmd_list(&cmd_list, exec_ctx->cmd_count);
+	_clean_exec_ctx(exec_ctx);
 	exit(status);
 }

@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:49:23 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/03 18:48:28 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/04 11:26:35 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	_setup_exec_ctx(
 	return (setup_cmd_fd_io(ctx, cmd_list, exec_ctx->cmd_count));
 }
 
-static void	_clean_exec_ctx(
+void	_clean_exec_ctx(
 	t_executing_ctx *exec_ctx
 )
 {
@@ -58,16 +58,20 @@ static void	_wait_for_childrens(
 	t_executing_ctx *exec_ctx
 )
 {
-	int	i;
-	int	status;
-	int	exit_code;
+	int		i;
+	int		status;
+	int		exit_code;
+	pid_t	pid;
 
 	i = 0;
 	exit_code = 0;
 	while (i < exec_ctx->cmd_count)
 	{
-		if (waitpid(exec_ctx->pids[i], &status, 0) == -1)
+		pid = waitpid(exec_ctx->pids[i], &status, 0);
+		if (pid == -1)
 		{
+			if (errno == ECHILD)
+				break ;
 			print_gen_error(ctx, ERR_WAITPID);
 			exit_code = CODE_EXEC_FAILED;
 		}
@@ -104,7 +108,7 @@ void	execute_pipeline(
 	while (exec_ctx.curr_idx < exec_ctx.cmd_count)
 	{
 		if (check_exit(cmd_list, &exec_ctx))
-			execute_builtin(ctx, &cmd_list[exec_ctx.curr_idx]);
+			execute_builtin(ctx, &exec_ctx, &cmd_list[exec_ctx.curr_idx]);
 		else if (fork_command(ctx,
 				&cmd_list[exec_ctx.curr_idx], &exec_ctx) == RET_ERR)
 		{

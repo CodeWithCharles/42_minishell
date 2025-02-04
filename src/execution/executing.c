@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:16:42 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/03 20:11:16 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/04 09:56:26 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static void	execute_external(
 
 void	execute_builtin(
 	t_minishell_ctx *ctx,
+	t_executing_ctx *exec_ctx,
 	t_cmd *cmd
 )
 {
@@ -57,7 +58,7 @@ void	execute_builtin(
 	else if (ft_strcmp(cmd->cmd_name, "export") == 0)
 		ft_export(ctx, cmd->cmd_args);
 	else if (ft_strcmp(cmd->cmd_name, "exit") == 0)
-		ft_exit(ctx, cmd->cmd_args);
+		ft_exit(ctx, exec_ctx, cmd, cmd->cmd_args);
 	else if (ft_strcmp(cmd->cmd_name, "echo") == 0)
 		ft_echo(ctx, cmd->cmd_args);
 	else
@@ -86,7 +87,7 @@ int	fork_command(
 		setup_redirections(cmd, exec_ctx);
 		close_pipes(exec_ctx->cmd_count, exec_ctx->pipes);
 		if (is_valid_builtin(cmd->cmd_name))
-			execute_builtin(ctx, cmd);
+			execute_builtin(ctx, exec_ctx, cmd);
 		else
 			execute_external(ctx, cmd, envp);
 	}

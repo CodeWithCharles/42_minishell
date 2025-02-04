@@ -9,5 +9,6 @@ FILES	=																	\
 	minishell parsing/parse_commands parsing/parsing_utils					\
 	parsing/parsing_utils2 pathing/get_cmd pathing/is_valid_builtin			\
 	utils/env_utils utils/expand_variables utils/ft_cmd_count				\
-	utils/ft_free_split utils/ft_last_exit_code utils/ft_lstremove			\
-	utils/ft_which utils/split_out_of_quotes utils/term_colors				\
+	utils/ft_free_cmd utils/ft_free_split utils/ft_last_exit_code			\
+	utils/ft_lstremove utils/ft_which utils/split_out_of_quotes				\
+	utils/term_colors														\

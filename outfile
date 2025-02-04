@@ -1,16 +1,1 @@
-binaries
-build
-Files.mk
-includes
-infile
-libftfull.a
-Makefile
-Makefile.colors
-Makefile.msg
-Makefile.vars
-outfile
-outfile1
-readline.supp
-README.md
-src
-third_party
+      0       0       0

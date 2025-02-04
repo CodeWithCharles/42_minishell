@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 10:54:43 by onkeltag          #+#    #+#             */
-/*   Updated: 2025/02/03 20:23:23 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/04 11:21:31 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void	parse_single_cmd(
 	}
 	parse_redir_output(ctx, cmd, k, &args);
 	cmd->cmd_args[k] = NULL;
+	ft_free_split(args - 1);
 }
 
 /**
