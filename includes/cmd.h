@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:13:25 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/05 11:27:51 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/05 13:47:38 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_executing_ctx
 	int		cmd_count;
 	int		last_fd;
 	int		fd_empty;
-	t_cmd	**cmd_list;
+	t_cmd	*cmd_list;
 }	t_executing_ctx;
 
 #endif

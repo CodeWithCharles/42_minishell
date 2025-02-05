@@ -6,13 +6,25 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:43:52 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/05 11:41:30 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/05 17:20:06 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 // Header implementations
+
+void	clean_after_exec(
+	t_executing_ctx *exec_ctx,
+	char **envp
+)
+{
+	clean_exec_ctx(exec_ctx);
+	if (envp)
+		ft_free_split(envp);
+	if (ft_envp(NULL))
+		ft_lstclear(ft_envp(NULL), free);
+}
 
 static int	redirect_input(
 	t_cmd *cmd,

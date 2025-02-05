@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:16:47 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/05 11:08:45 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/05 17:30:44 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,8 +149,7 @@ void	clean_exec_ctx(
 void	execute_builtin(
 			t_minishell_ctx *ctx,
 			t_executing_ctx *exec_ctx,
-			t_cmd *cmd,
-			char **envp);
+			t_cmd *cmd);
 
 void	ft_free_post_builtin(
 			t_executing_ctx *exec_ctx,
@@ -167,5 +166,14 @@ int		setup_infile_fd(
 int		setup_cmd_fd_io(
 			t_minishell_ctx *ctx,
 			t_cmd *cmd);
+
+void	custom_exit(
+			t_executing_ctx *exec_ctx,
+			char **envp,
+			int exit_code);
+
+void	clean_after_exec(
+			t_executing_ctx *exec_ctx,
+			char **envp);
 
 #endif
