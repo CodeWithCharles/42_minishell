@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:51:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/06 00:25:28 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/06 00:33:24 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static	t_should_continue	handle_input(
 
 	(void)ctx;
 	if (input == NULL)
-		return (ft_putchar_fd('\n', 1), SHOULD_NOT_CONTINUE);
+		return (ft_putstr_fd("exit\n", STDOUT_FILENO), SHOULD_NOT_CONTINUE);
 	if (ft_strlen(input) == 0)
 		return (free(input), SHOULD_CONTINUE);
 	add_history(input);
