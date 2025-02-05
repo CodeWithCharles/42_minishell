@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 19:27:30 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/05 13:37:30 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/06 00:15:37 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static int	write_here_doc_to_file(
 			break ;
 		}
 		write(doc_fd, line, ft_strlen(line));
+		write(doc_fd, "\n", 1);
 		free(line);
 	}
 	close(doc_fd);
