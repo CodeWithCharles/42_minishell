@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:16:47 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/30 17:04:28 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/05 11:08:45 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 // Include our .h
 
 # include "libft.h"
+# include "cmd.h"
 # include "context.h"
 # include "builtins.h"
 # include "env.h"
 # include "error.h"
 # include "colors.h"
 # include "utils.h"
-# include "cmd.h"
 
 // Include libs
 
@@ -33,6 +33,8 @@
 # include <errno.h>
 # include <sys/stat.h>
 # include <stdbool.h>
+# include <fcntl.h>
+# include <sys/wait.h>
 
 //	ENUMS
 
@@ -99,5 +101,71 @@ int		is_any_command_active(
 			int is_it);
 
 void	setup_signals(void);
+
+//		Executing
+
+int		is_builtin_pipeable(
+			const char *name);
+
+int		handle_redirection(
+			t_minishell_ctx *ctx,
+			t_cmd *cmd);
+
+void	close_pipes(
+			int cmd_count,
+			int pipes[][2]);
+
+void	close_fds_if_open(
+			t_cmd *cmd);
+
+int		setup_pipes(
+			t_minishell_ctx *ctx,
+			int cmd_count,
+			int (*pipes)[2]);
+
+int		fork_command(
+			t_minishell_ctx *ctx,
+			t_cmd *cmd,
+			t_executing_ctx *exec_ctx,
+			int p_fd[2]);
+
+int		setup_redirections(
+			t_minishell_ctx *ctx,
+			t_executing_ctx *exec_ctx,
+			t_cmd *cmd,
+			int p_fd[2]);
+
+void	handle_here_doc(
+			t_minishell_ctx *ctx,
+			t_cmd *cmd);
+
+void	execute_pipeline(
+			t_minishell_ctx *ctx,
+			t_cmd *cmd_list);
+
+void	clean_exec_ctx(
+			t_executing_ctx *exec_ctx);
+
+void	execute_builtin(
+			t_minishell_ctx *ctx,
+			t_executing_ctx *exec_ctx,
+			t_cmd *cmd,
+			char **envp);
+
+void	ft_free_post_builtin(
+			t_executing_ctx *exec_ctx,
+			char **envp);
+
+int		setup_outfile_fd(
+			t_minishell_ctx *ctx,
+			t_cmd *cmd);
+
+int		setup_infile_fd(
+			t_minishell_ctx *ctx,
+			t_cmd *cmd);
+
+int		setup_cmd_fd_io(
+			t_minishell_ctx *ctx,
+			t_cmd *cmd);
 
 #endif

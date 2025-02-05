@@ -3,117 +3,89 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:03:10 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/30 17:30:04 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/04 13:11:57 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdbool.h>
 
-bool	is_n_flag(
-	char *arg,
-	bool n_option
-)
-{
-	if (arg[0] != '-' || arg[1] != '\0')
-		return (false);
-	++arg;
-	while (*arg)
-	{
-		if (*arg++ != 'n')
-			return (false);
-		n_option = false;
-	}
-	return (true);
-}
+static bool	_is_n_flag(
+				char *arg,
+				bool *n_option);
 
-static void	_handle_env_var(
-			t_minishell_ctx *ctx,
-			char **arg
-)
-{
-	char	*env_name;
-	char	*env_value;
-
-	(void)ctx;
-	if ((*arg)[1] == '?')
-	{
-		fd_printf(STDOUT_FILENO, "%d", ft_last_exit_code(-1));
-		(*arg) += 2;
-		return ;
-	}
-	env_name = get_env_name(*arg + 1);
-	if (!env_name)
-		fd_printf(STDOUT_FILENO, "$");
-	else
-	{
-		env_value = ft_getenv(env_name);
-		if (!env_value)
-			env_value = ft_strdup("");
-		if (env_value)
-		{
-			fd_printf(STDOUT_FILENO, "%s", env_value);
-			(*arg) += ft_strlen(env_name);
-		}
-	}
-}
-
-static void	_print_arg(
-	t_minishell_ctx *ctx,
-	char *arg,
-	bool in_single_quotes,
-	bool in_double_quotes
-)
-{
-	while (*arg)
-	{
-		if ((*arg == '\'' && !in_double_quotes)
-			|| (*arg == '"' && !in_single_quotes))
-		{
-			++arg;
-			continue ;
-		}
-		else if (!in_single_quotes && *arg == '$')
-			_handle_env_var(ctx, &arg);
-		else if (*arg == ' ')
-			fd_printf(STDOUT_FILENO, " ");
-		else
-			fd_printf(STDOUT_FILENO, "%c", *arg);
-		++arg;
-	}
-}
-
+/**
+ * @brief		Mimics the behavior of the Unix 'echo' command.
+ *
+ * @details 	This function will print the arguments to the standard output
+ * 				followed by a newline. If the -n option is provided, the newline
+ * 				will not be printed.
+ *
+ * @param ctx	The minishell context
+ * @param args	The arguments
+ *
+ * @return void
+ *
+ * @author jcheron
+ * @date 2025/01/28 12:03:10
+ */
 void	ft_echo(
 	t_minishell_ctx *ctx,
 	char **args
 )
 {
 	bool	n_option;
-	bool	in_single_quotes;
-	bool	in_double_quotes;
 
 	(void)ctx;
-	n_option = false;
-	in_single_quotes = false;
-	in_double_quotes = false;
-	while (*args && ft_strncmp(*args, "-n", 2) == 0)
+	n_option = true;
+	while (*args)
 	{
+		if (!_is_n_flag(*args, &n_option))
+			break ;
 		++args;
-		n_option = true;
 	}
 	while (*args)
 	{
-		if ((*args)[0] == '\'')
-			in_single_quotes = !in_single_quotes;
-		else if ((*args)[0] == '"')
-			in_double_quotes = !in_double_quotes;
-		_print_arg(ctx, *args, in_single_quotes, in_double_quotes);
-		if (*++args)
+		fd_printf(STDOUT_FILENO, "%s", *args++);
+		if (*args)
 			fd_printf(STDOUT_FILENO, " ");
 	}
-	if (!n_option)
+	if (n_option)
 		fd_printf(STDOUT_FILENO, "\n");
+}
+
+/**
+ * @brief Check if the argument is the -n flag
+ *
+ * @details This function will check if the argument is the -n flag and set the
+ * 			n_option flag accordingly.
+ *
+ * @param arg The argument to check
+ * @param n_option The n_option flag
+ *
+ * @return bool true if the argument is the -n flag, false otherwise.
+ *
+ * @author jcheron
+ * @date 2025/01/28 12:03:10
+ */
+static bool	_is_n_flag(
+	char *arg,
+	bool *n_option
+)
+{
+	if (arg[0] != '-')
+		return (false);
+	++arg;
+	while (*arg)
+	{
+		if (*arg++ != 'n')
+		{
+			n_option = false;
+			return (n_option);
+		}
+	}
+	return (n_option);
 }

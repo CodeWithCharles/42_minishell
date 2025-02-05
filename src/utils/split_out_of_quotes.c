@@ -3,16 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   split_out_of_quotes.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:54:31 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/30 17:01:51 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/01 14:54:59 by onkeltag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdbool.h>
 
+/**
+ * @brief Check if the character is a quote
+ *
+ * @details This function will check if the character is a quote or a double
+ * 			quote and set the in_single and in_double flags accordingly.
+ *
+ * @param c The character to check
+ * @param in_single The in_single flag
+ * @param in_double The in_double flag
+ *
+ * @return 	bool true if the character is a quote and is not inside a double
+ * 			quote or the opposite, false otherwise.
+ *
+ * @author jcheron
+ * @date 2025/01/30 15:54:31
+ */
 static bool	_ft_is_quote(char c, bool *in_single, bool *in_double)
 {
 	if (c == '\'' && !(*in_double))
@@ -28,6 +44,20 @@ static bool	_ft_is_quote(char c, bool *in_single, bool *in_double)
 	return (false);
 }
 
+/**
+ * @brief Split a string into tokens
+ *
+ * @details This function will split a string into tokens using the given
+ * 			separator. The separator will be ignored if it is inside a quote.
+ *
+ * @param str The string to split
+ * @param sep The separator
+ *
+ * @return char** The array of tokens
+ *
+ * @author jcheron
+ * @date 2025/01/30 15:54:31
+ */
 static char	*_ft_strtok_quotes(char *str, char sep)
 {
 	static char	*next = NULL;
@@ -54,6 +84,21 @@ static char	*_ft_strtok_quotes(char *str, char sep)
 	return (start);
 }
 
+/**
+ * @brief Count the number of words in a string
+ *
+ * @details This function will count the number of words in a string using the
+ * 			given separator. The separator will be ignored if it is inside a
+ * 			quote.
+ *
+ * @param str The string to count the words
+ * @param sep The separator
+ *
+ * @return size_t The number of words
+ *
+ * @author jcheron
+ * @date 2025/01/30 15:54:31
+ */
 static size_t	_count_words(
 	char *str,
 	char sep
@@ -81,6 +126,23 @@ static size_t	_count_words(
 	return (count + 1);
 }
 
+/**
+ * @brief Split a string into smaller strings using a separator
+ *
+ * @details This function will split a string into smaller strings using the
+ * 			given separator. The separator will be ignored if it is inside a
+ * 			quote.
+ *
+ * @param str The string to split
+ * @param sep The separator
+ *
+ * @return char** The array of strings
+ *
+ * @note The returned array must be freed using ft_free_split
+ *
+ * @author jcheron
+ * @date 2025/01/30 15:54:31
+ */
 char	**spooq(char *str, char sep)
 {
 	char	**split;

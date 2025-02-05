@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 08:56:23 by jcheron           #+#    #+#             */
-/*   Updated: 2025/01/31 09:08:55 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/01/31 14:08:38 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	ft_export(
 	char **args
 )
 {
-	char	*name;
-	char	*value;
-	t_list	*node;
+	// char	*name;
+	// char	*value;
+	// t_list	*node;
 
 	(void)ctx;
 	if (!args || !ft_strchr(*args, '='))

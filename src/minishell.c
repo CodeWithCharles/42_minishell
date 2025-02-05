@@ -3,14 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:51:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/30 16:37:13 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/05 11:17:04 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+// static	t_should_continue	handle_input(
+// 	char *input,
+// 	t_minishell_ctx *ctx,
+// 	t_should_free should_free
+// )
+// {
+// 	char	**argv;
+
+// 	(void)ctx;
+// 	if (input == NULL)
+// 		return (ft_putchar_fd('\n', 1), SHOULD_NOT_CONTINUE);
+// 	if (ft_strlen(input) == 0)
+// 		return (free(input), SHOULD_CONTINUE);
+// 	argv = spooq(input, ' ');
+// 	if (!argv)
+// 		return (free(input), SHOULD_NOT_CONTINUE);
+// 	int i = 0;
+// 	fd_printf(STDOUT_FILENO, "input: %s\n", input);
+// 	while (argv[i] != NULL)
+// 	{
+// 		char *expanded_arg = expand_variables_in_input(ctx, argv[i]);
+// 		free(argv[i]);
+// 		argv[i] = expanded_arg;
+// 		fd_printf(STDOUT_FILENO, "argv[%d]: %s\n", i, argv[i]);
+// 		i++;
+// 	}
+// 	add_history(input);
+// 	/*if (execute_builtin(ctx, argv))
+// 	{
+// 		ft_free_split(argv);
+// 		if (should_free)
+// 			free(input);
+// 		return (SHOULD_CONTINUE);
+// 	}*/
+// 	if (should_free)
+// 		free(input);
+// 	ft_free_split(argv);
+// 	return (SHOULD_CONTINUE);
+// }
 
 static	t_should_continue	handle_input(
 	char *input,
@@ -18,24 +58,21 @@ static	t_should_continue	handle_input(
 	t_should_free should_free
 )
 {
-	char	**argv;
+	t_cmd	*cmds;
 
+	(void)ctx;
 	if (input == NULL)
 		return (ft_putchar_fd('\n', 1), SHOULD_NOT_CONTINUE);
-	argv = spooq(input, ' ');
-	if (!argv)
-		return (free(input), SHOULD_NOT_CONTINUE);
+	if (ft_strlen(input) == 0)
+		return (free(input), SHOULD_CONTINUE);
 	add_history(input);
-	if (execute_builtin(ctx, argv))
-	{
-		ft_free_split(argv);
-		if (should_free)
-			free(input);
-		return (SHOULD_CONTINUE);
-	}
+	cmds = parse_commands(ctx, input);
+	if (!cmds)
+		return (free(input), SHOULD_NOT_CONTINUE);
 	if (should_free)
 		free(input);
-	ft_free_split(argv);
+	execute_pipeline(ctx, cmds);
+	ft_free_cmd_list(&cmds, ft_cmd_count(cmds));
 	return (SHOULD_CONTINUE);
 }
 
@@ -67,5 +104,6 @@ int	main(
 		if (!handle_input(input, &ctx, SHOULD_FREE))
 			break ;
 	}
+	ft_lstclear(ft_envp(NULL), free);
 	return (0);
 }

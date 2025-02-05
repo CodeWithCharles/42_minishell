@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_arg_error.c                                  :+:      :+:    :+:   */
+/*   ft_free_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 11:31:40 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/03 20:08:26 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/02/04 09:44:50 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/02/04 13:28:37 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void	print_arg_error(
-	t_minishell_ctx *ctx,
-	const char *error,
-	const char *cmd_name
+void	ft_free_cmd(
+	t_cmd *cmd
 )
 {
-	char	*color;
+	if (cmd->cmd_name)
+		free(cmd->cmd_name);
+	if (cmd->cmd_args)
+		ft_free_split(cmd->cmd_args);
+}
 
-	color = get_term_color(COLOR_RED, COLOR_NULL);
-	fd_printf(STDERR_FILENO, error,
-		color,
-		ctx->p_name,
-		cmd_name,
-		TERM_RESET);
-	free(color);
+void	ft_free_cmd_list(
+	t_cmd **cmd_list,
+	int cmd_count
+)
+{
+	int	i;
+
+	i = 0;
+	while (i < cmd_count)
+		ft_free_cmd(&(*cmd_list)[i++]);
+	free(*cmd_list);
+	*cmd_list = NULL;
 }

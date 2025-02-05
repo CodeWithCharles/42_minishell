@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:59:35 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/30 17:01:41 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/03 20:18:07 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_which(
 	const char *cmd
 )
 {
-	const char	*path;
+	char		*path;
 	char		*cmd_path;
 
 	cmd_path = ft_strdup(cmd);
@@ -47,11 +47,12 @@ char	*ft_which(
 		cmd_path = NULL;
 		if (ft_strncmp(cmd, "./", 2))
 		{
-			path = ft_getenv("PATH=");
+			path = ft_getenv("PATH");
 			if (!path)
 				return (NULL);
 			path += 4;
 			cmd_path = _find_cmd_path(cmd, path);
+			free(path - 4);
 		}
 	}
 	return (cmd_path);
@@ -84,10 +85,9 @@ static char	*_join_cmd_path(
 	cmd_path = malloc(cmd_len + path_len + 2);
 	if (!cmd_path)
 		return (NULL);
-	ft_memcpy(cmd_path, *path, path_len);
-	cmd_path[path_len + 1] = '/';
-	ft_memcpy(cmd_path + path_len + 1, cmd, cmd_len + 1);
-	cmd_path[cmd_len + path_len + 1] = '\0';
+	ft_strlcpy(cmd_path, *path, path_len + 1);
+	cmd_path[path_len] = '/';
+	ft_strlcpy(cmd_path + path_len + 1, cmd, cmd_len + 1);
 	(*path) += path_len;
 	return (cmd_path);
 }

@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:37:37 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/29 11:39:42 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/03 20:08:52 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@ void	print_cmd_errno_error(
 	const char *errno_error
 )
 {
+	char	*color;
+
+	color = get_term_color(COLOR_RED, COLOR_NULL);
 	fd_printf(STDERR_FILENO, error,
-		get_term_color(COLOR_RED, COLOR_NULL),
+		color,
 		ctx->p_name,
 		cmd_name,
 		errno_error,
 		TERM_RESET);
+	free(color);
 }

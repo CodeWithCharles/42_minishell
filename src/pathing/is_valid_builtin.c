@@ -6,13 +6,20 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:25:01 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/29 12:27:55 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/01/31 10:29:52 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 // Header implementations
+
+int	is_builtin_pipeable(const char *name)
+{
+	return (ft_strcmp(name, "echo") == 0
+		|| ft_strcmp(name, "pwd") == 0
+		|| ft_strcmp(name, "env") == 0);
+}
 
 int	is_valid_builtin(const char *name)
 {
