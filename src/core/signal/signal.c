@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:14:22 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/29 10:21:05 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/05 18:14:02 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,10 @@ static void	handle_signals(
 
 // Header implementations
 
-int	is_any_command_active(
-	int is_it
-)
-{
-	static int	value = 0;
-
-	if (is_it >= 0)
-		value = is_it;
-	return (value);
-}
-
 void	setup_signals(void)
 {
 	signal(SIGINT, handle_signals);
-	signal(SIGQUIT, handle_signals);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 // Static implementations
@@ -45,7 +34,7 @@ static void	handle_signals(
 {
 	if (signal == SIGINT)
 	{
-		if (is_any_command_active(-1))
+		if (waitpid(-1, NULL, 0) > 0)
 			ft_putchar_fd('\n', STDOUT_FILENO);
 		else
 		{
@@ -55,6 +44,4 @@ static void	handle_signals(
 			rl_redisplay();
 		}
 	}
-	else if (signal == SIGQUIT)
-		ft_putstr_fd("\b\b \b  \b\b", STDOUT_FILENO);
 }

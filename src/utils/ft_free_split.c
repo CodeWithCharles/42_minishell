@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:00:34 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/04 13:50:05 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/05 17:37:47 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,5 @@ void	ft_free_split(
 		free(split[i]);
 		split[i++] = NULL;
 	}
+	free(split);
 }

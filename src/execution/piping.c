@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:49:23 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/05 13:48:08 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/05 17:36:45 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,7 @@ void	execute_pipeline(
 	while (exec_ctx.curr_idx < exec_ctx.cmd_count)
 	{
 		if (check_exit(cmd_list, &exec_ctx))
-			execute_builtin(ctx, &exec_ctx,
-				&cmd_list[exec_ctx.curr_idx], NULL);
+			execute_builtin(ctx, &exec_ctx, &cmd_list[exec_ctx.curr_idx]);
 		else
 		{
 			if (pipe(p_fd) == -1)
