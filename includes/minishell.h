@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:16:47 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/04 13:15:36 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/05 11:08:45 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,26 +126,24 @@ int		setup_pipes(
 int		fork_command(
 			t_minishell_ctx *ctx,
 			t_cmd *cmd,
-			t_executing_ctx *exec_ctx);
+			t_executing_ctx *exec_ctx,
+			int p_fd[2]);
 
-void	setup_redirections(
+int		setup_redirections(
+			t_minishell_ctx *ctx,
+			t_executing_ctx *exec_ctx,
 			t_cmd *cmd,
-			t_executing_ctx *exec_ctx);
+			int p_fd[2]);
 
 void	handle_here_doc(
 			t_minishell_ctx *ctx,
 			t_cmd *cmd);
 
-int		setup_cmd_fd_io(
-			t_minishell_ctx *ctx,
-			t_cmd *cmd_list,
-			int cmd_count);
-
 void	execute_pipeline(
 			t_minishell_ctx *ctx,
 			t_cmd *cmd_list);
 
-void	_clean_exec_ctx(
+void	clean_exec_ctx(
 			t_executing_ctx *exec_ctx);
 
 void	execute_builtin(
@@ -157,5 +155,17 @@ void	execute_builtin(
 void	ft_free_post_builtin(
 			t_executing_ctx *exec_ctx,
 			char **envp);
+
+int		setup_outfile_fd(
+			t_minishell_ctx *ctx,
+			t_cmd *cmd);
+
+int		setup_infile_fd(
+			t_minishell_ctx *ctx,
+			t_cmd *cmd);
+
+int		setup_cmd_fd_io(
+			t_minishell_ctx *ctx,
+			t_cmd *cmd);
 
 #endif
