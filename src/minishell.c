@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:51:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/04 16:12:05 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/05 11:17:04 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	main(
 )
 {
 	t_minishell_ctx	ctx;
+	char			*prompt_message;
 	char			*input;
 
 	ctx = (t_minishell_ctx){};
@@ -95,7 +96,11 @@ int	main(
 	setup_signals();
 	while (1)
 	{
-		input = readline("minishell> ");
+		prompt_message = build_prompt_message(&ctx);
+		if (!prompt_message)
+			return (print_gen_error(&ctx, ERR_INT_ERR_ALLOC), 0);
+		input = readline(prompt_message);
+		free(prompt_message);
 		if (!handle_input(input, &ctx, SHOULD_FREE))
 			break ;
 	}

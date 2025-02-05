@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:01:59 by onkeltag          #+#    #+#             */
-/*   Updated: 2025/02/04 09:43:53 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:36:33 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	ft_env(
 void	ft_exit(
 			t_minishell_ctx *ctx,
 			t_executing_ctx *exec_ctx,
-			t_cmd *cmd_list,
 			char **args);
 
 void	ft_export(
