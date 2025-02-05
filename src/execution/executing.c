@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:16:42 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/05 11:29:36 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/05 13:51:40 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	fork_command(
 	}
 	if (exec_ctx->last_fd != INVALID_FD)
 		close(exec_ctx->last_fd);
-	if (exec_ctx->cmd_list[exec_ctx->curr_idx + 1] != NULL)
+	if (exec_ctx->curr_idx + 1 < exec_ctx->cmd_count)
 		exec_ctx->last_fd = p_fd[0];
 	else
 		close(p_fd[0]);

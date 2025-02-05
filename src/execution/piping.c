@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:49:23 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/05 11:31:46 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/05 13:48:08 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	_setup_exec_ctx(
 	if (exec_ctx->cmd_count == 0)
 		return (RET_OK);
 	exec_ctx->last_fd = -1;
-	exec_ctx->cmd_list = &cmd_list;
+	exec_ctx->cmd_list = cmd_list;
 	return (RET_OK);
 }
 
@@ -64,7 +64,7 @@ void	clean_exec_ctx(
 )
 {
 	if (exec_ctx->cmd_list)
-		ft_free_cmd_list(exec_ctx->cmd_list, exec_ctx->cmd_count);
+		ft_free_cmd_list(&exec_ctx->cmd_list, exec_ctx->cmd_count);
 }
 
 void	execute_pipeline(

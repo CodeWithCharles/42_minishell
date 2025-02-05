@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 19:27:30 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 19:42:08 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/05 13:37:30 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	write_here_doc_to_file(
 	while (1)
 	{
 		line = readline(HERE_DOC_PREFIX);
-		if (ft_strncmp(line, delimiter, ft_strlen(delimiter) == 0))
+		if (ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
 			break ;
