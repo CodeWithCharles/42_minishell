@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:51:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/05 11:17:04 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/06 00:25:28 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,5 @@ int	main(
 			break ;
 	}
 	ft_lstclear(ft_envp(NULL), free);
-	return (0);
+	return (ft_last_exit_code(-1));
 }
