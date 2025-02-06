@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:16:42 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/06 08:47:13 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:19:35 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	execute_builtin(
 		ft_env(ctx);
 	else if (ft_strcmp(cmd->cmd_name, "export") == 0)
 		ft_export(ctx, cmd->cmd_args);
+	else if (ft_strcmp(cmd->cmd_name, "unset") == 0)
+		ft_unset(ctx, cmd->cmd_args);
 	else if (ft_strcmp(cmd->cmd_name, "exit") == 0)
 		ft_exit(ctx, exec_ctx, cmd->cmd_args);
 	else if (ft_strcmp(cmd->cmd_name, "echo") == 0)

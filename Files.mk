@@ -1,6 +1,6 @@
 FILES	=																	\
 	builtins/cd builtins/echo builtins/env builtins/exit builtins/export	\
-	builtins/pwd core/error/print_arg_error									\
+	builtins/pwd builtins/unset core/error/print_arg_error					\
 	core/error/print_cmd_errno_error core/error/print_gen_error				\
 	core/prompt/build_prompt_message core/signal/signal env/ft_env_varcmp	\
 	env/ft_envp env/ft_envp_tab env/ft_getenv env/ft_setenv env/ft_unsetenv	\

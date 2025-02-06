@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:03:10 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/04 13:11:57 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:12:43 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ft_echo(
 
 	(void)ctx;
 	n_option = true;
+	args++;
 	while (*args)
 	{
 		if (!_is_n_flag(*args, &n_option))
@@ -76,16 +77,14 @@ static bool	_is_n_flag(
 	bool *n_option
 )
 {
-	if (arg[0] != '-')
+	if (arg[0] != '-' || arg[1] == '\0')
 		return (false);
 	++arg;
 	while (*arg)
 	{
 		if (*arg++ != 'n')
-		{
-			n_option = false;
-			return (n_option);
-		}
+			return (false);
+		*n_option = false;
 	}
-	return (n_option);
+	return (true);
 }

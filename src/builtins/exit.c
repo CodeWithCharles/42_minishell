@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:10:16 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/05 13:39:40 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:14:54 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ void	ft_exit(
 		status = ft_atoi(args[1]);
 	}
 	clean_exec_ctx(exec_ctx);
+	fd_printf(STDOUT_FILENO, "exit\n");
 	exit(status);
 }

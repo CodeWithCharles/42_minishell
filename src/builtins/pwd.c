@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:49:33 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/01 14:58:53 by onkeltag         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:04:45 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,5 @@ void	ft_pwd(
 	}
 	ft_putstr_fd(cwd, 1);
 	ft_putchar_fd('\n', 1);
+	free(cwd);
 }

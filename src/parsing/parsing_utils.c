@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 10:54:43 by onkeltag          #+#    #+#             */
-/*   Updated: 2025/02/06 10:02:20 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/06 10:13:29 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,10 @@ void	parse_single_cmd(
 {
 	char	**args;
 	int		k;
+	int		i;
 
 	args = spooq(cmd_str, ' ');
+	i = 0;
 	if (!args)
 		return ;
 	cmd->fd_in = -1;
@@ -94,14 +96,12 @@ void	parse_single_cmd(
 	k = parse_redir_input(ctx, cmd, &args);
 	cmd->cmd_name = expand_variables_in_input(ctx, args[k]);
 	cmd->cmd_args = malloc(sizeof(char *) * (_ft_split_count(args) + 1));
+	ft_bzero(cmd->cmd_args, sizeof(char *) * (_ft_split_count(args) + 1));
 	if (!cmd->cmd_args)
 		return ;
 	while (args[k]
 		&& (ft_strcmp(args[k], ">") != 0 && ft_strcmp(args[k], ">>") != 0))
-	{
-		cmd->cmd_args[k] = expand_variables_in_input(ctx, args[k]);
-		k++;
-	}
+		cmd->cmd_args[i++] = expand_variables_in_input(ctx, args[k++]);
 	parse_redir_output(ctx, cmd, k, &args);
 	cmd->cmd_args[k] = NULL;
 	if (args)
