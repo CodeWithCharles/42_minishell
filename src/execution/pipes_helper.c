@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:43:52 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/06 08:39:10 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:16:33 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ static int	redirect_input(
 	int prev_fd
 )
 {
-	if (cmd->redir_in.type == REDIR_NONE)
+	if (cmd->redir_in.type == REDIR_NONE && prev_fd == INVALID_FD)
+		return (RET_OK);
+	else if (cmd->redir_in.type == REDIR_NONE && prev_fd != INVALID_FD)
 		return (dup2(prev_fd, STDIN_FILENO), close(prev_fd), RET_OK);
-	if (prev_fd != 0)
+	if (prev_fd != INVALID_FD)
 		close(prev_fd);
 	if (cmd->fd_in == INVALID_FD)
 		return (RET_ERR);
