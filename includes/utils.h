@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:59:54 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/06 08:38:53 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:57:44 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,14 @@ void	parse_single_cmd(
 			t_cmd *cmd,
 			char *cmd_str);
 
-void	parse_redir_input(
+int		parse_redir_input(
 			t_minishell_ctx *ctx,
 			t_cmd *cmd,
 			char ***args);
+
+void	set_redir_in_type(
+			t_cmd *cmd,
+			char *arg);
 
 void	parse_redir_output(
 			t_minishell_ctx *ctx,

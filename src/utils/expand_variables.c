@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:02:27 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/03 10:16:33 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/06 09:34:15 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,14 +122,23 @@ char	*expand_variables_in_input(
 {
 	char			*expanded;
 	t_expand_vars	vars;
+	int				alloc_size;
 
 	(void)ctx;
-	expanded = malloc(sizeof(char) * (ft_strlen(input) + 1));
+	alloc_size = ft_strlen(input) * 2 + 1;
+	expanded = malloc(sizeof(char) * alloc_size);
 	if (!expanded)
 		return (NULL);
 	init_expand_vars(&vars);
 	while (input[vars.i])
 	{
+		if (vars.j >= alloc_size - 1)
+		{
+			alloc_size *= 2;
+			expanded = realloc(expanded, alloc_size);
+			if (!expanded)
+				return (NULL);
+		}
 		if (process_char(input, expanded, &vars) == -1)
 			return (free(expanded), NULL);
 	}

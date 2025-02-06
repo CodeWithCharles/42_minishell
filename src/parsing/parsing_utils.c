@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 10:54:43 by onkeltag          #+#    #+#             */
-/*   Updated: 2025/02/06 08:40:02 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/06 10:02:20 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,11 @@ void	parse_single_cmd(
 		return ;
 	cmd->fd_in = -1;
 	cmd->fd_out = -1;
-	parse_redir_input(ctx, cmd, &args);
-	cmd->cmd_name = expand_variables_in_input(ctx, args[0]);
+	k = parse_redir_input(ctx, cmd, &args);
+	cmd->cmd_name = expand_variables_in_input(ctx, args[k]);
 	cmd->cmd_args = malloc(sizeof(char *) * (_ft_split_count(args) + 1));
 	if (!cmd->cmd_args)
 		return ;
-	k = 0;
 	while (args[k]
 		&& (ft_strcmp(args[k], ">") != 0 && ft_strcmp(args[k], ">>") != 0))
 	{
@@ -124,34 +123,37 @@ void	parse_single_cmd(
  * @author jcheron
  * @date 2025/02/01 11:47:58
  */
-void	parse_redir_input(
+int	parse_redir_input(
 	t_minishell_ctx *ctx,
 	t_cmd *cmd,
 	char ***args
 )
 {
-	int	i;
+	int		i;
+	char	**arg_list;
 
 	i = 0;
-	if (ft_strcmp((*args)[0], "<") != 0
-		&& ft_strcmp((*args)[0], "<<") != 0)
+	arg_list = *args;
+	if (ft_strcmp(arg_list[i], "<") != 0
+		&& ft_strcmp(arg_list[i], "<<") != 0)
 	{
 		cmd->redir_in.type = REDIR_NONE;
 		cmd->redir_in.file = NULL;
-		return ;
+		return (0);
 	}
-	while ((*args)[i]
-		&& (ft_strcmp((*args)[i], "<") == 0
-		|| ft_strcmp((*args)[i], "<<") == 0))
+	while (arg_list[i]
+		&& (ft_strcmp(arg_list[i], "<") == 0
+			|| ft_strcmp(arg_list[i], "<<") == 0))
 	{
-		if (ft_strcmp((*args)[i], "<") == 0)
+		if (ft_strcmp(arg_list[i], "<") == 0)
 			cmd->redir_in.type = REDIR_INPUT;
 		else
 			cmd->redir_in.type = REDIR_HEREDOC;
-		(*args)++;
-		cmd->redir_in.file = expand_variables_in_input(ctx, (*args)[0]);
-		(*args)++;
+		i++;
+		cmd->redir_in.file = expand_variables_in_input(ctx, arg_list[i]);
+		i++;
 	}
+	return (i);
 }
 
 /**
@@ -177,23 +179,26 @@ void	parse_redir_output(
 	char ***args
 )
 {
-	if (!(*args)[k] || (ft_strcmp((*args)[k], ">") != 0
-		&& ft_strcmp((*args)[k], ">>") != 0))
+	char	**arg_list;
+
+	arg_list = *args;
+	if (!arg_list[k] || (ft_strcmp(arg_list[k], ">") != 0
+			&& ft_strcmp(arg_list[k], ">>") != 0))
 	{
 		cmd->redir_out.type = REDIR_NONE;
 		cmd->redir_out.file = NULL;
 		return ;
 	}
-	while ((*args)[k]
-		&& (ft_strcmp((*args)[k], ">") == 0
-		|| ft_strcmp((*args)[k], ">>") == 0))
+	while (arg_list[k]
+		&& (ft_strcmp(arg_list[k], ">") == 0
+			|| ft_strcmp(arg_list[k], ">>") == 0))
 	{
-		if (ft_strcmp((*args)[k], ">") == 0)
+		if (ft_strcmp(arg_list[k], ">") == 0)
 			cmd->redir_out.type = REDIR_OUTPUT;
 		else
 			cmd->redir_out.type = REDIR_APPEND;
-		(*args)++;
-		cmd->redir_out.file = expand_variables_in_input(ctx, (*args)[k]);
-		(*args)++;
+		k++;
+		cmd->redir_out.file = expand_variables_in_input(ctx, arg_list[k]);
+		k++;
 	}
 }
