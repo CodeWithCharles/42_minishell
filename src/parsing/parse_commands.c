@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:21:46 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/04 11:20:26 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/06 08:39:30 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,5 @@ t_cmd	*parse_commands(
 		i++;
 	}
 	cmd_structs[i].cmd_name = NULL;
-	return (ft_free_split(cmds), cmd_structs);
+	return (ft_free_split(&cmds), cmd_structs);
 }

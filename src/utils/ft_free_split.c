@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:00:34 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/06 00:06:22 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/06 08:38:12 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,19 @@
 // Header implementations
 
 void	ft_free_split(
-	char **split
+	char ***split
 )
 {
 	int	i;
 
-	if (!split)
+	if (!(*split))
 		return ;
 	i = 0;
-	while (split[i])
+	while ((*split)[i])
 	{
-		free(split[i]);
-		split[i++] = NULL;
+		free((*split)[i]);
+		(*split)[i++] = NULL;
 	}
+	free(*split);
+	(*split) = NULL;
 }
