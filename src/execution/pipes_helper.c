@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:43:52 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/05 17:20:06 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/06 08:39:10 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	clean_after_exec(
 {
 	clean_exec_ctx(exec_ctx);
 	if (envp)
-		ft_free_split(envp);
+		ft_free_split(&envp);
 	if (ft_envp(NULL))
 		ft_lstclear(ft_envp(NULL), free);
 }

@@ -6,7 +6,7 @@
 /*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:54:31 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/01 14:54:59 by onkeltag         ###   ########.fr       */
+/*   Updated: 2025/02/06 08:40:56 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ char	**spooq(char *str, char sep)
 		split[i] = ft_strdup(token);
 		if (!split[i])
 		{
-			ft_free_split(split);
+			ft_free_split(&split);
 			return (NULL);
 		}
 		token = _ft_strtok_quotes(NULL, sep);

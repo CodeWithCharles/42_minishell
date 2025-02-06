@@ -6,7 +6,7 @@
 /*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:59:54 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/04 15:02:57 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/06 08:38:53 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_expand_vars
 // Functions
 
 void	ft_free_split(
-			char **split);
+			char ***split);
 
 char	**spooq(
 			char *str,
