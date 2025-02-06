@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:00:34 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/06 08:38:12 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:18:33 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_free_split(
 {
 	int	i;
 
-	if (!(*split))
+	if (!(split) && !(*split))
 		return ;
 	i = 0;
 	while ((*split)[i])
