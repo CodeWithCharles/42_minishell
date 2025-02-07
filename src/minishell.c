@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:51:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/06 12:38:52 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/07 13:14:53 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@ static	t_should_continue	handle_input(
 	return (SHOULD_CONTINUE);
 }
 
+static char	*get_exec_name(char *exec_path)
+{
+	if (ft_strchr(exec_path, '/') != NULL)
+		return (ft_strrchr(exec_path, '/') + 1);
+	else
+		return (exec_path);
+}
+
 int	main(
 	int argc,
 	char **argv,
@@ -48,11 +56,12 @@ int	main(
 	char			*input;
 
 	ctx = (t_minishell_ctx){};
-	if (ft_strncmp(argv[0], "./", 2) == 0)
-		argv[0] = argv[0] + 2;
-	ctx.p_name = argv[0];
+	ctx.p_name = get_exec_name(argv[0]);
 	if (argc > 1)
+	{
+		ft_lstclear(ft_envp(NULL), free);
 		return (print_gen_error(&ctx, ERR_TOO_MANY_ARGS), 0);
+	}
 	ft_envp(envp);
 	setup_signals();
 	while (1)
