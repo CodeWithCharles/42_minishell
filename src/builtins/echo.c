@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:03:10 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/06 11:12:43 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/07 20:26:50 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static bool	_is_n_flag(
  * @author jcheron
  * @date 2025/01/28 12:03:10
  */
-void	ft_echo(
+int	ft_echo(
 	t_minishell_ctx *ctx,
 	char **args
 )
@@ -56,6 +56,7 @@ void	ft_echo(
 	}
 	if (n_option)
 		fd_printf(STDOUT_FILENO, "\n");
+	return (RET_OK);
 }
 
 /**

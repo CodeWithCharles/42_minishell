@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:16:47 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/06 11:51:54 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/07 20:25:38 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	print_arg_error(
 			const char *error,
 			const char *cmd_name);
 
-void	print_cmd_errno_error(
+void	print_cmd_errno(
 			t_minishell_ctx *ctx,
 			const char *error,
 			const char *cmd_name,
