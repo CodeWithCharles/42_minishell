@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:54:10 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/31 12:09:07 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:08:13 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_last_exit_code(
 	exit_code_as_str = ft_itoa(exit_code);
 	if (!exit_code_as_str)
 		return (last_exit_code);
-	tmp = ft_strjoin("?", exit_code_as_str);
+	tmp = ft_strjoin("?=", exit_code_as_str);
 	free(exit_code_as_str);
 	if (tmp)
 	{

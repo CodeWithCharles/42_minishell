@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:16:42 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/06 11:19:35 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/06 12:07:42 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	custom_exit(
 )
 {
 	clean_after_exec(exec_ctx, envp);
-	exit(exit_code);
+	if (exit_code)
+		ft_last_exit_code(exit_code);
+	if (exit_code != -1)
+		exit(exit_code);
 }
 
 static void	execute_external(
@@ -46,7 +49,8 @@ static void	execute_external(
 void	execute_builtin(
 	t_minishell_ctx *ctx,
 	t_executing_ctx *exec_ctx,
-	t_cmd *cmd
+	t_cmd *cmd,
+	int should_exit
 )
 {
 	if (ft_strcmp(cmd->cmd_name, "cd") == 0)
@@ -66,9 +70,12 @@ void	execute_builtin(
 	else
 	{
 		print_arg_error(ctx, ERR_CMD_NOT_EXECUTABLE, cmd->cmd_name);
-		custom_exit(exec_ctx, NULL, CODE_CMD_NOT_EXECUTABLE);
+		if (should_exit)
+			custom_exit(exec_ctx, NULL, CODE_CMD_NOT_EXECUTABLE);
 	}
-	custom_exit(exec_ctx, NULL, RET_OK);
+	if (should_exit)
+		custom_exit(exec_ctx, NULL, RET_OK);
+	ft_last_exit_code(0);
 }
 
 int	fork_command(
@@ -89,7 +96,7 @@ int	fork_command(
 		if (setup_redirections(ctx, exec_ctx, cmd, p_fd) == RET_ERR)
 			custom_exit(exec_ctx, NULL, RET_ERR);
 		if (is_valid_builtin(cmd->cmd_name))
-			execute_builtin(ctx, exec_ctx, cmd);
+			execute_builtin(ctx, exec_ctx, cmd, 1);
 		else
 			execute_external(ctx, exec_ctx, cmd);
 	}
