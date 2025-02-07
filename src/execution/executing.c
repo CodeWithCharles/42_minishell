@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:16:42 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/06 12:07:42 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/07 20:17:57 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,29 +53,31 @@ void	execute_builtin(
 	int should_exit
 )
 {
+	int	exit_code;
+
+	exit_code = 0;
 	if (ft_strcmp(cmd->cmd_name, "cd") == 0)
-		ft_cd(ctx, cmd->cmd_args);
+		exit_code = ft_cd(ctx, cmd->cmd_args);
 	else if (ft_strcmp(cmd->cmd_name, "pwd") == 0)
-		ft_pwd(ctx);
+		exit_code = ft_pwd(ctx, cmd->cmd_args);
 	else if (ft_strcmp(cmd->cmd_name, "env") == 0)
-		ft_env(ctx);
+		exit_code = ft_env(ctx, cmd->cmd_args);
 	else if (ft_strcmp(cmd->cmd_name, "export") == 0)
-		ft_export(ctx, cmd->cmd_args);
+		exit_code = ft_export(ctx, cmd->cmd_args);
 	else if (ft_strcmp(cmd->cmd_name, "unset") == 0)
-		ft_unset(ctx, cmd->cmd_args);
+		exit_code = ft_unset(ctx, cmd->cmd_args);
 	else if (ft_strcmp(cmd->cmd_name, "exit") == 0)
 		ft_exit(ctx, exec_ctx, cmd->cmd_args);
 	else if (ft_strcmp(cmd->cmd_name, "echo") == 0)
-		ft_echo(ctx, cmd->cmd_args);
+		exit_code = ft_echo(ctx, cmd->cmd_args);
 	else
 	{
 		print_arg_error(ctx, ERR_CMD_NOT_EXECUTABLE, cmd->cmd_name);
-		if (should_exit)
-			custom_exit(exec_ctx, NULL, CODE_CMD_NOT_EXECUTABLE);
+		exit_code = CODE_CMD_NOT_FOUND;
 	}
 	if (should_exit)
-		custom_exit(exec_ctx, NULL, RET_OK);
-	ft_last_exit_code(0);
+		custom_exit(exec_ctx, NULL, exit_code);
+	ft_last_exit_code(exit_code);
 }
 
 int	fork_command(
