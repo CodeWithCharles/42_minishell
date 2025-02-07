@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 11:16:19 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/06 11:21:03 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/07 18:34:56 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ void	ft_unset(
 	i = 1;
 	while (args[i])
 	{
-		ft_unsetenv(args[i++]);
+		ft_unsetenv(args[i++] + 1);
 	}
 }

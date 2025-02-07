@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:59:54 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/06 09:57:44 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/07 18:51:25 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,8 @@ void	ft_free_cmd_list(
 
 void	close_pipe(
 			int pipe[2]);
+
+char	*ft_realpath(
+			const char *relative_path);
 
 #endif
