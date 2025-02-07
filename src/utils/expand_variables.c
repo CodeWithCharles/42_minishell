@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:02:27 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/06 09:34:15 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/07 19:30:37 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,13 @@ int	expand_variable(
 	char	*var_name;
 	char	*var_value;
 
-	if (!ft_isalnum(input[*i]) && input[*i] != '_')
+	if (!ft_isalnum(input[*i]) && input[*i] != '_' && input[*i] != '?')
 	{
 		expanded[(*j)++] = '$';
 		return (0);
 	}
 	start = *i;
-	while (ft_isalnum(input[*i]) || input[*i] == '_')
+	while (ft_isalnum(input[*i]) || input[*i] == '_' || input[*i] == '?')
 		(*i)++;
 	len = *i - start;
 	var_name = ft_substr(input, start, len);
