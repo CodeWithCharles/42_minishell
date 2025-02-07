@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:10:16 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/05 11:03:55 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:14:54 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,17 @@ void	ft_exit(
 
 	status = 0;
 	ft_lstclear(ft_envp(NULL), free);
-	if (args[0])
+	if (args && args[1])
 	{
-		if (!ft_isdigit(args[0][0]))
+		if (!ft_isdigit(args[1][0]))
 		{
 			print_arg_error(ctx, ERR_ARG_MUST_BE_INT, "exit");
 			clean_exec_ctx(exec_ctx);
 			exit(255);
 		}
-		status = ft_atoi(args[0]);
+		status = ft_atoi(args[1]);
 	}
 	clean_exec_ctx(exec_ctx);
+	fd_printf(STDOUT_FILENO, "exit\n");
 	exit(status);
 }

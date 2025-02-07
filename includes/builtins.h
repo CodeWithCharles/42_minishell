@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:01:59 by onkeltag          #+#    #+#             */
-/*   Updated: 2025/02/04 17:36:33 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/07 20:27:21 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,32 @@
 
 # include "minishell.h"
 
-void	ft_cd(
+int		ft_cd(
 			t_minishell_ctx *ctx,
 			char **args);
 
-void	ft_echo(
+int		ft_echo(
 			t_minishell_ctx *ctx,
 			char **args);
 
-void	ft_env(
-			t_minishell_ctx *ctx);
+int		ft_env(
+			t_minishell_ctx *ctx,
+			char **args);
 
 void	ft_exit(
 			t_minishell_ctx *ctx,
 			t_executing_ctx *exec_ctx,
 			char **args);
 
-void	ft_export(
+int		ft_export(
 			t_minishell_ctx *ctx,
 			char **args);
 
-void	ft_pwd(
-			t_minishell_ctx *ctx);
+int		ft_pwd(
+			t_minishell_ctx *ctx,
+			char **args);
 
-void	ft_unset(
+int		ft_unset(
 			t_minishell_ctx *ctx,
 			char **args);
 

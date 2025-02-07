@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 09:44:50 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/04 13:28:37 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/06 10:06:08 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,16 @@ void	ft_free_cmd(
 	t_cmd *cmd
 )
 {
+	if (!cmd)
+		return ;
 	if (cmd->cmd_name)
 		free(cmd->cmd_name);
 	if (cmd->cmd_args)
-		ft_free_split(cmd->cmd_args);
+		ft_free_split(&cmd->cmd_args);
+	if (cmd->redir_in.file)
+		free(cmd->redir_in.file);
+	if (cmd->redir_out.file)
+		free(cmd->redir_out.file);
 }
 
 void	ft_free_cmd_list(

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:59:54 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/04 15:02:57 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/07 20:31:18 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_expand_vars
 // Functions
 
 void	ft_free_split(
-			char **split);
+			char ***split);
 
 char	**spooq(
 			char *str,
@@ -69,10 +69,14 @@ void	parse_single_cmd(
 			t_cmd *cmd,
 			char *cmd_str);
 
-void	parse_redir_input(
+int		parse_redir_input(
 			t_minishell_ctx *ctx,
 			t_cmd *cmd,
 			char ***args);
+
+void	set_redir_in_type(
+			t_cmd *cmd,
+			char *arg);
 
 void	parse_redir_output(
 			t_minishell_ctx *ctx,
@@ -96,5 +100,8 @@ void	ft_free_cmd_list(
 
 void	close_pipe(
 			int pipe[2]);
+
+char	*ft_realpath(
+			const char *relative_path);
 
 #endif

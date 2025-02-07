@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_cmd_errno_error.c                            :+:      :+:    :+:   */
+/*   print_cmd_errno.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:37:37 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/03 20:08:52 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/07 20:25:28 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	print_cmd_errno_error(
+void	print_cmd_errno(
 	t_minishell_ctx *ctx,
 	const char *error,
 	const char *cmd_name,

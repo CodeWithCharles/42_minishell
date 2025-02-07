@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:49:23 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/05 11:31:46 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:54:54 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	_setup_exec_ctx(
 	if (exec_ctx->cmd_count == 0)
 		return (RET_OK);
 	exec_ctx->last_fd = -1;
-	exec_ctx->cmd_list = &cmd_list;
+	exec_ctx->cmd_list = cmd_list;
 	return (RET_OK);
 }
 
@@ -48,13 +48,18 @@ static void	_wait_for_childrens(void)
 	ft_last_exit_code((int)(final_status % 255));
 }
 
-int	check_exit(
+static int	check_should_fork(
 	t_cmd *cmd_list,
 	t_executing_ctx *exec_ctx
 )
 {
+	if (exec_ctx->cmd_count != 1
+		|| exec_ctx->curr_idx != exec_ctx->cmd_count - 1)
+		return (0);
 	if (ft_strcmp(cmd_list[exec_ctx->curr_idx].cmd_name, "exit") == 0
-		&& !cmd_list[exec_ctx->curr_idx + 1].cmd_name)
+		|| ft_strcmp(cmd_list[exec_ctx->curr_idx].cmd_name, "cd") == 0
+		|| ft_strcmp(cmd_list[exec_ctx->curr_idx].cmd_name, "unset") == 0
+		|| ft_strcmp(cmd_list[exec_ctx->curr_idx].cmd_name, "export") == 0)
 		return (1);
 	return (0);
 }
@@ -64,7 +69,7 @@ void	clean_exec_ctx(
 )
 {
 	if (exec_ctx->cmd_list)
-		ft_free_cmd_list(exec_ctx->cmd_list, exec_ctx->cmd_count);
+		ft_free_cmd_list(&exec_ctx->cmd_list, exec_ctx->cmd_count);
 }
 
 void	execute_pipeline(
@@ -81,9 +86,8 @@ void	execute_pipeline(
 		return ;
 	while (exec_ctx.curr_idx < exec_ctx.cmd_count)
 	{
-		if (check_exit(cmd_list, &exec_ctx))
-			execute_builtin(ctx, &exec_ctx,
-				&cmd_list[exec_ctx.curr_idx], NULL);
+		if (check_should_fork(cmd_list, &exec_ctx))
+			execute_builtin(ctx, &exec_ctx, &cmd_list[exec_ctx.curr_idx], 0);
 		else
 		{
 			if (pipe(p_fd) == -1)

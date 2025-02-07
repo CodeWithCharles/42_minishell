@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 11:46:53 by onkeltag          #+#    #+#             */
-/*   Updated: 2025/02/01 14:51:23 by onkeltag         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:43:37 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,15 @@ void	init_expand_vars(
 	vars->j = 0;
 	vars->in_simple_quote = 0;
 	vars->in_double_quote = 0;
+}
+
+void	set_redir_in_type(
+	t_cmd *cmd,
+	char *arg
+)
+{
+	if (ft_strcmp(arg, "<") == 0)
+		cmd->redir_in.type = REDIR_INPUT;
+	else
+		cmd->redir_in.type = REDIR_HEREDOC;
 }

@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unsetenv.c                                      :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/30 15:38:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/06 12:12:36 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/02/06 11:16:19 by jcheron           #+#    #+#             */
+/*   Updated: 2025/02/07 20:28:39 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
-void	ft_unsetenv(
-	char *name
+int	ft_unset(
+	t_minishell_ctx *ctx,
+	char **args
 )
 {
-	t_list	**envp;
+	int		i;
 
-	envp = ft_envp(NULL);
-	while (*envp && !ft_env_varcmp((char *)(*envp)->content, name))
-		envp = &(*envp)->next;
-	ft_lstremove(envp, free);
+	(void)ctx;
+	i = 1;
+	while (args[i])
+		ft_unsetenv(args[i++] + 1);
+	return (RET_OK);
 }

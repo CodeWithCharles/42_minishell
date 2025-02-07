@@ -6,7 +6,7 @@
 /*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:36:02 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/01 14:55:41 by onkeltag         ###   ########.fr       */
+/*   Updated: 2025/02/07 20:25:09 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,32 +28,34 @@
  * @author jcheron
  * @date 2025/01/30 17:19:04
  */
-void	ft_cd(
+int	ft_cd(
 	t_minishell_ctx *ctx,
 	char **args
 )
 {
-	char	*home;
 	char	*path;
+	char	*path_tmp;
 
-	if (!args[0])
+	if (!args[1])
 	{
-		home = ft_getenv("HOME");
-		if (!home)
-		{
-			print_arg_error(ctx, ERR_CD_HOME_NOT_SET, "cd");
-			return ;
-		}
-		path = home;
+		path = ft_getenv("HOME");
+		if (!path)
+			return (print_arg_error(ctx, ERR_CD_HOME_NOT_SET, "cd"), RET_ERR);
 	}
+	else if (ft_strcmp(args[1], "-") == 0)
+		path = ft_getenv("OLDPWD");
 	else
-		path = args[0];
+		path = args[1];
+	path_tmp = ft_to_env_format("OLDPWD", getcwd(NULL, 0));
+	ft_setenv(path_tmp);
+	free(path_tmp);
 	if (chdir(path) == -1)
+		return (print_cmd_errno(ctx, ERR_ERRNO, "cd", strerror(errno)), 1);
+	else
 	{
-		fd_printf(
-			2,
-			"cd: %s : %s\n",
-			strerror(errno),
-			path);
+		path_tmp = ft_realpath(path);
+		path_tmp = ft_to_env_format("PWD", path_tmp);
+		ft_setenv(path_tmp);
+		return (free(path_tmp), RET_OK);
 	}
 }

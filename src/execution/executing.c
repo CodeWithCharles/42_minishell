@@ -3,71 +3,81 @@
 /*                                                        :::      ::::::::   */
 /*   executing.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:16:42 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/05 11:29:36 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/07 20:17:57 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	_custom_exit(
+void	custom_exit(
 	t_executing_ctx *exec_ctx,
 	char **envp,
 	int exit_code
 )
 {
-	clean_exec_ctx(exec_ctx);
-	if (envp)
-		ft_free_split(envp);
-	if (ft_envp(NULL))
-		ft_lstclear(ft_envp(NULL), free);
-	exit(exit_code);
+	clean_after_exec(exec_ctx, envp);
+	if (exit_code)
+		ft_last_exit_code(exit_code);
+	if (exit_code != -1)
+		exit(exit_code);
 }
 
 static void	execute_external(
 	t_minishell_ctx *ctx,
 	t_executing_ctx *exec_ctx,
-	t_cmd *cmd,
-	char **envp
+	t_cmd *cmd
 )
 {
+	char	**envp;
+
+	if (ft_envp_tab(&envp) == RET_ERR)
+		custom_exit(exec_ctx, NULL, 1);
 	get_cmd(ctx, cmd);
 	if (cmd->exit_code == CODE_CMD_NOT_FOUND)
-		_custom_exit(exec_ctx, envp, CODE_CMD_NOT_FOUND);
+		custom_exit(exec_ctx, envp, CODE_CMD_NOT_FOUND);
 	if (execve(cmd->cmd_name, cmd->cmd_args, envp) == -1)
 	{
 		print_arg_error(ctx, ERR_CMD_NOT_EXECUTABLE, cmd->cmd_name);
-		_custom_exit(exec_ctx, envp, CODE_CMD_NOT_EXECUTABLE);
+		custom_exit(exec_ctx, envp, CODE_CMD_NOT_EXECUTABLE);
 	}
+	custom_exit(exec_ctx, envp, 0);
 }
 
 void	execute_builtin(
 	t_minishell_ctx *ctx,
 	t_executing_ctx *exec_ctx,
 	t_cmd *cmd,
-	char **envp
+	int should_exit
 )
 {
+	int	exit_code;
+
+	exit_code = 0;
 	if (ft_strcmp(cmd->cmd_name, "cd") == 0)
-		ft_cd(ctx, cmd->cmd_args);
+		exit_code = ft_cd(ctx, cmd->cmd_args);
 	else if (ft_strcmp(cmd->cmd_name, "pwd") == 0)
-		ft_pwd(ctx);
+		exit_code = ft_pwd(ctx, cmd->cmd_args);
 	else if (ft_strcmp(cmd->cmd_name, "env") == 0)
-		ft_env(ctx);
+		exit_code = ft_env(ctx, cmd->cmd_args);
 	else if (ft_strcmp(cmd->cmd_name, "export") == 0)
-		ft_export(ctx, cmd->cmd_args);
+		exit_code = ft_export(ctx, cmd->cmd_args);
+	else if (ft_strcmp(cmd->cmd_name, "unset") == 0)
+		exit_code = ft_unset(ctx, cmd->cmd_args);
 	else if (ft_strcmp(cmd->cmd_name, "exit") == 0)
 		ft_exit(ctx, exec_ctx, cmd->cmd_args);
 	else if (ft_strcmp(cmd->cmd_name, "echo") == 0)
-		ft_echo(ctx, cmd->cmd_args);
+		exit_code = ft_echo(ctx, cmd->cmd_args);
 	else
 	{
 		print_arg_error(ctx, ERR_CMD_NOT_EXECUTABLE, cmd->cmd_name);
-		_custom_exit(exec_ctx, envp, CODE_CMD_NOT_EXECUTABLE);
+		exit_code = CODE_CMD_NOT_FOUND;
 	}
-	_custom_exit(exec_ctx, envp, RET_OK);
+	if (should_exit)
+		custom_exit(exec_ctx, NULL, exit_code);
+	ft_last_exit_code(exit_code);
 }
 
 int	fork_command(
@@ -78,27 +88,25 @@ int	fork_command(
 )
 {
 	int		cmd_pid;
-	char	**envp;
 
-	if (ft_envp_tab(&envp) == RET_ERR)
-		return (RET_ERR);
 	cmd_pid = fork();
 	if (cmd_pid == -1)
-		return (ft_free_split(envp), RET_ERR);
+		return (RET_ERR);
 	if (cmd_pid == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
 		if (setup_redirections(ctx, exec_ctx, cmd, p_fd) == RET_ERR)
-			_custom_exit(exec_ctx, envp, RET_ERR);
+			custom_exit(exec_ctx, NULL, RET_ERR);
 		if (is_valid_builtin(cmd->cmd_name))
-			execute_builtin(ctx, exec_ctx, cmd, envp);
+			execute_builtin(ctx, exec_ctx, cmd, 1);
 		else
-			execute_external(ctx, exec_ctx, cmd, envp);
+			execute_external(ctx, exec_ctx, cmd);
 	}
 	if (exec_ctx->last_fd != INVALID_FD)
 		close(exec_ctx->last_fd);
-	if (exec_ctx->cmd_list[exec_ctx->curr_idx + 1] != NULL)
+	if (exec_ctx->curr_idx + 1 < exec_ctx->cmd_count)
 		exec_ctx->last_fd = p_fd[0];
 	else
 		close(p_fd[0]);
-	return (close(p_fd[1]), ft_free_split(envp), RET_OK);
+	return (close(p_fd[1]), RET_OK);
 }
