@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cmd_count.c                                     :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 17:10:45 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/11 16:36:45 by jcheron          ###   ########.fr       */
+/*   Created: 2025/02/11 16:34:28 by jcheron           #+#    #+#             */
+/*   Updated: 2025/02/11 16:34:44 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
-int	ft_cmd_count(
-	t_cmd **cmd_list
-)
+char	*ft_strndup(const char *s, size_t n)
 {
-	int	i;
+	char	*dup;
+	size_t	i;
 
+	dup = malloc(n + 1);
+	if (!dup)
+		return (NULL);
 	i = 0;
-	while (cmd_list[i])
+	while (i < n)
+	{
+		dup[i] = s[i];
 		i++;
-	return (i);
+	}
+	dup[i] = '\0';
+	return (dup);
 }
