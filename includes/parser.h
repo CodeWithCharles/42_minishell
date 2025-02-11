@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:13:39 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/11 16:35:09 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/11 16:59:18 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,5 @@ t_cmd			**add_cmd(
 					t_cmd **cmds,
 					t_cmd *current_cmd,
 					size_t *cmd_count);
-
-char			*ft_strndup(
-					const char *s,
-					size_t n);
 
 #endif
