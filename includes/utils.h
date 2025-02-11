@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:59:54 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/07 20:31:18 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:20:52 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_cmd	*parse_commands(
 			char *input);
 
 int		ft_cmd_count(
-			t_cmd *cmd_list);
+			t_cmd **cmd_list);
 
 void	ft_free_cmd(
 			t_cmd *cmd);
@@ -103,5 +103,9 @@ void	close_pipe(
 
 char	*ft_realpath(
 			const char *relative_path);
+
+bool	is_whitespace(char c);
+
+char	*ft_strndup(const char *s, size_t n);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piping.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:49:23 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/06 11:54:54 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:23:58 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // Header implementations
 
 static int	_setup_exec_ctx(
-	t_cmd *cmd_list,
+	t_cmd **cmd_list,
 	t_executing_ctx *exec_ctx
 )
 {
@@ -48,18 +48,18 @@ static void	_wait_for_childrens(void)
 	ft_last_exit_code((int)(final_status % 255));
 }
 
-static int	check_should_fork(
-	t_cmd *cmd_list,
+static int	_check_should_fork(
+	t_cmd **cmd_list,
 	t_executing_ctx *exec_ctx
 )
 {
 	if (exec_ctx->cmd_count != 1
 		|| exec_ctx->curr_idx != exec_ctx->cmd_count - 1)
 		return (0);
-	if (ft_strcmp(cmd_list[exec_ctx->curr_idx].cmd_name, "exit") == 0
-		|| ft_strcmp(cmd_list[exec_ctx->curr_idx].cmd_name, "cd") == 0
-		|| ft_strcmp(cmd_list[exec_ctx->curr_idx].cmd_name, "unset") == 0
-		|| ft_strcmp(cmd_list[exec_ctx->curr_idx].cmd_name, "export") == 0)
+	if (ft_strcmp(cmd_list[exec_ctx->curr_idx]->cmd_name, "exit") == 0
+		|| ft_strcmp(cmd_list[exec_ctx->curr_idx]->cmd_name, "cd") == 0
+		|| ft_strcmp(cmd_list[exec_ctx->curr_idx]->cmd_name, "unset") == 0
+		|| ft_strcmp(cmd_list[exec_ctx->curr_idx]->cmd_name, "export") == 0)
 		return (1);
 	return (0);
 }
@@ -69,12 +69,12 @@ void	clean_exec_ctx(
 )
 {
 	if (exec_ctx->cmd_list)
-		ft_free_cmd_list(&exec_ctx->cmd_list, exec_ctx->cmd_count);
+		ft_free_cmd_list(exec_ctx->cmd_list, exec_ctx->cmd_count);
 }
 
 void	execute_pipeline(
 	t_minishell_ctx *ctx,
-	t_cmd *cmd_list
+	t_cmd **cmd_list
 )
 {
 	t_executing_ctx	exec_ctx;
@@ -86,14 +86,14 @@ void	execute_pipeline(
 		return ;
 	while (exec_ctx.curr_idx < exec_ctx.cmd_count)
 	{
-		if (check_should_fork(cmd_list, &exec_ctx))
-			execute_builtin(ctx, &exec_ctx, &cmd_list[exec_ctx.curr_idx], 0);
+		if (_check_should_fork(cmd_list, &exec_ctx))
+			execute_builtin(ctx, &exec_ctx, cmd_list[exec_ctx.curr_idx], 0);
 		else
 		{
 			if (pipe(p_fd) == -1)
 				print_gen_error(ctx, ERR_PIPING);
 			else
-				fork_command(ctx, &cmd_list[exec_ctx.curr_idx],
+				fork_command(ctx, cmd_list[exec_ctx.curr_idx],
 					&exec_ctx, p_fd);
 		}
 		++(exec_ctx.curr_idx);

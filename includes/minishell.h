@@ -6,23 +6,12 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:16:47 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/07 20:25:38 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:21:57 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-// Include our .h
-
-# include "libft.h"
-# include "cmd.h"
-# include "context.h"
-# include "builtins.h"
-# include "env.h"
-# include "error.h"
-# include "colors.h"
-# include "utils.h"
 
 // Include libs
 
@@ -35,6 +24,18 @@
 # include <stdbool.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+
+// Include our .h
+
+# include "libft.h"
+# include "cmd.h"
+# include "context.h"
+# include "builtins.h"
+# include "env.h"
+# include "error.h"
+# include "colors.h"
+# include "utils.h"
+# include "parser.h"
 
 //	ENUMS
 
@@ -141,7 +142,7 @@ void	handle_here_doc(
 
 void	execute_pipeline(
 			t_minishell_ctx *ctx,
-			t_cmd *cmd_list);
+			t_cmd **cmd_list);
 
 void	clean_exec_ctx(
 			t_executing_ctx *exec_ctx);
