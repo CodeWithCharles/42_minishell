@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:11:44 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/11 09:24:48 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/11 17:38:57 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,11 @@ t_cmd	*handle_pipe(
 
 void	add_redirection(
 	t_token **tmp,
-	t_redir_node **redir_list,
+	t_list **redir_list,
 	int type
 )
 {
-	t_redir_node	*redir;
-
-	if ((*tmp)->next)
-	{
-		redir = new_redir((*tmp)->next->value, type);
-		if (!redir)
-			return ;
-		add_redir_node(redir_list, redir);
-		*tmp = (*tmp)->next;
-	}
+	ft_lstadd_back(redir_list, new_redir((*tmp)->next->value, type));
 }
 
 void	add_argument(
@@ -60,36 +51,15 @@ void	add_argument(
 	current_cmd->cmd_args[*args_count] = NULL;
 }
 
-t_redir_node	*new_redir(
+t_list	*new_redir(
 	char *file,
 	t_redir_type type
 )
 {
-	t_redir_node	*node;
+	t_redir	*redir;
 
-	node = malloc(sizeof(t_redir_node));
-	if (!node)
-		return (NULL);
-	node->redir.file = file;
-	node->redir.type = type;
-	node->next = NULL;
-	return (node);
-}
-
-void	add_redir_node(
-	t_redir_node **head,
-	t_redir_node *new
-)
-{
-	t_redir_node	*tmp;
-
-	if (!*head)
-		*head = new;
-	else
-	{
-		tmp = *head;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-	}
+	redir = malloc(sizeof(t_redir));
+	redir->file = file;
+	redir->type = type;
+	return (ft_lstnew(redir));
 }

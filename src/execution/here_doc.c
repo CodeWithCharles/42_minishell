@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 19:27:30 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/06 00:15:37 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:45:40 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,12 @@ void	handle_here_doc(
 	t_cmd *cmd
 )
 {
-	if (!cmd->redir_in.file)
+	t_redir	*last_redir;
+
+	last_redir = ft_lastredir(cmd->redir_in_list);
+	if (!last_redir->file)
 		return (print_gen_error(ctx, ERR_NO_HD_DELIMITER));
-	if (write_here_doc_to_file(ctx, cmd->redir_in.file) == -1)
+	if (write_here_doc_to_file(ctx, last_redir->file) == -1)
 		return (print_gen_error(ctx, ERR_WRITE_TO_HERE_DOC));
 	cmd->fd_in = open(TMP_HERE_DOC_PATH, O_RDONLY, 0644);
 	if (cmd->fd_in == -1)

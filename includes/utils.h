@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:59:54 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/11 16:59:11 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:44:21 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,9 @@ void	close_pipe(
 			int pipe[2]);
 
 bool	is_whitespace(char c);
+
+t_redir	*ft_lastredir(
+			t_list *redir_list
+			);
 
 #endif

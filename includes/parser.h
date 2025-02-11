@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:13:39 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/11 16:59:18 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:39:10 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_cmd			*handle_pipe(
 
 void			add_redirection(
 					t_token **tmp,
-					t_redir_node **redir_list,
+					t_list **redir_list,
 					int type);
 
 void			add_argument(
@@ -63,13 +63,9 @@ void			add_argument(
 					t_token *tmp,
 					size_t *args_count);
 
-t_redir_node	*new_redir(
+t_list			*new_redir(
 					char *file,
 					t_redir_type type);
-
-void			add_redir_node(
-					t_redir_node **head,
-					t_redir_node *new);
 
 t_cmd			*new_cmd(void);
 

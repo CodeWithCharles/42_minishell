@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:43:52 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/06 09:16:33 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:45:04 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,12 @@ static int	redirect_input(
 	int prev_fd
 )
 {
-	if (cmd->redir_in.type == REDIR_NONE && prev_fd == INVALID_FD)
+	t_redir	*last_redir;
+
+	last_redir = ft_lastredir(cmd->redir_in_list);
+	if (last_redir->type == REDIR_NONE && prev_fd == INVALID_FD)
 		return (RET_OK);
-	else if (cmd->redir_in.type == REDIR_NONE && prev_fd != INVALID_FD)
+	else if (last_redir->type == REDIR_NONE && prev_fd != INVALID_FD)
 		return (dup2(prev_fd, STDIN_FILENO), close(prev_fd), RET_OK);
 	if (prev_fd != INVALID_FD)
 		close(prev_fd);
@@ -48,10 +51,13 @@ static int	redirect_output(
 	int p_fd[2]
 )
 {
-	if (cmd->redir_out.type == REDIR_NONE
+	t_redir	*last_redir;
+
+	last_redir = ft_lastredir(cmd->redir_out_list);
+	if (last_redir->type == REDIR_NONE
 		&& exec_ctx->curr_idx == exec_ctx->cmd_count - 1)
 		return (RET_OK);
-	if (cmd->redir_out.type == REDIR_NONE)
+	if (last_redir->type == REDIR_NONE)
 		return (dup2(p_fd[1], STDOUT_FILENO), RET_OK);
 	if (cmd->fd_out == INVALID_FD)
 		return (dup2(p_fd[1], STDOUT_FILENO), RET_ERR);
