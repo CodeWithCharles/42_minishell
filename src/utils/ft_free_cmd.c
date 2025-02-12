@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 09:44:50 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/12 12:55:01 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:45:09 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_free_cmd_list(
 
 	i = 0;
 	while (i < cmd_count)
-		ft_free_cmd(&(*cmd_list)[i++]);
+		ft_free_cmd(cmd_list[i++]);
 	free(*cmd_list);
 	*cmd_list = NULL;
 }

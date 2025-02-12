@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup_cmd_fds.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:44:28 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/12 12:31:44 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:38:05 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	setup_infile_fd(
 		curr_redir = NULL;
 	else
 		curr_redir = ft_lastredir(cmd->redir_in_list);
-	if (!cmd->redir_in_list || curr_redir->type == REDIR_NONE)
+	if (!curr_redir || curr_redir->type == REDIR_NONE)
 		return (RET_OK);
 	if (curr_redir->type == REDIR_HEREDOC)
 		cmd->fd_in = open(curr_redir->file, O_RDONLY, 0644);
@@ -44,7 +44,7 @@ int	setup_outfile_fd(
 		curr_redir = NULL;
 	else
 		curr_redir = ft_lastredir(cmd->redir_out_list);
-	if (!cmd->redir_out_list || curr_redir->type == REDIR_NONE)
+	if (!curr_redir || curr_redir->type == REDIR_NONE)
 		return (RET_OK);
 	out_flags = O_WRONLY | O_CREAT;
 	if (curr_redir->type == REDIR_APPEND)
