@@ -6,21 +6,37 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 19:27:30 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/11 17:45:40 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/12 12:29:36 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+static void	get_here_doc_tmp_path(
+	t_redir **redir
+)
+{
+	static int	idx = 0;
+	char		*idx_str;
+
+	free((*redir)->file);
+	idx_str = ft_itoa(idx);
+	(*redir)->file = ft_strjoin(TMP_HERE_DOC_PATH, idx_str);
+	free(idx_str);
+	idx++;
+}
+
 static int	write_here_doc_to_file(
 	t_minishell_ctx *ctx,
+	t_redir **redir,
 	const char *delimiter
 )
 {
 	char	*line;
 	int		doc_fd;
 
-	doc_fd = open(TMP_HERE_DOC_PATH, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	get_here_doc_tmp_path(redir);
+	doc_fd = open((*redir)->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (doc_fd == INVALID_FD)
 		return (print_gen_error(ctx, ERR_COULD_NOT_OPEN_HD), RET_ERR);
 	line = NULL;
@@ -40,19 +56,21 @@ static int	write_here_doc_to_file(
 	return (RET_OK);
 }
 
-void	handle_here_doc(
+int	handle_here_doc(
 	t_minishell_ctx *ctx,
-	t_cmd *cmd
+	t_redir **redir
 )
 {
-	t_redir	*last_redir;
+	int	tmp_fd;
 
-	last_redir = ft_lastredir(cmd->redir_in_list);
-	if (!last_redir->file)
-		return (print_gen_error(ctx, ERR_NO_HD_DELIMITER));
-	if (write_here_doc_to_file(ctx, last_redir->file) == -1)
-		return (print_gen_error(ctx, ERR_WRITE_TO_HERE_DOC));
-	cmd->fd_in = open(TMP_HERE_DOC_PATH, O_RDONLY, 0644);
-	if (cmd->fd_in == -1)
-		return (print_gen_error(ctx, ERR_READ_HERE_DOC));
+	tmp_fd = -1;
+	if (!(*redir)->file)
+		return (print_gen_error(ctx, ERR_NO_HD_DELIMITER), RET_ERR);
+	if (write_here_doc_to_file(ctx, redir, (*redir)->file) == RET_ERR)
+		return (print_gen_error(ctx, ERR_WRITE_TO_HERE_DOC), RET_ERR);
+	tmp_fd = open((*redir)->file, O_RDONLY, 0644);
+	if (tmp_fd == -1)
+		return (print_gen_error(ctx, ERR_READ_HERE_DOC), RET_ERR);
+	else
+		return (close(tmp_fd), RET_OK);
 }

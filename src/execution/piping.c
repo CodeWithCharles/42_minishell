@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:49:23 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/11 16:23:58 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/12 12:36:44 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static int	_setup_exec_ctx(
 		return (RET_OK);
 	exec_ctx->last_fd = -1;
 	exec_ctx->cmd_list = cmd_list;
+	exec_ctx->curr_idx = -1;
 	return (RET_OK);
 }
 
@@ -84,8 +85,11 @@ void	execute_pipeline(
 	if (_setup_exec_ctx(cmd_list, &exec_ctx) == RET_ERR
 		|| exec_ctx.cmd_count <= 0)
 		return ;
-	while (exec_ctx.curr_idx < exec_ctx.cmd_count)
+	check_redir_files(ctx, &exec_ctx, cmd_list);
+	while (++exec_ctx.curr_idx < exec_ctx.cmd_count)
 	{
+		if (!cmd_list[exec_ctx.curr_idx]->cmd_name)
+			continue ;
 		if (_check_should_fork(cmd_list, &exec_ctx))
 			execute_builtin(ctx, &exec_ctx, cmd_list[exec_ctx.curr_idx], 0);
 		else
@@ -96,7 +100,6 @@ void	execute_pipeline(
 				fork_command(ctx, cmd_list[exec_ctx.curr_idx],
 					&exec_ctx, p_fd);
 		}
-		++(exec_ctx.curr_idx);
 	}
 	_wait_for_childrens();
 }

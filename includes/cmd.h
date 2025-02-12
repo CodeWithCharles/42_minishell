@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:13:25 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/11 17:03:39 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/12 12:35:42 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct s_cmd
 	char			**cmd_args;
 	t_list			*redir_in_list;
 	t_list			*redir_out_list;
-	t_redir			redir_out;
 	int				fd_in;
 	int				fd_out;
 	int				exit_code;

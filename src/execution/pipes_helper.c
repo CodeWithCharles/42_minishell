@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:43:52 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/12 09:39:28 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/12 12:32:22 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,12 @@ static int	redirect_output(
 }
 
 int	setup_redirections(
-	t_minishell_ctx *ctx,
 	t_executing_ctx *exec_ctx,
 	t_cmd *cmd,
 	int p_fd[2]
 )
 {
-	setup_cmd_fd_io(ctx, cmd);
+	setup_cmd_fd_io(cmd);
 	if (redirect_input(cmd, exec_ctx->last_fd) == RET_ERR)
 		return (close(p_fd[0]), close(p_fd[1]), RET_ERR);
 	if (redirect_output(exec_ctx, cmd, p_fd) == RET_ERR)
