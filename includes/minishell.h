@@ -6,23 +6,12 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:16:47 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/07 20:25:38 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/12 12:32:29 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-// Include our .h
-
-# include "libft.h"
-# include "cmd.h"
-# include "context.h"
-# include "builtins.h"
-# include "env.h"
-# include "error.h"
-# include "colors.h"
-# include "utils.h"
 
 // Include libs
 
@@ -35,6 +24,18 @@
 # include <stdbool.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+
+// Include our .h
+
+# include "libft.h"
+# include "cmd.h"
+# include "context.h"
+# include "builtins.h"
+# include "env.h"
+# include "error.h"
+# include "colors.h"
+# include "utils.h"
+# include "parser.h"
 
 //	ENUMS
 
@@ -130,18 +131,17 @@ int		fork_command(
 			int p_fd[2]);
 
 int		setup_redirections(
-			t_minishell_ctx *ctx,
 			t_executing_ctx *exec_ctx,
 			t_cmd *cmd,
 			int p_fd[2]);
 
-void	handle_here_doc(
+int		handle_here_doc(
 			t_minishell_ctx *ctx,
-			t_cmd *cmd);
+			t_redir **redir);
 
 void	execute_pipeline(
 			t_minishell_ctx *ctx,
-			t_cmd *cmd_list);
+			t_cmd **cmd_list);
 
 void	clean_exec_ctx(
 			t_executing_ctx *exec_ctx);
@@ -157,15 +157,12 @@ void	ft_free_post_builtin(
 			char **envp);
 
 int		setup_outfile_fd(
-			t_minishell_ctx *ctx,
 			t_cmd *cmd);
 
 int		setup_infile_fd(
-			t_minishell_ctx *ctx,
 			t_cmd *cmd);
 
 int		setup_cmd_fd_io(
-			t_minishell_ctx *ctx,
 			t_cmd *cmd);
 
 void	custom_exit(
@@ -176,5 +173,11 @@ void	custom_exit(
 void	clean_after_exec(
 			t_executing_ctx *exec_ctx,
 			char **envp);
+
+int		check_redir_files(
+			t_minishell_ctx *ctx,
+			t_executing_ctx *exec_ctx,
+			t_cmd **cmd_list
+			);
 
 #endif
