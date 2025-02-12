@@ -3,27 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:11:44 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/12 10:09:57 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:22:25 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_cmd	*handle_pipe(
-	t_cmd **cmds,
-	t_cmd *current_cmd,
+void	handle_pipe(
+	t_cmd ***cmds,
 	size_t *cmd_count,
 	size_t *args_count
 )
 {
-	cmds = add_cmd(cmds, current_cmd, cmd_count);
+	add_cmd(cmds, cmd_count);
 	if (!cmds)
-		return (NULL);
+		return ;
 	*args_count = 0;
-	return (new_cmd());
 }
 
 void	add_redirection(
@@ -37,19 +35,19 @@ void	add_redirection(
 }
 
 void	add_argument(
-	t_cmd *current_cmd,
+	t_cmd **current_cmd,
 	t_token *tmp,
 	size_t *args_count
 )
 {
-	if (!current_cmd->cmd_name)
-		current_cmd->cmd_name = tmp->value;
-	current_cmd->cmd_args = realloc(current_cmd->cmd_args,
+	if (!(*current_cmd)->cmd_name)
+		(*current_cmd)->cmd_name = tmp->value;
+	(*current_cmd)->cmd_args = realloc((*current_cmd)->cmd_args,
 			sizeof(char *) * (*args_count + 2));
-	if (!current_cmd->cmd_args)
+	if (!(*current_cmd)->cmd_args)
 		return ;
-	current_cmd->cmd_args[(*args_count)++] = ft_strdup(tmp->value);
-	current_cmd->cmd_args[*args_count] = NULL;
+	(*current_cmd)->cmd_args[(*args_count)++] = ft_strdup(tmp->value);
+	(*current_cmd)->cmd_args[*args_count] = NULL;
 }
 
 t_list	*new_redir(
