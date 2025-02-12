@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:11:44 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/11 17:38:57 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/12 10:09:57 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	add_redirection(
 )
 {
 	ft_lstadd_back(redir_list, new_redir((*tmp)->next->value, type));
+	*tmp = (*tmp)->next;
 }
 
 void	add_argument(
