@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:44:28 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/11 17:56:06 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/12 10:03:43 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ int	setup_infile_fd(
 {
 	t_redir	*curr_redir;
 
-	curr_redir = ft_lastredir(cmd->redir_in_list);
-	if (curr_redir->type == REDIR_NONE)
+	if (!cmd->redir_in_list)
+		curr_redir = NULL;
+	else
+		curr_redir = ft_lastredir(cmd->redir_in_list);
+	if (!cmd->redir_in_list || curr_redir->type == REDIR_NONE)
 		return (RET_OK);
 	if (curr_redir->type == REDIR_HEREDOC)
 		handle_here_doc(ctx, cmd);
@@ -44,13 +47,16 @@ int	setup_outfile_fd(
 	int		out_flags;
 	t_redir	*curr_redir;
 
-	curr_redir = ft_lastredir(cmd->redir_out_list);
-	if (curr_redir->type == REDIR_NONE)
+	if (!cmd->redir_out_list)
+		curr_redir = NULL;
+	else
+		curr_redir = ft_lastredir(cmd->redir_out_list);
+	if (!cmd->redir_out_list || curr_redir->type == REDIR_NONE)
 		return (RET_OK);
 	out_flags = O_WRONLY | O_CREAT;
 	if (curr_redir->type == REDIR_APPEND)
 		cmd->fd_out = open(curr_redir->file, out_flags | O_APPEND, 0644);
-	else if (cmd->redir_out.type != REDIR_NONE)
+	else if (curr_redir->type != REDIR_NONE)
 		cmd->fd_out = open(curr_redir->file, out_flags | O_TRUNC, 0644);
 	if (cmd->fd_out == INVALID_FD && curr_redir->type != REDIR_NONE)
 	{
@@ -65,19 +71,9 @@ int	setup_cmd_fd_io(
 	t_cmd *cmd
 )
 {
-	t_redir	*last_redir;
-
-	last_redir = NULL;
-	if (cmd->redir_in_list)
-		last_redir = ft_lastredir(cmd->redir_in_list);
-	if (last_redir && last_redir->file
-		&& setup_infile_fd(ctx, cmd) == RET_ERR)
+	if (setup_infile_fd(ctx, cmd) == RET_ERR)
 		return (RET_ERR);
-	last_redir = NULL;
-	if (cmd->redir_out_list)
-		last_redir = ft_lastredir(cmd->redir_out_list);
-	if (last_redir && last_redir->file
-		&& setup_outfile_fd(ctx, cmd) == RET_ERR)
+	if (setup_outfile_fd(ctx, cmd) == RET_ERR)
 		return (RET_ERR);
 	return (RET_OK);
 }
