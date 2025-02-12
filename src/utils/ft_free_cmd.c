@@ -6,11 +6,20 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 09:44:50 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/11 16:37:38 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/12 12:55:01 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	ft_free_redirs(
+	void *redir
+)
+{
+	if (((t_redir *)redir)->file)
+		free(((t_redir *)redir)->file);
+	free((t_redir *)redir);
+}
 
 void	ft_free_cmd(
 	t_cmd *cmd
@@ -22,6 +31,10 @@ void	ft_free_cmd(
 		free(cmd->cmd_name);
 	if (cmd->cmd_args)
 		ft_free_split(&cmd->cmd_args);
+	if (cmd->redir_in_list)
+		ft_lstclear(&(cmd->redir_in_list), ft_free_redirs);
+	if (cmd->redir_out_list)
+		ft_lstclear(&(cmd->redir_out_list), ft_free_redirs);
 }
 
 void	ft_free_cmd_list(
