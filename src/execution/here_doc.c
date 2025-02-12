@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 19:27:30 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/12 12:29:36 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:31:36 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,19 @@ int	handle_here_doc(
 	t_redir **redir
 )
 {
-	int	tmp_fd;
+	int		tmp_fd;
+	char	*delimiter;
 
 	tmp_fd = -1;
-	if (!(*redir)->file)
+	delimiter = ft_strdup((*redir)->file);
+	if (!delimiter)
 		return (print_gen_error(ctx, ERR_NO_HD_DELIMITER), RET_ERR);
-	if (write_here_doc_to_file(ctx, redir, (*redir)->file) == RET_ERR)
+	if (write_here_doc_to_file(ctx, redir, delimiter) == RET_ERR)
+	{
+		free(delimiter);
 		return (print_gen_error(ctx, ERR_WRITE_TO_HERE_DOC), RET_ERR);
+	}
+	free(delimiter);
 	tmp_fd = open((*redir)->file, O_RDONLY, 0644);
 	if (tmp_fd == -1)
 		return (print_gen_error(ctx, ERR_READ_HERE_DOC), RET_ERR);
