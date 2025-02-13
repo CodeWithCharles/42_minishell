@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:11:44 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/13 17:46:34 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:05:29 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ void	add_argument(
 {
 	if (!(*current_cmd)->cmd_name)
 		(*current_cmd)->cmd_name = ft_strdup((*tmp)->value);
-	if (!(*current_cmd)->cmd_args)
-		(*current_cmd)->cmd_args = malloc(sizeof(char *) * 2);
-	else
-		(*current_cmd)->cmd_args = ft_realloc((*current_cmd)->cmd_args,
+	// if (!(*current_cmd)->cmd_args)
+	// 	(*current_cmd)->cmd_args = malloc(sizeof(char *) * 2);
+	// else
+	(*current_cmd)->cmd_args = ft_realloc((*current_cmd)->cmd_args,
 				sizeof(char *) * (*args_count + 2));
 	if (!(*current_cmd)->cmd_args)
 		return ;
