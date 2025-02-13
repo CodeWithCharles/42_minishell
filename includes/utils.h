@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:59:54 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/07 20:31:18 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/13 08:05:35 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ typedef struct s_expand_vars
 
 // Functions
 
-void	ft_free_split(
-			char ***split);
-
 char	**spooq(
 			char *str,
 			char sep);
@@ -40,11 +37,6 @@ char	*ft_strtok_quotes(char *str, char sep);
 
 int		ft_last_exit_code(
 			int exit_code);
-
-void	ft_lstremove(
-			t_list **lst,
-			void (*del)()
-			);
 
 char	*ft_which(
 			const char	*cmd
@@ -89,7 +81,7 @@ t_cmd	*parse_commands(
 			char *input);
 
 int		ft_cmd_count(
-			t_cmd *cmd_list);
+			t_cmd **cmd_list);
 
 void	ft_free_cmd(
 			t_cmd *cmd);
@@ -101,7 +93,18 @@ void	ft_free_cmd_list(
 void	close_pipe(
 			int pipe[2]);
 
-char	*ft_realpath(
-			const char *relative_path);
+bool	is_whitespace(char c);
+
+t_redir	*ft_lastredir(
+			t_list *redir_list
+			);
+
+t_redir	*ft_ltor(
+			t_list *redir_list
+			);
+
+void	*ft_realloc(
+			void *ptr,
+			size_t size);
 
 #endif

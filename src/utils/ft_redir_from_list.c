@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstremove.c                                     :+:      :+:    :+:   */
+/*   ft_redir_from_list.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/30 15:41:19 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/30 15:56:37 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/02/12 11:11:06 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/02/12 11:12:16 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_lstremove(
-	t_list **lst,
-	void (*del)()
+t_redir	*ft_ltor(
+	t_list *redir_list
 )
 {
-	t_list	*tmp;
-
-	if (*lst)
-	{
-		tmp = (*lst)->next;
-		ft_lstdelone(*lst, del);
-		*lst = tmp;
-	}
+	return ((t_redir *)redir_list->content);
 }

@@ -6,7 +6,7 @@
 #    By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 16:33:26 by cpoulain          #+#    #+#              #
-#    Updated: 2025/01/28 16:24:23 by cpoulain         ###   ########.fr        #
+#    Updated: 2025/02/11 16:57:24 by cpoulain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,8 @@ fcleanlibs:
 	@$(MAKE) fclean -C $(LIBFT_PATH)
 
 re: fclean all
+
+relibs: dellibs re
 
 norminette:
 	@norminette $(SRC_DIR) $(INC_DIR) | grep -Ev '^Notice|OK!$$'	\

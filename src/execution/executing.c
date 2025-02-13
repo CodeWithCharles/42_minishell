@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:16:42 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/07 20:17:57 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/12 12:32:51 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	fork_command(
 	if (cmd_pid == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
-		if (setup_redirections(ctx, exec_ctx, cmd, p_fd) == RET_ERR)
+		if (setup_redirections(exec_ctx, cmd, p_fd) == RET_ERR)
 			custom_exit(exec_ctx, NULL, RET_ERR);
 		if (is_valid_builtin(cmd->cmd_name))
 			execute_builtin(ctx, exec_ctx, cmd, 1);
