@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:03:55 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/13 10:07:27 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/13 13:53:17 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ t_token	*tokenize(
 	}
 	if (in_quotes)
 		return (handle_unmatched_quotes(tokens));
+	// free((char *)input);
 	return (tokens);
 }
 
@@ -111,8 +112,9 @@ t_cmd	**parse_tokens(
 
 	tmp = tokens;
 	parser.cmd_count = 0;
-	parser.cmds = malloc(sizeof(t_cmd *) * (parser.cmd_count + 1));
+	parser.cmds = malloc(sizeof(t_cmd *) * (parser.cmd_count + 2));
 	parser.cmds[0] = new_cmd();
+	parser.cmds[1] = NULL;
 	parser.cmd_count++;
 	parser.args_count = 0;
 	while (tmp)

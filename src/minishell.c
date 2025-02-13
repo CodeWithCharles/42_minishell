@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:51:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/11 16:24:10 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/13 14:13:22 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static	t_should_continue	handle_input(
 	add_history(input);
 	tokens = tokenize(input);
 	cmds = parse_tokens(tokens);
+	if (tokens)
+		free_tokens(tokens);
 	if (!cmds)
 		return (free(input), SHOULD_NOT_CONTINUE);
 	if (should_free)

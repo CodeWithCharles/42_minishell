@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:08:48 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/13 10:32:24 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/13 14:20:53 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	handle_word_tokens(
 	}
 	word = ft_strndup(&input[start], *i - start);
 	add_token(tokens, new_token(WORD, word));
-	return (free(word), 1);
+	return (1);
 }
 
 t_token	*handle_unmatched_quotes(

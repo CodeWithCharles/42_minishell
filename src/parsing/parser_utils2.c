@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:11:44 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/13 10:41:22 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/13 13:43:27 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,11 @@ void	add_argument(
 {
 	if (!(*current_cmd)->cmd_name)
 		(*current_cmd)->cmd_name = tmp->value;
-	(*current_cmd)->cmd_args = ft_realloc((*current_cmd)->cmd_args,
-			sizeof(char *) * (*args_count + 2));
+	if (!(*current_cmd)->cmd_args)
+		(*current_cmd)->cmd_args = malloc(sizeof(char *) * 2);
+	else
+		(*current_cmd)->cmd_args = ft_realloc((*current_cmd)->cmd_args,
+				sizeof(char *) * (*args_count + 2));
 	if (!(*current_cmd)->cmd_args)
 		return ;
 	tmp->value = trim_quotes(tmp->value);

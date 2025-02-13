@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:26:04 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/12 16:17:55 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:25:57 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,20 @@ t_token	*new_token(t_redir_type type, char *value)
 	token->type = type;
 	token->value = ft_strdup(value);
 	token->next = NULL;
+	free(value);
 	return (token);
 }
 
 void	free_tokens(t_token *tokens)
 {
+	t_token	*head;
 	t_token	*tmp;
 
 	while (tokens)
 	{
 		tmp = tokens;
-		tokens = tokens->next;
-		free(tmp->value);
-		free(tmp);
+		free(tokens->value);
+		free(tokens);
+		tokens = tmp;
 	}
 }
