@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 09:44:50 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/13 16:20:11 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:51:12 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_free_cmd_list(
 	int	i;
 
 	i = 0;
-	while (i < cmd_count + 1)
+	while (i < cmd_count)
 		ft_free_cmd(&(*cmd_list)[i++]);
 	free(*cmd_list);
 	*cmd_list = NULL;
