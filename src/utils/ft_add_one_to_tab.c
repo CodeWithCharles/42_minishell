@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   ft_add_one_to_tab.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 08:04:43 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/13 18:13:43 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:22:22 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	*ft_realloc(void *ptr, size_t size)
+void	*ft_add_one_to_tab(void *ptr, size_t size)
 {
 	char	*new_ptr;
 

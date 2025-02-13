@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:03:55 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/13 17:42:15 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:21:53 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	add_cmd(t_cmd ***cmds, size_t *cmd_count)
 {
 	if (*cmds)
-		*cmds = ft_realloc(*cmds, sizeof(t_cmd *) * (*cmd_count + 2));
+		*cmds = ft_add_one_to_tab(*cmds, sizeof(t_cmd *) * (*cmd_count + 2));
 	else
 		*cmds = malloc(sizeof(t_cmd *) * (*cmd_count + 2));
 	if (!cmds)

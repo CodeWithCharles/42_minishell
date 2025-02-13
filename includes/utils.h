@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:59:54 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/13 16:17:58 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:21:46 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_redir	*ft_ltor(
 			t_list *redir_list
 			);
 
-void	*ft_realloc(
+void	*ft_add_one_to_tab(
 			void *ptr,
 			size_t size);
 
