@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:51:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/13 14:13:22 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/13 16:22:16 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static	t_should_continue	handle_input(
 )
 {
 	t_cmd	**cmds;
-	t_token	*tokens;
+	t_list	*tokens;
 
 	(void)ctx;
 	if (input == NULL)
@@ -30,14 +30,14 @@ static	t_should_continue	handle_input(
 	tokens = tokenize(input);
 	cmds = parse_tokens(tokens);
 	if (tokens)
-		free_tokens(tokens);
+		ft_lstclear(&tokens, free_token);
 	if (!cmds)
 		return (free(input), SHOULD_NOT_CONTINUE);
 	if (should_free)
 		free(input);
 	execute_pipeline(ctx, cmds);
 	if (cmds)
-		ft_free_cmd_list(cmds, ft_cmd_count(cmds));
+		ft_free_cmd_list(&cmds, ft_cmd_count(cmds));
 	return (SHOULD_CONTINUE);
 }
 

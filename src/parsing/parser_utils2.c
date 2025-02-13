@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:11:44 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/13 13:43:27 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/13 15:08:56 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ void	handle_pipe(
 }
 
 void	add_redirection(
-	t_token **tmp,
+	t_list **tmp,
 	t_list **redir_list,
 	int type
 )
 {
-	ft_lstadd_back(redir_list, new_redir((*tmp)->next->value, type));
+	ft_lstadd_back(redir_list,
+		new_redir(((t_token *)(*tmp)->next)->value, type));
 	*tmp = (*tmp)->next;
 }
 

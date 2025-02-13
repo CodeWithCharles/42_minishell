@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:03:55 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/13 13:53:17 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/13 16:45:01 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 void	add_cmd(t_cmd ***cmds, size_t *cmd_count)
 {
-	*cmds = ft_realloc(*cmds, sizeof(t_cmd *) * (*cmd_count + 2));
+	if (*cmds)
+		*cmds = ft_realloc(*cmds, sizeof(t_cmd *) * (*cmd_count + 2));
+	else
+		*cmds = malloc(sizeof(t_cmd *) * (*cmd_count + 2));
 	if (!cmds)
 		return ((void)ft_printf("Error realloc\n"));
 	(*cmds)[*cmd_count] = new_cmd();
@@ -53,10 +56,10 @@ char	*args_to_string(
 	return (str);
 }
 
-t_token	*tokenize(
+t_list	*tokenize(
 	const char *input)
 {
-	t_token	*tokens;
+	t_list	*tokens;
 	size_t	i;
 	int		in_quotes;
 
@@ -78,44 +81,45 @@ t_token	*tokenize(
 			continue ;
 	}
 	if (in_quotes)
-		return (handle_unmatched_quotes(tokens));
+		return (handle_unmatched_quotes(&tokens), NULL);
 	// free((char *)input);
 	return (tokens);
 }
 
 void	process_token(
-	t_token **tmp,
+	t_list **tmp,
 	t_cmd ***cmds,
 	t_parser *parser
 )
 {
-	if ((*tmp)->type == PIPE)
+	t_token	*token;
+
+	token = ft_ltotoken(*tmp);
+	if (token->type == PIPE)
 		handle_pipe(&parser->cmds, &parser->cmd_count, &parser->args_count);
-	else if ((*tmp)->type == REDIR_INPUT || (*tmp)->type == REDIR_HEREDOC)
+	else if (token->type == REDIR_INPUT || token->type == REDIR_HEREDOC)
 		add_redirection(tmp, &((*cmds)[parser->cmd_count - 1])->redir_in_list,
-			(*tmp)->type);
-	else if ((*tmp)->type == REDIR_OUTPUT || (*tmp)->type == REDIR_APPEND)
+			token->type);
+	else if (token->type == REDIR_OUTPUT || token->type == REDIR_APPEND)
 		add_redirection(tmp, &((*cmds)[parser->cmd_count - 1])->redir_out_list,
-			(*tmp)->type);
-	else if ((*tmp)->type == WORD)
+			token->type);
+	else if (token->type == WORD)
 		add_argument(&((*cmds)[parser->cmd_count - 1]),
-			*tmp, &parser->args_count);
+			token, &parser->args_count);
 	*tmp = (*tmp)->next;
 }
 
 t_cmd	**parse_tokens(
-	t_token *tokens
+	t_list *tokens
 )
 {
-	t_token		*tmp;
+	t_list		*tmp;
 	t_parser	parser;
 
 	tmp = tokens;
 	parser.cmd_count = 0;
-	parser.cmds = malloc(sizeof(t_cmd *) * (parser.cmd_count + 2));
-	parser.cmds[0] = new_cmd();
-	parser.cmds[1] = NULL;
-	parser.cmd_count++;
+	parser.cmds = NULL;
+	add_cmd(&parser.cmds, &parser.cmd_count);
 	parser.args_count = 0;
 	while (tmp)
 		process_token(&tmp, &parser.cmds, &parser);
