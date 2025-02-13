@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:03:55 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/12 16:49:31 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/13 08:06:33 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	add_cmd(t_cmd ***cmds, size_t *cmd_count)
 {
-	*cmds = realloc(*cmds, sizeof(t_cmd *) * (*cmd_count + 2));
+	*cmds = ft_realloc(*cmds, sizeof(t_cmd *) * (*cmd_count + 2));
 	if (!cmds)
-		return ((void)printf("Error realloc\n"));
+		return ((void)ft_printf("Error realloc\n"));
 	(*cmds)[*cmd_count] = new_cmd();
 	(*cmds)[*cmd_count + 1] = NULL;
 	(*cmd_count)++;

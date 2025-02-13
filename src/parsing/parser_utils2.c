@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:11:44 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/12 16:22:25 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/13 08:05:54 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	add_argument(
 {
 	if (!(*current_cmd)->cmd_name)
 		(*current_cmd)->cmd_name = tmp->value;
-	(*current_cmd)->cmd_args = realloc((*current_cmd)->cmd_args,
+	(*current_cmd)->cmd_args = ft_realloc((*current_cmd)->cmd_args,
 			sizeof(char *) * (*args_count + 2));
 	if (!(*current_cmd)->cmd_args)
 		return ;
