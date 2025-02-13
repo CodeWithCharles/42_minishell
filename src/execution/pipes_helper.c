@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_helper.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:43:52 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/12 12:32:22 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/13 10:07:47 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ static int	redirect_input(
 		last_redir = NULL;
 	else
 		last_redir = ft_lastredir(cmd->redir_in_list);
-	if ((!last_redir || last_redir->type == REDIR_NONE) && prev_fd == INVALID_FD)
+	if ((!last_redir || last_redir->type == REDIR_NONE)
+		&& prev_fd == INVALID_FD)
 		return (RET_OK);
-	else if ((!last_redir || last_redir->type == REDIR_NONE) && prev_fd != INVALID_FD)
+	else if ((!last_redir || last_redir->type == REDIR_NONE)
+		&& prev_fd != INVALID_FD)
 		return (dup2(prev_fd, STDIN_FILENO), close(prev_fd), RET_OK);
 	if (prev_fd != INVALID_FD)
 		close(prev_fd);
