@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:03:55 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/13 08:06:33 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/13 10:07:27 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,14 @@ void	process_token(
 	if ((*tmp)->type == PIPE)
 		handle_pipe(&parser->cmds, &parser->cmd_count, &parser->args_count);
 	else if ((*tmp)->type == REDIR_INPUT || (*tmp)->type == REDIR_HEREDOC)
-		add_redirection(tmp, &((*cmds)[parser->cmd_count - 1])->redir_in_list, (*tmp)->type);
+		add_redirection(tmp, &((*cmds)[parser->cmd_count - 1])->redir_in_list,
+			(*tmp)->type);
 	else if ((*tmp)->type == REDIR_OUTPUT || (*tmp)->type == REDIR_APPEND)
-		add_redirection(tmp, &((*cmds)[parser->cmd_count - 1])->redir_out_list, (*tmp)->type);
+		add_redirection(tmp, &((*cmds)[parser->cmd_count - 1])->redir_out_list,
+			(*tmp)->type);
 	else if ((*tmp)->type == WORD)
-		add_argument(&((*cmds)[parser->cmd_count - 1]), *tmp, &parser->args_count);
+		add_argument(&((*cmds)[parser->cmd_count - 1]),
+			*tmp, &parser->args_count);
 	*tmp = (*tmp)->next;
 }
 

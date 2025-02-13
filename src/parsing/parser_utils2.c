@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:11:44 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/13 08:05:54 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/13 10:41:22 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	add_argument(
 			sizeof(char *) * (*args_count + 2));
 	if (!(*current_cmd)->cmd_args)
 		return ;
+	tmp->value = trim_quotes(tmp->value);
 	(*current_cmd)->cmd_args[(*args_count)++] = ft_strdup(tmp->value);
 	(*current_cmd)->cmd_args[*args_count] = NULL;
 }

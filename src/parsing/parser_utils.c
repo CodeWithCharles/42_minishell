@@ -6,13 +6,17 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:08:48 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/11 16:33:45 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/13 10:32:24 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	handle_special_tokens(t_token **tokens, const char *input, size_t *i)
+int	handle_special_tokens(
+	t_token **tokens,
+	const char *input,
+	size_t *i
+)
 {
 	if (input[*i] == '|')
 	{
@@ -27,12 +31,22 @@ int	handle_special_tokens(t_token **tokens, const char *input, size_t *i)
 	return (0);
 }
 
-int	handle_var_expansion(t_token **tokens, const char *input, size_t *i)
+int	handle_var_expansion(
+	t_token **tokens,
+	const char *input,
+	size_t *i
+	)
 {
 	size_t	start;
 	char	*var_name;
 	char	*var_value;
 
+	if (input[*i] == '$' && input[*i + 1] == '?')
+	{
+		add_token(tokens, new_token(WORD, ft_itoa(ft_last_exit_code(-1))));
+		(*i) += 2;
+		return (1);
+	}
 	if (input[*i] == '$' && (ft_isalpha(input[*i + 1]) || input[*i + 1] == '_'))
 	{
 		start = ++(*i);
@@ -50,7 +64,12 @@ int	handle_var_expansion(t_token **tokens, const char *input, size_t *i)
 	return (0);
 }
 
-int	handle_word_tokens(t_token **tokens, const char *input, size_t *i, int *in_quotes)
+int	handle_word_tokens(
+	t_token **tokens,
+	const char *input,
+	size_t *i,
+	int *in_quotes
+)
 {
 	size_t	start;
 	char	quote_char;
@@ -79,7 +98,9 @@ int	handle_word_tokens(t_token **tokens, const char *input, size_t *i, int *in_q
 	return (free(word), 1);
 }
 
-t_token	*handle_unmatched_quotes(t_token *tokens)
+t_token	*handle_unmatched_quotes(
+	t_token *tokens
+)
 {
 	fd_printf(STDERR_FILENO, "Unmatched quote\n");
 	free_tokens(tokens);
