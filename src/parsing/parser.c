@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:03:55 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/13 16:45:01 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:42:15 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	process_token(
 			token->type);
 	else if (token->type == WORD)
 		add_argument(&((*cmds)[parser->cmd_count - 1]),
-			token, &parser->args_count);
+			&token, &parser->args_count);
 	*tmp = (*tmp)->next;
 }
 

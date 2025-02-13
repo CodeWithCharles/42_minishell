@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:13:39 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/13 16:56:59 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:42:58 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void			add_redirection(
 
 void			add_argument(
 					t_cmd **current_cmd,
-					t_token *tmp,
+					t_token **tmp,
 					size_t *args_count);
 
 t_list			*new_redir(
@@ -93,7 +93,7 @@ void			add_cmd(
 					t_cmd ***cmds,
 					size_t *cmd_count);
 
-char	*trim_quotes(
-					const char *str);
+void			trim_quotes(
+					char **str);
 
 #endif

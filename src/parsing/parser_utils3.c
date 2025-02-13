@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:26:04 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/13 16:58:17 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:31:29 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,11 @@ void	free_token(void *token)
 	if (t)
 	{
 		if (t->value)
+		{
 			free(t->value);
+			t->value = NULL;
+		}
 		free(t);
+		t = NULL;
 	}
 }

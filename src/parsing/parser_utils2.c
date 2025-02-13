@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:11:44 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/13 15:08:56 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:46:34 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	add_redirection(
 
 void	add_argument(
 	t_cmd **current_cmd,
-	t_token *tmp,
+	t_token **tmp,
 	size_t *args_count
 )
 {
 	if (!(*current_cmd)->cmd_name)
-		(*current_cmd)->cmd_name = tmp->value;
+		(*current_cmd)->cmd_name = ft_strdup((*tmp)->value);
 	if (!(*current_cmd)->cmd_args)
 		(*current_cmd)->cmd_args = malloc(sizeof(char *) * 2);
 	else
@@ -50,8 +50,8 @@ void	add_argument(
 				sizeof(char *) * (*args_count + 2));
 	if (!(*current_cmd)->cmd_args)
 		return ;
-	tmp->value = trim_quotes(tmp->value);
-	(*current_cmd)->cmd_args[(*args_count)++] = ft_strdup(tmp->value);
+	trim_quotes(&(*tmp)->value);
+	(*current_cmd)->cmd_args[(*args_count)++] = ft_strdup((*tmp)->value);
 	(*current_cmd)->cmd_args[*args_count] = NULL;
 }
 
