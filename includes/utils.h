@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:59:54 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/11 16:20:52 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/13 18:21:46 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ typedef struct s_expand_vars
 
 // Functions
 
-void	ft_free_split(
-			char ***split);
-
 char	**spooq(
 			char *str,
 			char sep);
@@ -40,11 +37,6 @@ char	*ft_strtok_quotes(char *str, char sep);
 
 int		ft_last_exit_code(
 			int exit_code);
-
-void	ft_lstremove(
-			t_list **lst,
-			void (*del)()
-			);
 
 char	*ft_which(
 			const char	*cmd
@@ -92,20 +84,31 @@ int		ft_cmd_count(
 			t_cmd **cmd_list);
 
 void	ft_free_cmd(
-			t_cmd *cmd);
+			t_cmd **cmd);
 
 void	ft_free_cmd_list(
-			t_cmd **cmd,
+			t_cmd ***cmd,
 			int cmd_count);
 
 void	close_pipe(
 			int pipe[2]);
 
-char	*ft_realpath(
-			const char *relative_path);
-
 bool	is_whitespace(char c);
 
-char	*ft_strndup(const char *s, size_t n);
+t_redir	*ft_lastredir(
+			t_list *redir_list
+			);
+
+t_redir	*ft_ltor(
+			t_list *redir_list
+			);
+
+void	*ft_add_one_to_tab(
+			void *ptr,
+			size_t size);
+
+t_token	*ft_ltotoken(
+			t_list *node
+			);
 
 #endif

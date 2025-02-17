@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstremove.c                                     :+:      :+:    :+:   */
+/*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/30 15:41:19 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/30 15:56:37 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/02/17 13:00:32 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/02/17 13:41:59 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-void	ft_lstremove(
-	t_list **lst,
-	void (*del)()
+void	handle_parse_error(
+	t_minishell_ctx *ctx,
+	const char *error,
+	t_list **tokens
 )
 {
-	t_list	*tmp;
-
-	if (*lst)
-	{
-		tmp = (*lst)->next;
-		ft_lstdelone(*lst, del);
-		*lst = tmp;
-	}
+	print_gen_error(ctx, error);
+	if (tokens)
+		ft_lstclear(tokens, free_token);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:13:25 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/11 16:22:57 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/13 14:57:14 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,12 @@ typedef struct s_redir
 	t_redir_type	type;
 }	t_redir;
 
-typedef struct s_redir_node
-{
-	t_redir				redir;
-	struct s_redir_node	*next;
-}	t_redir_node;
-
-
 typedef struct s_cmd
 {
 	char			*cmd_name;
 	char			**cmd_args;
-	t_redir_node	*redir_in_list;
-	t_redir_node	*redir_out_list;
-	t_redir			redir_out;
+	t_list			*redir_in_list;
+	t_list			*redir_out_list;
 	int				fd_in;
 	int				fd_out;
 	int				exit_code;
@@ -56,7 +48,6 @@ typedef struct s_token
 {
 	t_redir_type	type;
 	char			*value;
-	struct s_token	*next;
 }	t_token;
 
 typedef struct s_parser

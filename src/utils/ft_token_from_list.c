@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   ft_token_from_list.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/06 11:16:19 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/17 15:39:52 by jcheron          ###   ########.fr       */
+/*   Created: 2025/02/13 15:14:12 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/02/13 15:15:14 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
-int	ft_unset(
-	t_minishell_ctx *ctx,
-	char **args
+t_token	*ft_ltotoken(
+	t_list *node
 )
 {
-	int		i;
-
-	(void)ctx;
-	i = 1;
-	while (args[i])
-		ft_unsetenv(args[i++]);
-	return (RET_OK);
+	return ((t_token *)node->content);
 }

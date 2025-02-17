@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*   ft_add_one_to_tab.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/11 16:34:28 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/11 16:34:44 by jcheron          ###   ########.fr       */
+/*   Created: 2025/02/13 08:04:43 by jcheron           #+#    #+#             */
+/*   Updated: 2025/02/17 13:20:38 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_strndup(const char *s, size_t n)
+void	*ft_add_one_to_tab(void *ptr, size_t size)
 {
-	char	*dup;
-	size_t	i;
+	char	*new_ptr;
 
-	dup = malloc(n + 1);
-	if (!dup)
+	if (!ptr)
+		return (malloc(size));
+	new_ptr = malloc(size);
+	if (!new_ptr)
 		return (NULL);
-	i = 0;
-	while (i < n)
-	{
-		dup[i] = s[i];
-		i++;
-	}
-	dup[i] = '\0';
-	return (dup);
+	ft_bzero(new_ptr, size);
+	ft_memcpy(new_ptr, ptr, size - sizeof(char *));
+	free(ptr);
+	return (new_ptr);
 }
