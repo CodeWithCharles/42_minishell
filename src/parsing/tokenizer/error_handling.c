@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_one_to_tab.c                                :+:      :+:    :+:   */
+/*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/13 08:04:43 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/17 13:20:38 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/02/17 13:00:32 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/02/17 13:41:59 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../includes/minishell.h"
 
-void	*ft_add_one_to_tab(void *ptr, size_t size)
+void	handle_parse_error(
+	t_minishell_ctx *ctx,
+	const char *error,
+	t_list **tokens
+)
 {
-	char	*new_ptr;
-
-	if (!ptr)
-		return (malloc(size));
-	new_ptr = malloc(size);
-	if (!new_ptr)
-		return (NULL);
-	ft_bzero(new_ptr, size);
-	ft_memcpy(new_ptr, ptr, size - sizeof(char *));
-	free(ptr);
-	return (new_ptr);
+	print_gen_error(ctx, error);
+	if (tokens)
+		ft_lstclear(tokens, free_token);
 }
