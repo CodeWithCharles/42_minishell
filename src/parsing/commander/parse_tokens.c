@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:04:21 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/17 13:20:13 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/17 15:36:51 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,19 @@ static void	add_argument(
 	size_t *args_count
 )
 {
+	if (!_in_single_quotes((*tmp)->value))
+	{
+		trim_quotes(&(*tmp)->value);
+		expand_variable(&(*tmp)->value);
+	}
+	else
+		trim_quotes(&(*tmp)->value);
 	if (!(*current_cmd)->cmd_name)
 		(*current_cmd)->cmd_name = ft_strdup((*tmp)->value);
 	(*current_cmd)->cmd_args = ft_add_one_to_tab((*current_cmd)->cmd_args,
 			sizeof(char *) * (*args_count + 2));
 	if (!(*current_cmd)->cmd_args)
 		return ;
-	trim_quotes(&(*tmp)->value);
 	(*current_cmd)->cmd_args[(*args_count)++] = ft_strdup((*tmp)->value);
 	(*current_cmd)->cmd_args[*args_count] = NULL;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:13:39 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/17 13:27:35 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/17 15:06:47 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,11 @@ t_cmd			*new_cmd(void);
 void			add_cmd(
 					t_cmd ***cmds,
 					size_t *cmd_count);
+
+void			expand_variable(
+					char **input);
+
+int				_in_single_quotes(
+					const char *token);
 
 #endif
