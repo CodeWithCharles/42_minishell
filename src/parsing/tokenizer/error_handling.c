@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:00:32 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/17 13:10:24 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/17 13:41:59 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ void	handle_parse_error(
 )
 {
 	print_gen_error(ctx, error);
-	ft_lstclear(tokens, free_token);
+	if (tokens)
+		ft_lstclear(tokens, free_token);
 }
