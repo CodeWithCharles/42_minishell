@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:51:54 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/17 15:50:20 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/17 15:58:28 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	expand_variable(char **input)
 	tmp = ft_strchr(*input, '$');
 	if (!tmp)
 		return ;
-
 	result = ft_strndup(*input, tmp - *input);
 	var_name = tmp + 1;
 	saved_char = extract_var_name(var_name, &tmp);
