@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils3.c                                    :+:      :+:    :+:   */
+/*   commander.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/11 16:26:04 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/13 17:31:29 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/02/17 13:14:53 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/02/17 13:15:14 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../includes/minishell.h"
+
+// Header implementations
 
 t_cmd	*new_cmd(void)
 {
@@ -29,31 +31,15 @@ t_cmd	*new_cmd(void)
 	return (cmd);
 }
 
-t_list	*new_token(t_redir_type type, char *value)
+void	add_cmd(t_cmd ***cmds, size_t *cmd_count)
 {
-	t_token	*token;
-
-	token = malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
-	token->type = type;
-	token->value = ft_strdup(value);
-	return (ft_lstnew(token));
-}
-
-void	free_token(void *token)
-{
-	t_token	*t;
-
-	t = (t_token *)token;
-	if (t)
-	{
-		if (t->value)
-		{
-			free(t->value);
-			t->value = NULL;
-		}
-		free(t);
-		t = NULL;
-	}
+	if (*cmds)
+		*cmds = ft_add_one_to_tab(*cmds, sizeof(t_cmd *) * (*cmd_count + 2));
+	else
+		*cmds = malloc(sizeof(t_cmd *) * (*cmd_count + 2));
+	if (!cmds)
+		return ((void)ft_printf("Error realloc\n"));
+	(*cmds)[*cmd_count] = new_cmd();
+	(*cmds)[*cmd_count + 1] = NULL;
+	(*cmd_count)++;
 }

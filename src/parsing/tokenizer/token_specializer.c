@@ -1,18 +1,59 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils4.c                                    :+:      :+:    :+:   */
+/*   token_specializer.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/11 16:31:24 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/13 17:41:22 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/02/17 13:10:02 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/02/17 13:19:01 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../includes/minishell.h"
 
-int	handle_redir_in(t_list **tokens, const char *input, size_t *i)
+// Static prototypes
+
+static int	handle_redir_in(
+				t_list **tokens,
+				const char *input,
+				size_t *i
+				);
+
+static int	handle_redir_out(
+				t_list **tokens,
+				const char *input,
+				size_t *i
+				);
+
+// Header implementations
+
+int	handle_special_tokens(
+	t_list **tokens,
+	const char *input,
+	size_t *i
+)
+{
+	if (input[*i] == '|')
+	{
+		ft_lstadd_back(tokens, new_token(PIPE, "|"));
+		(*i)++;
+		return (1);
+	}
+	if (input[*i] == '<')
+		return (handle_redir_in(tokens, input, i));
+	if (input[*i] == '>')
+		return (handle_redir_out(tokens, input, i));
+	return (0);
+}
+
+// Static implementations
+
+static int	handle_redir_in(
+	t_list **tokens,
+	const char *input,
+	size_t *i
+)
 {
 	if (input[*i] == '<')
 	{
@@ -31,7 +72,11 @@ int	handle_redir_in(t_list **tokens, const char *input, size_t *i)
 	return (0);
 }
 
-int	handle_redir_out(t_list **tokens, const char *input, size_t *i)
+static int	handle_redir_out(
+	t_list **tokens,
+	const char *input,
+	size_t *i
+)
 {
 	if (input[*i] == '>')
 	{
@@ -48,21 +93,4 @@ int	handle_redir_out(t_list **tokens, const char *input, size_t *i)
 		return (1);
 	}
 	return (0);
-}
-
-void	trim_quotes(char **str)
-{
-	size_t		start;
-	size_t		end;
-	char		*new_str;
-
-	start = 0;
-	end = ft_strlen(*str);
-	if ((*str)[start] == '\'' || (*str)[start] == '\"')
-		start++;
-	if ((*str)[end - 1] == '\'' || (*str)[end - 1] == '\"')
-		end--;
-	new_str = ft_strndup((*str) + start, end - start);
-	free(*str);
-	*str = new_str;
 }

@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:51:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/13 16:22:16 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/17 13:46:06 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ static	t_should_continue	handle_input(
 	if (ft_strlen(input) == 0)
 		return (free(input), SHOULD_CONTINUE);
 	add_history(input);
-	tokens = tokenize(input);
+	tokens = tokenize(ctx, input);
+	if (!tokens)
+		return (free(input), SHOULD_CONTINUE);
 	cmds = parse_tokens(tokens);
 	if (tokens)
 		ft_lstclear(&tokens, free_token);
