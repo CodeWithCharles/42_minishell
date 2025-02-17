@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:16:42 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/17 17:42:03 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:57:02 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void	increase_env_shlvl(void)
 	char	*tmp_env_shlvl;
 
 	tmp_env_shlvl = ft_getenv("SHLVL=");
+	if (!tmp_env_shlvl)
+		return ;
 	tmp_shlvl = ft_itoa(ft_atoi(tmp_env_shlvl) + 1);
 	free(tmp_env_shlvl);
 	tmp_env_shlvl = ft_to_env_format("SHLVL", tmp_shlvl);

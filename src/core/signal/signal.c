@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:14:22 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/06 00:31:12 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/17 18:07:47 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ static void	handle_signals(
 			rl_replace_line("", STDIN_FILENO);
 			rl_redisplay();
 		}
+		ft_last_exit_code(130);
 	}
 }
