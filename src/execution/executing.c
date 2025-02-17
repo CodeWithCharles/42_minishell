@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:16:42 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/13 13:43:38 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:42:03 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ static void	increase_env_shlvl(void)
 void	custom_exit(
 	t_executing_ctx *exec_ctx,
 	char **envp,
+	int update_exit_code,
 	int exit_code
 )
 {
 	clean_after_exec(exec_ctx, envp);
-	if (exit_code)
+	if (update_exit_code && exit_code != -1)
 		ft_last_exit_code(exit_code);
 	if (exit_code != -1)
 		exit(exit_code);
@@ -49,16 +50,16 @@ static void	execute_external(
 
 	increase_env_shlvl();
 	if (ft_envp_tab(&envp) == RET_ERR)
-		custom_exit(exec_ctx, NULL, 1);
+		custom_exit(exec_ctx, NULL, 0, 1);
 	get_cmd(ctx, cmd);
 	if (cmd->exit_code == CODE_CMD_NOT_FOUND)
-		custom_exit(exec_ctx, envp, CODE_CMD_NOT_FOUND);
+		custom_exit(exec_ctx, envp, 0, CODE_CMD_NOT_FOUND);
 	if (execve(cmd->cmd_name, cmd->cmd_args, envp) == -1)
 	{
 		print_arg_error(ctx, ERR_CMD_NOT_EXECUTABLE, cmd->cmd_name);
-		custom_exit(exec_ctx, envp, CODE_CMD_NOT_EXECUTABLE);
+		custom_exit(exec_ctx, envp, 0, CODE_CMD_NOT_EXECUTABLE);
 	}
-	custom_exit(exec_ctx, envp, 0);
+	custom_exit(exec_ctx, envp, 0, 0);
 }
 
 void	execute_builtin(
@@ -91,7 +92,7 @@ void	execute_builtin(
 		exit_code = CODE_CMD_NOT_FOUND;
 	}
 	if (should_exit)
-		custom_exit(exec_ctx, NULL, exit_code);
+		custom_exit(exec_ctx, NULL, 0, exit_code);
 	ft_last_exit_code(exit_code);
 }
 
@@ -111,7 +112,7 @@ int	fork_command(
 	{
 		signal(SIGQUIT, SIG_DFL);
 		if (setup_redirections(exec_ctx, cmd, p_fd) == RET_ERR)
-			custom_exit(exec_ctx, NULL, RET_ERR);
+			custom_exit(exec_ctx, NULL, 0, RET_ERR);
 		if (is_valid_builtin(cmd->cmd_name))
 			execute_builtin(ctx, exec_ctx, cmd, 1);
 		else

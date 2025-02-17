@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:16:47 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/17 17:13:33 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:41:53 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ int		setup_cmd_fd_io(
 void	custom_exit(
 			t_executing_ctx *exec_ctx,
 			char **envp,
+			int update_exit_code,
 			int exit_code);
 
 void	clean_after_exec(
