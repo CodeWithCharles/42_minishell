@@ -1,32 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils3.c                                    :+:      :+:    :+:   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/11 16:26:04 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/13 17:31:29 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/02/17 12:58:44 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/02/17 13:12:08 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../includes/minishell.h"
 
-t_cmd	*new_cmd(void)
+t_list	*tokenize(
+	t_minishell_ctx *ctx,
+	const char *input)
 {
-	t_cmd	*cmd;
+	t_list	*tokens;
+	size_t	i;
+	int		in_quotes;
 
-	cmd = malloc(sizeof(t_cmd));
-	if (!cmd)
-		return (NULL);
-	cmd->cmd_name = NULL;
-	cmd->cmd_args = NULL;
-	cmd->redir_in_list = NULL;
-	cmd->redir_out_list = NULL;
-	cmd->fd_in = -1;
-	cmd->fd_out = -1;
-	cmd->exit_code = 0;
-	return (cmd);
+	tokens = NULL;
+	i = 0;
+	in_quotes = 0;
+	while (input[i])
+	{
+		if (ft_isspace(input[i]))
+		{
+			i++;
+			continue ;
+		}
+		if (handle_special_tokens(&tokens, input, &i))
+			continue ;
+		if (handle_var_expansion(&tokens, input, &i))
+			continue ;
+		if (handle_word_tokens(&tokens, input, &i, &in_quotes))
+			continue ;
+	}
+	if (in_quotes)
+		return (handle_parse_error(ctx, ERR_PARSE_ERROR_QUOTE, &tokens), NULL);
+	return (tokens);
 }
 
 t_list	*new_token(t_redir_type type, char *value)
