@@ -6,11 +6,25 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:16:42 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/12 12:32:51 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:43:38 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	increase_env_shlvl(void)
+{
+	char	*tmp_shlvl;
+	char	*tmp_env_shlvl;
+
+	tmp_env_shlvl = ft_getenv("SHLVL=");
+	tmp_shlvl = ft_itoa(ft_atoi(tmp_env_shlvl) + 1);
+	free(tmp_env_shlvl);
+	tmp_env_shlvl = ft_to_env_format("SHLVL", tmp_shlvl);
+	free(tmp_shlvl);
+	ft_setenv(tmp_env_shlvl);
+	free(tmp_env_shlvl);
+}
 
 void	custom_exit(
 	t_executing_ctx *exec_ctx,
@@ -33,6 +47,7 @@ static void	execute_external(
 {
 	char	**envp;
 
+	increase_env_shlvl();
 	if (ft_envp_tab(&envp) == RET_ERR)
 		custom_exit(exec_ctx, NULL, 1);
 	get_cmd(ctx, cmd);

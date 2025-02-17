@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:11:44 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/13 10:41:22 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/13 18:21:50 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,33 @@ void	handle_pipe(
 }
 
 void	add_redirection(
-	t_token **tmp,
+	t_list **tmp,
 	t_list **redir_list,
 	int type
 )
 {
-	ft_lstadd_back(redir_list, new_redir((*tmp)->next->value, type));
+	ft_lstadd_back(redir_list,
+		new_redir(((t_token *)(*tmp)->next)->value, type));
 	*tmp = (*tmp)->next;
 }
 
 void	add_argument(
 	t_cmd **current_cmd,
-	t_token *tmp,
+	t_token **tmp,
 	size_t *args_count
 )
 {
 	if (!(*current_cmd)->cmd_name)
-		(*current_cmd)->cmd_name = tmp->value;
-	(*current_cmd)->cmd_args = ft_realloc((*current_cmd)->cmd_args,
-			sizeof(char *) * (*args_count + 2));
+		(*current_cmd)->cmd_name = ft_strdup((*tmp)->value);
+	// if (!(*current_cmd)->cmd_args)
+	// 	(*current_cmd)->cmd_args = malloc(sizeof(char *) * 2);
+	// else
+	(*current_cmd)->cmd_args = ft_add_one_to_tab((*current_cmd)->cmd_args,
+				sizeof(char *) * (*args_count + 2));
 	if (!(*current_cmd)->cmd_args)
 		return ;
-	tmp->value = trim_quotes(tmp->value);
-	(*current_cmd)->cmd_args[(*args_count)++] = ft_strdup(tmp->value);
+	trim_quotes(&(*tmp)->value);
+	(*current_cmd)->cmd_args[(*args_count)++] = ft_strdup((*tmp)->value);
 	(*current_cmd)->cmd_args[*args_count] = NULL;
 }
 

@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:26:04 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/12 16:17:55 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:31:29 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,7 @@ t_cmd	*new_cmd(void)
 	return (cmd);
 }
 
-void	add_token(t_token **head, t_token *new)
-{
-	t_token	*tmp;
-
-	if (!*head)
-		*head = new;
-	else
-	{
-		tmp = *head;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-	}
-}
-
-t_token	*new_token(t_redir_type type, char *value)
+t_list	*new_token(t_redir_type type, char *value)
 {
 	t_token	*token;
 
@@ -53,19 +38,22 @@ t_token	*new_token(t_redir_type type, char *value)
 		return (NULL);
 	token->type = type;
 	token->value = ft_strdup(value);
-	token->next = NULL;
-	return (token);
+	return (ft_lstnew(token));
 }
 
-void	free_tokens(t_token *tokens)
+void	free_token(void *token)
 {
-	t_token	*tmp;
+	t_token	*t;
 
-	while (tokens)
+	t = (t_token *)token;
+	if (t)
 	{
-		tmp = tokens;
-		tokens = tokens->next;
-		free(tmp->value);
-		free(tmp);
+		if (t->value)
+		{
+			free(t->value);
+			t->value = NULL;
+		}
+		free(t);
+		t = NULL;
 	}
 }

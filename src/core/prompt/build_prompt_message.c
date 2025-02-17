@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_prompt_message.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:24:43 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/07 13:07:51 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:57:14 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ static char	*process_current_dir(void)
 		ft_strlcpy(shortened + 1, cwd + ft_strlen(home), new_len - 1);
 		free(cwd);
 		free(home);
+		home = NULL;
 		return (shortened);
 	}
+	if (home)
+		free(home);
 	return (cwd);
 }
