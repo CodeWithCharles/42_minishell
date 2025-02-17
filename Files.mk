@@ -7,9 +7,9 @@ FILES	=																	\
 	env/ft_to_env_format env/ft_unsetenv execution/executing				\
 	execution/fd_helper execution/here_doc execution/pipes_helper			\
 	execution/piping execution/piping_utils execution/setup_cmd_fds			\
-	minishell parsing/commander/commander parsing/commander/parse_tokens	\
-	parsing/commander/redirector parsing/tokenizer/error_handling			\
-	parsing/tokenizer/token_expander parsing/tokenizer/token_specializer	\
+	minishell parsing/commander/commander parsing/commander/expander		\
+	parsing/commander/parse_tokens parsing/commander/redirector				\
+	parsing/tokenizer/error_handling parsing/tokenizer/token_specializer	\
 	parsing/tokenizer/token_worder parsing/tokenizer/tokenizer				\
 	pathing/get_cmd pathing/is_valid_builtin utils/env_utils				\
 	utils/ft_add_one_to_tab utils/ft_cmd_count utils/ft_free_cmd			\

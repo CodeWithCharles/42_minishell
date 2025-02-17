@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 12:58:44 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/17 13:41:51 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/17 15:07:13 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static t_list	*handle_input(
 			continue ;
 		}
 		if (handle_special_tokens(&tokens, input, &i)
-			|| handle_var_expansion(&tokens, input, &i)
+			//|| handle_var_expansion(&tokens, input, &i)
 			|| handle_word_tokens(&tokens, input, &i, &in_quotes))
 			continue ;
 	}
