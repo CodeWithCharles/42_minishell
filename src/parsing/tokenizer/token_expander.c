@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:08:42 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/17 13:22:35 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/17 13:27:45 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,4 @@ static void	expand_variable(
 	free(var_name);
 	if (var_value)
 		free(var_value);
-	return (1);
 }
