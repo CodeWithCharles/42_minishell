@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:04:21 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/17 15:36:51 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/17 16:44:23 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,9 @@ static void	process_token(
 	token = ft_ltotoken(*tmp);
 	if (token->type == PIPE)
 		handle_pipe(&parser->cmds, &parser->cmd_count, &parser->args_count);
-	else if (token->type == REDIR_INPUT || token->type == REDIR_HEREDOC)
-		add_redirection(tmp, &((*cmds)[parser->cmd_count - 1])->redir_in_list,
-			token->type);
-	else if (token->type == REDIR_OUTPUT || token->type == REDIR_APPEND)
-		add_redirection(tmp, &((*cmds)[parser->cmd_count - 1])->redir_out_list,
+	else if (token->type == REDIR_INPUT || token->type == REDIR_HEREDOC
+		|| token->type == REDIR_APPEND || token->type == REDIR_OUTPUT)
+		add_redirection(tmp, &((*cmds)[parser->cmd_count - 1])->redir_list,
 			token->type);
 	else if (token->type == WORD)
 		add_argument(&((*cmds)[parser->cmd_count - 1]),
