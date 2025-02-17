@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executing_utils.c                                  :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/04 13:06:06 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/04 13:25:14 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/02/06 11:16:19 by jcheron           #+#    #+#             */
+/*   Updated: 2025/02/07 20:28:39 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
-void	ft_free_post_builtin(
-	t_executing_ctx *exec_ctx,
-	char **envp
+int	ft_unset(
+	t_minishell_ctx *ctx,
+	char **args
 )
 {
-	_clean_exec_ctx(exec_ctx);
-	if (envp)
-		ft_free_split(envp);
-	if (ft_envp(NULL))
-		ft_lstclear(ft_envp(NULL), free);
+	int		i;
+
+	(void)ctx;
+	i = 1;
+	while (args[i])
+		ft_unsetenv(args[i++] + 1);
+	return (RET_OK);
 }

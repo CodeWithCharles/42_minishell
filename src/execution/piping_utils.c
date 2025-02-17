@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:45:59 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/04 15:21:35 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:08:58 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,4 @@ void	close_fds_if_open(t_cmd *cmd)
 		close(cmd->fd_out);
 		cmd->fd_out = INVALID_FD;
 	}
-}
-
-void	close_pipe(
-	int pipe[2]
-)
-{
-	if (pipe[0] > 0)
-		close(pipe[0]);
-	if (pipe[1] > 0)
-		close(pipe[1]);
-}
-
-void	close_pipes(
-	int cmd_count,
-	int pipes[][2]
-)
-{
-	int	i;
-
-	i = 0;
-	while (i < cmd_count)
-		close_pipe(pipes[i++]);
 }

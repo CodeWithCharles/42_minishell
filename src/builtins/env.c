@@ -6,7 +6,7 @@
 /*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:34:47 by onkeltag          #+#    #+#             */
-/*   Updated: 2025/02/01 14:58:10 by onkeltag         ###   ########.fr       */
+/*   Updated: 2025/02/07 20:30:56 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,20 @@
  * @author jcheron
  * @date 2025/01/29 15:34:47
  */
-void	ft_env(
-	t_minishell_ctx *ctx
+int	ft_env(
+	t_minishell_ctx *ctx,
+	char **args
 )
 {
 	t_list	*env;
 
-	(void)ctx;
+	if (args[1])
+		return (print_arg_error(ctx, ERR_TOO_MANY_ARGS, args[0]), RET_ERR);
 	env = *ft_envp(NULL);
 	while (env)
 	{
 		fd_printf(STDOUT_FILENO, "%s\n", (char *)env->content);
 		env = env->next;
 	}
+	return (RET_OK);
 }

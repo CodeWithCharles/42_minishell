@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cmd_count.c                                     :+:      :+:    :+:   */
+/*   ft_to_env_format.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 17:10:45 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/11 16:36:45 by jcheron          ###   ########.fr       */
+/*   Created: 2025/02/07 17:45:14 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/02/07 18:52:06 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_cmd_count(
-	t_cmd **cmd_list
+char	*ft_to_env_format(
+	const char *var_name,
+	const char *var_value
 )
 {
-	int	i;
+	char	*ret;
 
-	i = 0;
-	while (cmd_list[i])
-		i++;
-	return (i);
+	ret = ft_strdup(var_name);
+	if (!ret)
+		return (NULL);
+	ft_strcat(&ret, "=");
+	if (!ret)
+		return (NULL);
+	ft_strcat(&ret, var_value);
+	return (ret);
 }

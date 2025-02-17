@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   ft_add_one_to_tab.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/31 08:56:23 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/07 20:29:15 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/02/13 08:04:43 by jcheron           #+#    #+#             */
+/*   Updated: 2025/02/13 18:22:22 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_export(
-	t_minishell_ctx *ctx,
-	char **args
-)
+void	*ft_add_one_to_tab(void *ptr, size_t size)
 {
-	int	i;
+	char	*new_ptr;
 
-	if (!args[1])
-		return (ft_env(ctx, args), RET_OK);
-	i = 1;
-	while (args[i])
-	{
-		if (ft_strlen(args[i]) > 1 && ft_strchr(args[i], '='))
-			ft_setenv(args[i]);
-		i++;
-	}
-	return (RET_OK);
+	if (!ptr)
+		return (malloc(size));
+
+	new_ptr = malloc(size);
+	if (!new_ptr)
+		return (NULL);
+	ft_bzero(new_ptr, size);
+	ft_memcpy(new_ptr, ptr, size - sizeof(char *));
+	free(ptr);
+	return (new_ptr);
 }

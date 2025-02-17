@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstremove.c                                     :+:      :+:    :+:   */
+/*   ft_token_from_list.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/30 15:41:19 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/30 15:56:37 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/02/13 15:14:12 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/02/13 15:15:14 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_lstremove(
-	t_list **lst,
-	void (*del)()
+t_token	*ft_ltotoken(
+	t_list *node
 )
 {
-	t_list	*tmp;
-
-	if (*lst)
-	{
-		tmp = (*lst)->next;
-		ft_lstdelone(*lst, del);
-		*lst = tmp;
-	}
+	return ((t_token *)node->content);
 }

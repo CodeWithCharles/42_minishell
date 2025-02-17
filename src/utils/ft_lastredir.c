@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_split.c                                    :+:      :+:    :+:   */
+/*   ft_lastredir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 11:00:34 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/04 13:50:05 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/02/11 17:43:07 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/02/11 17:44:07 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// Header implementations
-
-void	ft_free_split(
-	char **split
+t_redir	*ft_lastredir(
+	t_list *redir_list
 )
 {
-	int	i;
-
-	if (!split)
-		return ;
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		split[i++] = NULL;
-	}
+	return ((t_redir *)(ft_lstlast(redir_list)->content));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_helper.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:43:52 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/04 15:50:36 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/13 10:07:47 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,74 @@
 
 // Header implementations
 
-void	setup_redirections(
-	t_cmd *cmd,
-	t_executing_ctx *exec_ctx
+void	clean_after_exec(
+	t_executing_ctx *exec_ctx,
+	char **envp
 )
 {
-	if (cmd->fd_in != INVALID_FD && cmd->redir_in.type != REDIR_NONE)
-		dup2(cmd->fd_in, STDIN_FILENO);
-	if (cmd->fd_out != INVALID_FD && cmd->redir_out.type != REDIR_NONE)
-		dup2(cmd->fd_out, STDOUT_FILENO);
-	else if (exec_ctx->curr_idx < exec_ctx->cmd_count)
-		dup2(exec_ctx->pipes[exec_ctx->curr_idx][1], STDOUT_FILENO);
-	if (exec_ctx->pipes[exec_ctx->curr_idx][0] != INVALID_FD)
-		close(exec_ctx->pipes[exec_ctx->curr_idx][0]);
-	if (exec_ctx->pipes[exec_ctx->curr_idx][1] != INVALID_FD)
-		close(exec_ctx->pipes[exec_ctx->curr_idx][1]);
-	if (cmd->fd_in != INVALID_FD)
-		close(cmd->fd_in);
-	if (cmd->fd_out != INVALID_FD)
-		close(cmd->fd_out);
+	clean_exec_ctx(exec_ctx);
+	if (envp)
+		ft_free_split(&envp);
+	if (ft_envp(NULL))
+		ft_lstclear(ft_envp(NULL), free);
 }
 
-int	setup_pipes(
-	t_minishell_ctx *ctx,
-	int cmd_count,
-	int (*pipes)[2]
+static int	redirect_input(
+	t_cmd *cmd,
+	int prev_fd
 )
 {
-	int	i;
+	t_redir	*last_redir;
 
-	i = 0;
-	while (i < cmd_count)
-	{
-		if (pipe(pipes[i]) == -1)
-		{
-			close_pipes(cmd_count, pipes);
-			return (print_gen_error(ctx, ERR_PIPING), RET_ERR);
-		}
-		++i;
-	}
-	return (RET_OK);
+	if (!cmd->redir_in_list)
+		last_redir = NULL;
+	else
+		last_redir = ft_lastredir(cmd->redir_in_list);
+	if ((!last_redir || last_redir->type == REDIR_NONE)
+		&& prev_fd == INVALID_FD)
+		return (RET_OK);
+	else if ((!last_redir || last_redir->type == REDIR_NONE)
+		&& prev_fd != INVALID_FD)
+		return (dup2(prev_fd, STDIN_FILENO), close(prev_fd), RET_OK);
+	if (prev_fd != INVALID_FD)
+		close(prev_fd);
+	if (cmd->fd_in == INVALID_FD)
+		return (RET_ERR);
+	return (dup2(cmd->fd_in, STDIN_FILENO), close(cmd->fd_in), RET_OK);
+}
+
+static int	redirect_output(
+	t_executing_ctx *exec_ctx,
+	t_cmd *cmd,
+	int p_fd[2]
+)
+{
+	t_redir	*last_redir;
+
+	if (!cmd->redir_out_list)
+		last_redir = NULL;
+	else
+		last_redir = ft_lastredir(cmd->redir_out_list);
+	if ((!last_redir || last_redir->type == REDIR_NONE)
+		&& exec_ctx->curr_idx == exec_ctx->cmd_count - 1)
+		return (RET_OK);
+	if (!last_redir || last_redir->type == REDIR_NONE)
+		return (dup2(p_fd[1], STDOUT_FILENO), RET_OK);
+	if (cmd->fd_out == INVALID_FD)
+		return (dup2(p_fd[1], STDOUT_FILENO), RET_ERR);
+	return (dup2(cmd->fd_out, STDOUT_FILENO), close(cmd->fd_out), RET_OK);
+}
+
+int	setup_redirections(
+	t_executing_ctx *exec_ctx,
+	t_cmd *cmd,
+	int p_fd[2]
+)
+{
+	setup_cmd_fd_io(cmd);
+	if (redirect_input(cmd, exec_ctx->last_fd) == RET_ERR)
+		return (close(p_fd[0]), close(p_fd[1]), RET_ERR);
+	if (redirect_output(exec_ctx, cmd, p_fd) == RET_ERR)
+		return (close(p_fd[0]), close(p_fd[1]), RET_ERR);
+	return (close(p_fd[0]), close(p_fd[1]), RET_OK);
 }

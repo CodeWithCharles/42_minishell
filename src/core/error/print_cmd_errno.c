@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unsetenv.c                                      :+:      :+:    :+:   */
+/*   print_cmd_errno.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/30 15:38:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/06 12:12:36 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/01/29 11:37:37 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/02/07 20:25:28 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-void	ft_unsetenv(
-	char *name
+void	print_cmd_errno(
+	t_minishell_ctx *ctx,
+	const char *error,
+	const char *cmd_name,
+	const char *errno_error
 )
 {
-	t_list	**envp;
+	char	*color;
 
-	envp = ft_envp(NULL);
-	while (*envp && !ft_env_varcmp((char *)(*envp)->content, name))
-		envp = &(*envp)->next;
-	ft_lstremove(envp, free);
+	color = get_term_color(COLOR_RED, COLOR_NULL);
+	fd_printf(STDERR_FILENO, error,
+		color,
+		ctx->p_name,
+		cmd_name,
+		errno_error,
+		TERM_RESET);
+	free(color);
 }
