@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:11:44 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/13 18:21:50 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/17 12:24:44 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	add_redirection(
 )
 {
 	ft_lstadd_back(redir_list,
-		new_redir(((t_token *)(*tmp)->next)->value, type));
+		new_redir(((t_token *)((*tmp)->next)->content)->value, type));
 	*tmp = (*tmp)->next;
 }
 
@@ -63,7 +63,7 @@ t_list	*new_redir(
 	t_redir	*redir;
 
 	redir = malloc(sizeof(t_redir));
-	redir->file = file;
+	redir->file = ft_strdup(file);
 	redir->type = type;
 	return (ft_lstnew(redir));
 }
