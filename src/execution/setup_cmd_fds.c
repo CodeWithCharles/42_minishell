@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:44:28 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/12 16:38:05 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:59:42 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ int	setup_infile_fd(
 {
 	t_redir	*curr_redir;
 
-	if (!cmd->redir_in_list)
-		curr_redir = NULL;
-	else
-		curr_redir = ft_lastredir(cmd->redir_in_list);
+	curr_redir = ft_lastredir(cmd->redir_list, REDIR_INPUT);
 	if (!curr_redir || curr_redir->type == REDIR_NONE)
 		return (RET_OK);
 	if (curr_redir->type == REDIR_HEREDOC)
@@ -40,10 +37,7 @@ int	setup_outfile_fd(
 	int		out_flags;
 	t_redir	*curr_redir;
 
-	if (!cmd->redir_out_list)
-		curr_redir = NULL;
-	else
-		curr_redir = ft_lastredir(cmd->redir_out_list);
+	curr_redir = ft_lastredir(cmd->redir_list, REDIR_OUTPUT);
 	if (!curr_redir || curr_redir->type == REDIR_NONE)
 		return (RET_OK);
 	out_flags = O_WRONLY | O_CREAT;

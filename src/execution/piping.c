@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:49:23 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/13 16:18:14 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:13:26 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	execute_pipeline(
 	if (_setup_exec_ctx(cmd_list, &exec_ctx) == RET_ERR
 		|| exec_ctx.cmd_count <= 0)
 		return ;
-	check_redir_files(ctx, &exec_ctx, cmd_list);
+	check_cmds_redirs(ctx, &exec_ctx, cmd_list);
 	while (++exec_ctx.curr_idx < exec_ctx.cmd_count)
 	{
 		if (!cmd_list[exec_ctx.curr_idx]->cmd_name)

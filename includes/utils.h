@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:59:54 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/13 18:21:46 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:57:47 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ void	close_pipe(
 bool	is_whitespace(char c);
 
 t_redir	*ft_lastredir(
-			t_list *redir_list
-			);
+			t_list *redir_list,
+			t_redir_type type);
 
 t_redir	*ft_ltor(
 			t_list *redir_list

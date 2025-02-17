@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:16:47 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/12 12:32:29 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:13:33 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ void	clean_after_exec(
 			t_executing_ctx *exec_ctx,
 			char **envp);
 
-int		check_redir_files(
+int		check_cmds_redirs(
 			t_minishell_ctx *ctx,
 			t_executing_ctx *exec_ctx,
 			t_cmd **cmd_list

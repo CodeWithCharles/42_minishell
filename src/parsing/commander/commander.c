@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:14:53 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/17 13:15:14 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:12:45 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ t_cmd	*new_cmd(void)
 		return (NULL);
 	cmd->cmd_name = NULL;
 	cmd->cmd_args = NULL;
-	cmd->redir_in_list = NULL;
-	cmd->redir_out_list = NULL;
+	cmd->redir_list = NULL;
 	cmd->fd_in = -1;
 	cmd->fd_out = -1;
 	cmd->exit_code = 0;
