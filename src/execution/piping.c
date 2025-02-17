@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piping.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:49:23 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/12 12:36:44 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:18:14 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	clean_exec_ctx(
 )
 {
 	if (exec_ctx->cmd_list)
-		ft_free_cmd_list(exec_ctx->cmd_list, exec_ctx->cmd_count);
+		ft_free_cmd_list(&exec_ctx->cmd_list, exec_ctx->cmd_count);
 }
 
 void	execute_pipeline(

@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:08:48 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/13 10:32:24 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/13 17:02:28 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	handle_special_tokens(
-	t_token **tokens,
+	t_list **tokens,
 	const char *input,
 	size_t *i
 )
 {
 	if (input[*i] == '|')
 	{
-		add_token(tokens, new_token(PIPE, "|"));
+		ft_lstadd_back(tokens, new_token(PIPE, "|"));
 		(*i)++;
 		return (1);
 	}
@@ -32,7 +32,7 @@ int	handle_special_tokens(
 }
 
 int	handle_var_expansion(
-	t_token **tokens,
+	t_list **tokens,
 	const char *input,
 	size_t *i
 	)
@@ -43,9 +43,10 @@ int	handle_var_expansion(
 
 	if (input[*i] == '$' && input[*i + 1] == '?')
 	{
-		add_token(tokens, new_token(WORD, ft_itoa(ft_last_exit_code(-1))));
+		var_value = ft_itoa(ft_last_exit_code(-1));
+		ft_lstadd_back(tokens, new_token(WORD, var_value));
 		(*i) += 2;
-		return (1);
+		return (free(var_value), 1);
 	}
 	if (input[*i] == '$' && (ft_isalpha(input[*i + 1]) || input[*i + 1] == '_'))
 	{
@@ -53,19 +54,20 @@ int	handle_var_expansion(
 		while (ft_isalpha(input[*i]) || input[*i] == '_')
 			(*i)++;
 		var_name = ft_strndup(&input[start], *i - start);
-		if (getenv(var_name))
-			var_value = getenv(var_name);
-		else
+		var_value = ft_getenv(var_name);
+		if (!var_value)
 			var_value = "";
-		add_token(tokens, new_token(WORD, var_value));
+		ft_lstadd_back(tokens, new_token(WORD, var_value));
 		free(var_name);
+		if (var_value)
+			free(var_value);
 		return (1);
 	}
 	return (0);
 }
 
 int	handle_word_tokens(
-	t_token **tokens,
+	t_list **tokens,
 	const char *input,
 	size_t *i,
 	int *in_quotes
@@ -94,15 +96,14 @@ int	handle_word_tokens(
 		(*i)++;
 	}
 	word = ft_strndup(&input[start], *i - start);
-	add_token(tokens, new_token(WORD, word));
+	ft_lstadd_back(tokens, new_token(WORD, word));
 	return (free(word), 1);
 }
 
-t_token	*handle_unmatched_quotes(
-	t_token *tokens
+void	handle_unmatched_quotes(
+	t_list **tokens
 )
 {
 	fd_printf(STDERR_FILENO, "Unmatched quote\n");
-	free_tokens(tokens);
-	return (NULL);
+	ft_lstclear(tokens, free_token);
 }
