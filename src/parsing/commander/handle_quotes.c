@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:17:04 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/19 09:34:30 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/19 12:49:21 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,9 @@ void	trim_quotes(
 	quote_char = (*str)[start];
 	end = find_last_quote(*str, quote_char, start);
 	if (end > start)
+	{
+		if (quote_char == '\"')
+			expand_variable(str);
 		remove_quotes(str, start, end);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:04:21 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/19 09:30:06 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/19 12:50:26 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ static void	handle_pipe(
 				t_cmd ***cmds,
 				size_t *cmd_count,
 				size_t *args_count);
-
-// static void	trim_quotes(
-// 				char **str
-// 				);
 
 // Header implementations
 
@@ -81,13 +77,10 @@ static void	add_argument(
 	size_t *args_count
 )
 {
-	if (!_in_single_quotes((*tmp)->value))
-	{
+	if (_in_quotes((*tmp)->value))
 		trim_quotes(&(*tmp)->value);
-		expand_variable(&(*tmp)->value);
-	}
 	else
-		trim_quotes(&(*tmp)->value);
+		expand_variable(&(*tmp)->value);
 	if (!(*current_cmd)->cmd_name)
 		(*current_cmd)->cmd_name = ft_strdup((*tmp)->value);
 	(*current_cmd)->cmd_args = ft_add_one_to_tab((*current_cmd)->cmd_args,

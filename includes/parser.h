@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:13:39 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/19 09:25:10 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/19 12:48:13 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	add_cmd(
 void	expand_variable(
 			char **input);
 
-int		_in_single_quotes(
+int		_in_quotes(
 			const char *token);
 
 void	trim_quotes(

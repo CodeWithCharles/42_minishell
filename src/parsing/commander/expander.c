@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:51:54 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/19 09:33:30 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/19 12:47:41 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,12 @@ void	expand_variable(
 	*input = result;
 }
 
-int	_in_single_quotes(
+int	_in_quotes(
 	const char *token
 )
 {
-	return (token[0] == '\'' && token[ft_strlen(token) - 1] == '\'');
+	return ((token[0] == '\'' && token[ft_strlen(token) - 1] == '\'')
+		|| (token[0] == '\"' && token[ft_strlen(token) - 1] == '\"'));
 }
 
 // Static implementations
