@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 12:58:44 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/17 15:07:13 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/17 16:18:31 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,6 @@
 
 static t_list	*handle_input(
 					t_minishell_ctx *ctx,
-					const char *input
-					);
-
-static int		check_invalid_pipe(
 					const char *input
 					);
 
@@ -92,23 +88,4 @@ static t_list	*handle_input(
 	if (in_quotes)
 		return (handle_parse_error(ctx, ERR_PARSE_ERROR_QUOTE, &tokens), NULL);
 	return (tokens);
-}
-
-static int	check_invalid_pipe(
-	const char *input
-)
-{
-	int	i;
-
-	i = 0;
-	while (input[i] && ft_isspace(input[i]))
-		i++;
-	if (input[i] == '|')
-		return (RET_ERR);
-	i = ft_strlen(input) - 1;
-	while (input[i] && ft_isspace(input[i]))
-		i--;
-	if (input[i] == '|')
-		return (RET_ERR);
-	return (RET_OK);
 }

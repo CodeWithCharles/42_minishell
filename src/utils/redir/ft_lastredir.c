@@ -3,18 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lastredir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:43:07 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/11 17:44:07 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/18 09:14:56 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 t_redir	*ft_lastredir(
-	t_list *redir_list
+	t_list *redir_list,
+	t_redir_type type
 )
 {
-	return ((t_redir *)(ft_lstlast(redir_list)->content));
+	t_redir	*last_found;
+	t_list	*tmp;
+	t_redir	*curr_redir;
+
+	last_found = NULL;
+	tmp = redir_list;
+	while (tmp)
+	{
+		curr_redir = ft_ltor(tmp);
+		if (type == REDIR_INPUT && (curr_redir->type == type
+				|| curr_redir->type == REDIR_HEREDOC))
+			last_found = curr_redir;
+		if (type == REDIR_OUTPUT && (curr_redir->type == type
+				|| curr_redir->type == REDIR_APPEND))
+			last_found = curr_redir;
+		tmp = tmp->next;
+	}
+	return (last_found);
 }

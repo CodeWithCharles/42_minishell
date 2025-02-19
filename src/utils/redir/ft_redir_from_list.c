@@ -1,35 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   ft_redir_from_list.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/31 08:56:23 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/19 14:47:14 by jcheron          ###   ########.fr       */
+/*   Created: 2025/02/12 11:11:06 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/02/18 09:15:06 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../includes/minishell.h"
 
-int	ft_export(
-	t_minishell_ctx *ctx,
-	char **args
+t_redir	*ft_ltor(
+	t_list *redir_list
 )
 {
-	int	i;
-
-	if (!args[1])
-		return (ft_env(ctx, args), RET_OK);
-	i = 1;
-	while (args[i])
-	{
-		if (ft_strlen(args[i]) > 1 && ft_strchr(args[i], '='))
-		{
-			trim_quotes(&args[i]);
-			ft_setenv(args[i]);
-		}
-		i++;
-	}
-	return (RET_OK);
+	return ((t_redir *)redir_list->content);
 }

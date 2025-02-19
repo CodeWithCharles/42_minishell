@@ -3,14 +3,93 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:51:54 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/17 15:50:20 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/19 14:38:01 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// Static prototypes
+
+static char	*extract_var_and_expand(
+				char **input,
+				char **result);
+
+static char	extract_var_name(
+				char *var_name,
+				char **tmp);
+
+static void	append_var_value(
+				char **result,
+				char *var_name);
+
+static void	append_str(
+				char **result,
+				char *str,
+				size_t len);
+
+// Header implementations
+void	expand_variable(char **input)
+{
+	char	*tmp;
+	char	*result;
+	char	*start;
+
+	if (!input || !*input)
+		return ;
+	result = ft_strdup("");
+	if (!result)
+		return ;
+	tmp = *input;
+	while (*tmp)
+	{
+		if (*tmp == '$')
+			tmp = extract_var_and_expand(&tmp, &result);
+		else
+		{
+			start = tmp;
+			while (*tmp && *tmp != '$')
+				tmp++;
+			append_str(&result, start, tmp - start);
+		}
+	}
+	free(*input);
+	*input = result;
+}
+
+// Static implementations
+
+static void	append_str(char **result, char *str, size_t len)
+{
+	size_t	new_size;
+	char	*new_result;
+
+	if (!str || len == 0)
+		return ;
+	new_size = ft_strlen(*result) + len + 1;
+	new_result = malloc(new_size);
+	if (!new_result)
+		return ;
+	ft_strlcpy(new_result, *result, new_size);
+	ft_strlcat(new_result, str, new_size);
+	free(*result);
+	*result = new_result;
+}
+
+static void	append_var_value(char **result, char *var_name)
+{
+	char	*var_value;
+
+	var_value = ft_getenv(var_name);
+	if (var_value)
+	{
+		append_str(result, var_value, ft_strlen(var_value));
+		free(var_value);
+	}
+}
 
 static char	extract_var_name(char *var_name, char **tmp)
 {
@@ -18,7 +97,7 @@ static char	extract_var_name(char *var_name, char **tmp)
 	char	saved_char;
 
 	i = 0;
-	while (ft_isalpha(var_name[i]) || var_name[i] == '?')
+	while (ft_isalnum(var_name[i]) || var_name[i] == '?')
 		i++;
 	saved_char = var_name[i];
 	*tmp = var_name + i;
@@ -26,34 +105,16 @@ static char	extract_var_name(char *var_name, char **tmp)
 	return (saved_char);
 }
 
-void	expand_variable(char **input)
+static char	*extract_var_and_expand(char **input, char **result)
 {
-	char	*tmp;
-	char	*result;
 	char	*var_name;
-	char	*var_value;
+	char	*tmp;
 	char	saved_char;
 
-	tmp = ft_strchr(*input, '$');
-	if (!tmp)
-		return ;
-
-	result = ft_strndup(*input, tmp - *input);
-	var_name = tmp + 1;
+	tmp = *input + 1;
+	var_name = tmp;
 	saved_char = extract_var_name(var_name, &tmp);
-	var_value = ft_getenv(var_name);
-	tmp[0] = saved_char;
-	if (var_value)
-	{
-		ft_strcat(&result, var_value);
-		free(var_value);
-	}
-	ft_strcat(&result, tmp);
-	free(*input);
-	*input = result;
-}
-
-int	_in_single_quotes(const char *token)
-{
-	return (token[0] == '\'' && token[ft_strlen(token) - 1] == '\'');
+	append_var_value(result, var_name);
+	*tmp = saved_char;
+	return (tmp);
 }

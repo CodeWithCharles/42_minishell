@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:13:25 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/13 14:57:14 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:44:41 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ typedef struct s_cmd
 {
 	char			*cmd_name;
 	char			**cmd_args;
-	t_list			*redir_in_list;
-	t_list			*redir_out_list;
+	t_list			*redir_list;
 	int				fd_in;
 	int				fd_out;
 	int				exit_code;

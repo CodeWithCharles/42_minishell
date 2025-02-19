@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:24:22 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/07 18:52:25 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/17 18:34:31 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ t_list	**ft_envp(
 char	*get_env_value(
 			t_minishell_ctx *ctx,
 			char *name);
-
-char	*get_env_name(
-			char *arg);
 
 char	*ft_getenv(
 			char *name);

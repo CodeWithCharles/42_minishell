@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:51:39 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/17 13:46:06 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 12:13:29 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ int	main(
 		return (print_gen_error(&ctx, ERR_TOO_MANY_ARGS), 0);
 	}
 	ft_envp(envp);
-	setup_signals();
 	while (1)
 	{
+		set_sig_interactive();
 		prompt_message = build_prompt_message(&ctx);
 		if (!prompt_message)
 			return (print_gen_error(&ctx, ERR_INT_ERR_ALLOC), 0);
@@ -81,5 +81,5 @@ int	main(
 			break ;
 	}
 	ft_lstclear(ft_envp(NULL), free);
-	return (ft_last_exit_code(-1));
+	return (g_signal);
 }

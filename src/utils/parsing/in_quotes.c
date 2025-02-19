@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cmd_count.c                                     :+:      :+:    :+:   */
+/*   in_quotes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 17:10:45 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/11 16:36:45 by jcheron          ###   ########.fr       */
+/*   Created: 2025/02/19 14:31:11 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/02/19 14:31:25 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-int	ft_cmd_count(
-	t_cmd **cmd_list
+// Header implementations
+
+int	_in_quotes(
+	const char *token
 )
 {
-	int	i;
-
-	i = 0;
-	while (cmd_list[i])
-		i++;
-	return (i);
+	return ((token[0] == '\'' && token[ft_strlen(token) - 1] == '\'')
+		|| (token[0] == '\"' && token[ft_strlen(token) - 1] == '\"'));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_helper.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:43:52 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/13 10:07:47 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/17 16:58:23 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ static int	redirect_input(
 {
 	t_redir	*last_redir;
 
-	if (!cmd->redir_in_list)
-		last_redir = NULL;
-	else
-		last_redir = ft_lastredir(cmd->redir_in_list);
+	last_redir = ft_lastredir(cmd->redir_list, REDIR_INPUT);
 	if ((!last_redir || last_redir->type == REDIR_NONE)
 		&& prev_fd == INVALID_FD)
 		return (RET_OK);
@@ -58,10 +55,7 @@ static int	redirect_output(
 {
 	t_redir	*last_redir;
 
-	if (!cmd->redir_out_list)
-		last_redir = NULL;
-	else
-		last_redir = ft_lastredir(cmd->redir_out_list);
+	last_redir = ft_lastredir(cmd->redir_list, REDIR_OUTPUT);
 	if ((!last_redir || last_redir->type == REDIR_NONE)
 		&& exec_ctx->curr_idx == exec_ctx->cmd_count - 1)
 		return (RET_OK);

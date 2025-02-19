@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:35:08 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/03 18:29:37 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 12:12:04 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_getenv(
 	t_list	*envp;
 
 	if (ft_strcmp(name, "?") == 0)
-		return (ft_itoa(ft_last_exit_code(-1)));
+		return (ft_itoa(g_signal));
 	envp = *ft_envp(NULL);
 	while (envp && !ft_env_varcmp((char *)envp->content, name))
 		envp = envp->next;

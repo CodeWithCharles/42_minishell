@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_redir_from_list.c                               :+:      :+:    :+:   */
+/*   ft_cmd_count.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 11:11:06 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/12 11:12:16 by cpoulain         ###   ########.fr       */
+/*   Created: 2025/02/03 17:10:45 by cpoulain          #+#    #+#             */
+/*   Updated: 2025/02/18 09:13:56 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-t_redir	*ft_ltor(
-	t_list *redir_list
+int	ft_cmd_count(
+	t_cmd **cmd_list
 )
 {
-	return ((t_redir *)redir_list->content);
+	int	i;
+
+	i = 0;
+	while (cmd_list[i])
+		i++;
+	return (i);
 }

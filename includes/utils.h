@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:59:54 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/13 18:21:46 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 12:33:00 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,6 @@ typedef struct s_expand_vars
 # define HERE_DOC_PREFIX	"here_doc> "
 
 // Functions
-
-char	**spooq(
-			char *str,
-			char sep);
-
-char	*ft_strtok_quotes(char *str, char sep);
-
-int		ft_last_exit_code(
-			int exit_code);
 
 char	*ft_which(
 			const char	*cmd
@@ -96,8 +87,8 @@ void	close_pipe(
 bool	is_whitespace(char c);
 
 t_redir	*ft_lastredir(
-			t_list *redir_list
-			);
+			t_list *redir_list,
+			t_redir_type type);
 
 t_redir	*ft_ltor(
 			t_list *redir_list
