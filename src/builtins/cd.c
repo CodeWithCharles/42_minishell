@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onkeltag <onkeltag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:36:02 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/07 20:25:09 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:11:09 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// Static prototypes
+
+static void	_set_new_pwd(
+				char **new_path);
+
+// Header implementations
 
 /**
  * @brief		Mimics the behavior of the Unix 'cd' command.
@@ -35,8 +42,9 @@ int	ft_cd(
 {
 	char	*path;
 	char	*path_tmp;
+	char	*env_var;
 
-	if (!args[1])
+	if (!args[1] || (args[1] && ft_strcmp(args[1], "~") == 0))
 	{
 		path = ft_getenv("HOME");
 		if (!path)
@@ -45,17 +53,33 @@ int	ft_cd(
 	else if (ft_strcmp(args[1], "-") == 0)
 		path = ft_getenv("OLDPWD");
 	else
-		path = args[1];
-	path_tmp = ft_to_env_format("OLDPWD", getcwd(NULL, 0));
-	ft_setenv(path_tmp);
+		path = ft_strdup(args[1]);
+	path_tmp = getcwd(NULL, 0);
+	env_var = ft_to_env_format("OLDPWD", path_tmp);
 	free(path_tmp);
+	ft_setenv(env_var);
+	free(env_var);
 	if (chdir(path) == -1)
 		return (print_cmd_errno(ctx, ERR_ERRNO, "cd", strerror(errno)), 1);
 	else
-	{
-		path_tmp = ft_realpath(path);
-		path_tmp = ft_to_env_format("PWD", path_tmp);
-		ft_setenv(path_tmp);
-		return (free(path_tmp), RET_OK);
-	}
+		return (_set_new_pwd(&path), RET_OK);
+	free(path);
+}
+
+// Static implementations
+
+static void	_set_new_pwd(
+	char **new_path
+)
+{
+	char	*real_path;
+	char	*env_var;
+
+	real_path = ft_realpath(*new_path);
+	env_var = ft_to_env_format("PWD", real_path);
+	free(real_path);
+	ft_setenv(env_var);
+	free(env_var);
+	free(*new_path);
+	*new_path = NULL;
 }
