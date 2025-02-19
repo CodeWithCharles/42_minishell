@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:51:54 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/17 18:29:51 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 09:33:30 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ static char	extract_var_name(
 
 // Header implementations
 
-void	expand_variable(char **input)
+void	expand_variable(
+	char **input
+)
 {
 	char	*tmp;
 	char	*result;
@@ -54,7 +56,9 @@ void	expand_variable(char **input)
 	*input = result;
 }
 
-int	_in_single_quotes(const char *token)
+int	_in_single_quotes(
+	const char *token
+)
 {
 	return (token[0] == '\'' && token[ft_strlen(token) - 1] == '\'');
 }

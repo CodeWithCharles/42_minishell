@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commander.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:14:53 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/17 17:12:45 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 09:33:12 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 // Header implementations
 
-t_cmd	*new_cmd(void)
+t_cmd	*new_cmd(
+	void
+)
 {
 	t_cmd	*cmd;
 
@@ -30,7 +32,10 @@ t_cmd	*new_cmd(void)
 	return (cmd);
 }
 
-void	add_cmd(t_cmd ***cmds, size_t *cmd_count)
+void	add_cmd(
+	t_cmd ***cmds,
+	size_t *cmd_count
+)
 {
 	if (*cmds)
 		*cmds = ft_add_one_to_tab(*cmds, sizeof(t_cmd *) * (*cmd_count + 2));

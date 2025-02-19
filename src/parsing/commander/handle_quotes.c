@@ -6,13 +6,15 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:17:04 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/19 09:28:41 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/19 09:34:30 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static size_t	find_first_quote(char *str)
+static size_t	find_first_quote(
+	char *str
+)
 {
 	size_t	i;
 
@@ -36,7 +38,11 @@ static size_t	find_last_quote(
 	return (end);
 }
 
-static void	remove_quotes(char **str, size_t start, size_t end)
+static void	remove_quotes(
+	char **str,
+	size_t start,
+	size_t end
+)
 {
 	char	*new_str;
 
@@ -50,7 +56,9 @@ static void	remove_quotes(char **str, size_t start, size_t end)
 	*str = new_str;
 }
 
-void	trim_quotes(char **str)
+void	trim_quotes(
+	char **str
+)
 {
 	size_t	start;
 	size_t	end;
