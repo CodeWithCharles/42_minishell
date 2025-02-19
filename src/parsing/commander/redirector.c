@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:01:21 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/17 13:16:54 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:38:33 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_list	*new_redir(
 
 	redir = malloc(sizeof(t_redir));
 	redir->file = ft_strdup(file);
+	trim_quotes(&redir->file);
 	redir->type = type;
 	return (ft_lstnew(redir));
 }
