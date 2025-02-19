@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:59:54 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/19 12:33:00 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:59:05 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,10 @@ void	*ft_add_one_to_tab(
 
 t_token	*ft_ltotoken(
 			t_list *node
+			);
+
+int		validate_env_var_name(
+			const char *var_name
 			);
 
 #endif
