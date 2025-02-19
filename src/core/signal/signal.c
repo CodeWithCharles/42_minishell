@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:14:22 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/19 12:17:20 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 12:33:19 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,7 @@ static void	_sig_handler_executing(
 )
 {
 	if (signal == SIGQUIT)
-	{
-		g_signal = 0;
 		ft_putstr_fd("Quit (core dumped)\n", STDOUT_FILENO);
-	}
 	else if (signal == SIGINT)
 	{
 		g_signal = 130;

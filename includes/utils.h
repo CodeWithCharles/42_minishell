@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:59:54 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/19 11:11:34 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 12:33:00 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ typedef struct s_expand_vars
 # define HERE_DOC_PREFIX	"here_doc> "
 
 // Functions
-
-int		ft_last_exit_code(
-			int exit_code);
 
 char	*ft_which(
 			const char	*cmd
