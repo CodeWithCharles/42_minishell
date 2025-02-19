@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:04:21 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/19 12:50:26 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/19 16:08:50 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ static void	add_argument(
 	size_t *args_count
 )
 {
-	if (_in_quotes((*tmp)->value))
+	if (_in_quotes((*tmp)->value) || ft_strchr((*tmp)->value, '\'')
+		|| ft_strchr((*tmp)->value, '\"'))
 		trim_quotes(&(*tmp)->value);
 	else
 		expand_variable(&(*tmp)->value);
