@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:13:39 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/17 16:08:52 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 09:25:10 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,8 @@ void	expand_variable(
 
 int		_in_single_quotes(
 			const char *token);
+
+void	trim_quotes(
+			char **str);
 
 #endif

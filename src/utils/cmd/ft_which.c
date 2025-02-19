@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_which.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:59:35 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/03 20:18:07 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/18 09:14:19 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 // Static prototypes
 
@@ -26,7 +26,7 @@ static char	*_join_cmd_path(
 
 static char	*_find_cmd_path(
 				const char *cmd,
-				const char *path				
+				const char *path
 				);
 
 // Header implementations

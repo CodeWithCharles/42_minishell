@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   term_colors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 16:48:11 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/01/28 18:16:12 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/18 09:14:46 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 // Static prototypes
 

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 09:44:50 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/17 17:13:04 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/18 09:14:11 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 static void	ft_free_redirs(
 	void *redir

@@ -6,7 +6,7 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:04:21 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/17 16:44:23 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/19 09:30:06 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static void	handle_pipe(
 				size_t *cmd_count,
 				size_t *args_count);
 
-static void	trim_quotes(
-				char **str
-				);
+// static void	trim_quotes(
+// 				char **str
+// 				);
 
 // Header implementations
 
@@ -108,23 +108,4 @@ static void	handle_pipe(
 	if (!cmds)
 		return ;
 	*args_count = 0;
-}
-
-static void	trim_quotes(
-	char **str
-)
-{
-	size_t		start;
-	size_t		end;
-	char		*new_str;
-
-	start = 0;
-	end = ft_strlen(*str);
-	if ((*str)[start] == '\'' || (*str)[start] == '\"')
-		start++;
-	if ((*str)[end - 1] == '\'' || (*str)[end - 1] == '\"')
-		end--;
-	new_str = ft_strndup((*str) + start, end - start);
-	free(*str);
-	*str = new_str;
 }

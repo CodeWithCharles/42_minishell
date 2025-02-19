@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir_from_list.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:11:06 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/12 11:12:16 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/18 09:15:06 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 t_redir	*ft_ltor(
 	t_list *redir_list

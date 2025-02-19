@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lastredir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:43:07 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/17 16:57:28 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/18 09:14:56 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 t_redir	*ft_lastredir(
 	t_list *redir_list,

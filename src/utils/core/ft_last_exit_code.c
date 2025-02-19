@@ -6,11 +6,11 @@
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:54:10 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/06 12:08:13 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/18 09:14:28 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 // Header implementations
 
