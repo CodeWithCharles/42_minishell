@@ -15,5 +15,4 @@ FILES	=																	\
 	utils/cmd/ft_add_one_to_tab utils/cmd/ft_cmd_count						\
 	utils/cmd/ft_free_cmd utils/cmd/ft_which utils/core/ft_last_exit_code	\
 	utils/core/ft_token_from_list utils/core/term_colors					\
-	utils/parsing/split_out_of_quotes utils/redir/ft_lastredir				\
-	utils/redir/ft_redir_from_list											\
+	utils/redir/ft_lastredir utils/redir/ft_redir_from_list					\
