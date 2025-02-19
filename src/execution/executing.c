@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:16:42 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/17 17:57:02 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 12:29:34 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ void	custom_exit(
 )
 {
 	clean_after_exec(exec_ctx, envp);
+	if (exit_code == SIGINT)
+		exit_code = 130;
 	if (update_exit_code && exit_code != -1)
-		ft_last_exit_code(exit_code);
+		g_signal = exit_code;
 	if (exit_code != -1)
 		exit(exit_code);
 }
@@ -50,6 +52,8 @@ static void	execute_external(
 {
 	char	**envp;
 
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
 	increase_env_shlvl();
 	if (ft_envp_tab(&envp) == RET_ERR)
 		custom_exit(exec_ctx, NULL, 0, 1);
@@ -95,7 +99,7 @@ void	execute_builtin(
 	}
 	if (should_exit)
 		custom_exit(exec_ctx, NULL, 0, exit_code);
-	ft_last_exit_code(exit_code);
+	g_signal = exit_code;
 }
 
 int	fork_command(
@@ -112,7 +116,6 @@ int	fork_command(
 		return (RET_ERR);
 	if (cmd_pid == 0)
 	{
-		signal(SIGQUIT, SIG_DFL);
 		if (setup_redirections(exec_ctx, cmd, p_fd) == RET_ERR)
 			custom_exit(exec_ctx, NULL, 0, RET_ERR);
 		if (is_valid_builtin(cmd->cmd_name))

@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:16:47 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/17 17:41:53 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 12:10:33 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@
 # include "colors.h"
 # include "utils.h"
 # include "parser.h"
+
+//	Global Variables
+
+//		SIGNALS
+
+extern volatile int	g_signal;
 
 //	ENUMS
 
@@ -98,10 +104,9 @@ char	*get_term_color(
 
 //		Signals
 
-int		is_any_command_active(
-			int is_it);
+void	set_sig_interactive(void);
 
-void	setup_signals(void);
+void	set_sig_executing(void);
 
 //		Executing
 

@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:49:23 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/17 17:13:26 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 12:28:06 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,10 @@ static void	_wait_for_childrens(void)
 			final_status = cur_status;
 		prev_pid = cur_pid;
 	}
-	if (final_status == 131)
-		ft_putstr_fd("Quit (core dumped)\n", 2);
-	ft_last_exit_code((int)(final_status % 255));
+	final_status %= 255;
+	if (final_status == SIGINT)
+		final_status = 130;
+	g_signal = final_status;
 }
 
 static int	_check_should_fork(
@@ -86,6 +87,7 @@ void	execute_pipeline(
 		|| exec_ctx.cmd_count <= 0)
 		return ;
 	check_cmds_redirs(ctx, &exec_ctx, cmd_list);
+	set_sig_executing();
 	while (++exec_ctx.curr_idx < exec_ctx.cmd_count)
 	{
 		if (!cmd_list[exec_ctx.curr_idx]->cmd_name)
