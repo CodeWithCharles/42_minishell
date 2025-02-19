@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:10:16 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/19 15:33:54 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/19 16:13:00 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static bool	_is_numeric(
 				char *arg);
-
 
 /**
  * @brief		Mimics the behavior of the Unix 'exit' command.
@@ -42,7 +41,6 @@ void	ft_exit(
 
 	status = 0;
 	ft_lstclear(ft_envp(NULL), free);
-
 	if (args && args[1])
 	{
 		if (!_is_numeric(args[1]))
