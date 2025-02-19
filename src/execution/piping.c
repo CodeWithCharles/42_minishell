@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:49:23 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/19 12:28:06 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:40:27 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	_wait_for_childrens(void)
 	pid_t	cur_pid;
 	pid_t	prev_pid;
 
-	final_status = 0;
+	final_status = g_signal;
 	prev_pid = waitpid(-1, &final_status, 0);
 	while (prev_pid > 0)
 	{

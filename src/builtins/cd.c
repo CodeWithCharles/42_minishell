@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:36:02 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/19 15:11:09 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:43:16 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 static void	_set_new_pwd(
 				char **new_path);
+
+static void	_set_old_pwd(void);
 
 // Header implementations
 
@@ -41,8 +43,6 @@ int	ft_cd(
 )
 {
 	char	*path;
-	char	*path_tmp;
-	char	*env_var;
 
 	if (!args[1] || (args[1] && ft_strcmp(args[1], "~") == 0))
 	{
@@ -54,16 +54,15 @@ int	ft_cd(
 		path = ft_getenv("OLDPWD");
 	else
 		path = ft_strdup(args[1]);
-	path_tmp = getcwd(NULL, 0);
-	env_var = ft_to_env_format("OLDPWD", path_tmp);
-	free(path_tmp);
-	ft_setenv(env_var);
-	free(env_var);
+	_set_old_pwd();
 	if (chdir(path) == -1)
-		return (print_cmd_errno(ctx, ERR_ERRNO, "cd", strerror(errno)), 1);
+	{
+		free(path);
+		print_cmd_errno(ctx, ERR_ERRNO, "cd", strerror(errno));
+		return (RET_ERR);
+	}
 	else
 		return (_set_new_pwd(&path), RET_OK);
-	free(path);
 }
 
 // Static implementations
@@ -82,4 +81,16 @@ static void	_set_new_pwd(
 	free(env_var);
 	free(*new_path);
 	*new_path = NULL;
+}
+
+static void	_set_old_pwd(void)
+{
+	char	*path_tmp;
+	char	*env_var;
+
+	path_tmp = getcwd(NULL, 0);
+	env_var = ft_to_env_format("OLDPWD", path_tmp);
+	free(path_tmp);
+	ft_setenv(env_var);
+	free(env_var);
 }
