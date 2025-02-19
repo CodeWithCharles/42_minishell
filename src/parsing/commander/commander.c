@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commander.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:14:53 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/19 09:33:12 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/19 14:32:44 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 // Header implementations
 
-t_cmd	*new_cmd(
-	void
-)
+t_cmd	*new_cmd(void)
 {
 	t_cmd	*cmd;
 
