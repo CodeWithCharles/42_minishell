@@ -12,7 +12,8 @@ FILES	=																	\
 	parsing/commander/redirector parsing/tokenizer/error_handling			\
 	parsing/tokenizer/token_specializer parsing/tokenizer/token_worder		\
 	parsing/tokenizer/tokenizer pathing/get_cmd pathing/is_valid_builtin	\
-	utils/cmd/ft_add_one_to_tab utils/cmd/ft_cmd_count						\
-	utils/cmd/ft_free_cmd utils/cmd/ft_which utils/core/ft_token_from_list	\
-	utils/core/term_colors utils/parsing/in_quotes utils/redir/ft_lastredir	\
+	utils/builtins/validate_env_var utils/cmd/ft_add_one_to_tab				\
+	utils/cmd/ft_cmd_count utils/cmd/ft_free_cmd utils/cmd/ft_which			\
+	utils/core/ft_token_from_list utils/core/term_colors					\
+	utils/parsing/in_quotes utils/redir/ft_lastredir						\
 	utils/redir/ft_redir_from_list											\

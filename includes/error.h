@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:06:01 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/17 12:56:29 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:17:52 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@
 # define ERR_NO_HD_DELIMITER	"%s%s:\tNo delimiter provided for here-doc.\n%s"
 # define ERR_WRITE_TO_HERE_DOC	"%s%s:\tError writting here_doc to file.\n%s"
 # define ERR_READ_HERE_DOC		"%s%s:\tError re-opening here_doc.\n%s"
+# define ERR_BAD_ASSIGNMENT		"%s%s:\t%s\t: Bad assignment.\n%s"
+# define ERR_INVALID_PRM_NAME	"%s%s:\t%s\t: %s: invalid parameter name\n%s"
 # define ERR_ERRNO				"%s%s:\t%s : %s.\n%s"
 
 # define ERR_PWD_CUR_DIR "%s%s:\t%s\t: error retrieving current dir : %s.\n%s"

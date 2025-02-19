@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_specializer.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:10:02 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/17 13:19:01 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:05:45 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	handle_redir_in(
 	size_t *i
 )
 {
-	if (input[*i] == '<')
+	if (input[*i] == '<' && input[*i + 1])
 	{
 		if (input[*i + 1] == '<')
 		{
@@ -69,6 +69,8 @@ static int	handle_redir_in(
 		}
 		return (1);
 	}
+	else if (input[*i] == '<')
+		(*i)++;
 	return (0);
 }
 
@@ -78,7 +80,7 @@ static int	handle_redir_out(
 	size_t *i
 )
 {
-	if (input[*i] == '>')
+	if (input[*i] == '>' && input[*i + 1])
 	{
 		if (input[*i + 1] == '>')
 		{
@@ -92,5 +94,7 @@ static int	handle_redir_out(
 		}
 		return (1);
 	}
+	else if (input[*i] == '>')
+		(*i)++;
 	return (0);
 }

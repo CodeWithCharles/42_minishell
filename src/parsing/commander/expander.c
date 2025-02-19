@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:51:54 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/19 14:38:01 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:29:11 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ void	expand_variable(char **input)
 	tmp = *input;
 	while (*tmp)
 	{
-		if (*tmp == '$')
+		if (*tmp == '$' && ft_isalnum(*(tmp + 1)))
 			tmp = extract_var_and_expand(&tmp, &result);
 		else
 		{
 			start = tmp;
-			while (*tmp && *tmp != '$')
+			while (*tmp && (*tmp != '$' || !ft_isalnum(*(tmp + 1))))
 				tmp++;
 			append_str(&result, start, tmp - start);
 		}

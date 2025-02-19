@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:10:16 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/06 11:14:54 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/19 16:13:00 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static bool	_is_numeric(
+				char *arg);
 
 /**
  * @brief		Mimics the behavior of the Unix 'exit' command.
@@ -40,15 +43,36 @@ void	ft_exit(
 	ft_lstclear(ft_envp(NULL), free);
 	if (args && args[1])
 	{
-		if (!ft_isdigit(args[1][0]))
+		if (!_is_numeric(args[1]))
 		{
 			print_arg_error(ctx, ERR_ARG_MUST_BE_INT, "exit");
 			clean_exec_ctx(exec_ctx);
 			exit(255);
+		}
+		if (args[2])
+		{
+			print_arg_error(ctx, ERR_TOO_MANY_ARGS, "exit");
+			return ;
 		}
 		status = ft_atoi(args[1]);
 	}
 	clean_exec_ctx(exec_ctx);
 	fd_printf(STDOUT_FILENO, "exit\n");
 	exit(status);
+}
+
+static bool	_is_numeric(
+	char *arg
+)
+{
+	int	i;
+
+	i = 0;
+	while (arg[i])
+	{
+		if (!ft_isdigit(arg[i]))
+			return (false);
+		i++;
+	}
+	return (true);
 }

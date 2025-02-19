@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 11:16:19 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/17 15:39:52 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/19 16:18:25 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ int	ft_unset(
 	(void)ctx;
 	i = 1;
 	while (args[i])
-		ft_unsetenv(args[i++]);
+	{
+		if (validate_env_var_name(args[i]) != RET_OK)
+		{
+			print_cmd_errno(ctx, ERR_INVALID_PRM_NAME, "unset", args[i]);
+			return (RET_ERR);
+		}
+		else
+			ft_unsetenv(args[i++]);
+	}
 	return (RET_OK);
 }
