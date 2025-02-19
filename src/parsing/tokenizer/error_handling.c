@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:00:32 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/17 16:47:55 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:50:17 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,14 @@ int	check_invalid_pipe(
 	int	i;
 
 	i = 0;
-	while (input[i] && ft_isspace(input[i]))
+	while (input[i] && (ft_isspace(input[i])
+			|| input[i] == '>' || input[i] == '<'))
 		i++;
 	if (input[i] == '|')
 		return (RET_ERR);
 	i = ft_strlen(input) - 1;
-	while (input[i] && ft_isspace(input[i]))
+	while (input[i] && (ft_isspace(input[i])
+			|| input[i] == '>' || input[i] == '<'))
 		i--;
 	if (input[i] == '|')
 		return (RET_ERR);
