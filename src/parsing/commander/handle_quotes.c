@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:17:04 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/19 12:49:21 by jcheron          ###   ########.fr       */
+/*   Updated: 2025/02/19 14:20:30 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ void	trim_quotes(
 	end = find_last_quote(*str, quote_char, start);
 	if (end > start)
 	{
+		remove_quotes(str, start, end);
 		if (quote_char == '\"')
 			expand_variable(str);
-		remove_quotes(str, start, end);
 	}
 }
