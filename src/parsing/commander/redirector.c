@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:01:21 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/19 16:38:33 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:45:42 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	add_redirection(
 	int type
 )
 {
-	ft_lstadd_back(redir_list,
-		new_redir(((t_token *)((*tmp)->next)->content)->value, type));
+	if ((*tmp)->next)
+		ft_lstadd_back(redir_list,
+			new_redir(((t_token *)((*tmp)->next)->content)->value, type));
 	*tmp = (*tmp)->next;
 }
