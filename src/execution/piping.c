@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:49:23 by cpoulain          #+#    #+#             */
-/*   Updated: 2025/02/19 15:40:27 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:06:46 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,17 @@ static int	_setup_exec_ctx(
 	return (RET_OK);
 }
 
-static void	_wait_for_childrens(void)
+static void	_wait_for_childrens(
+	t_executing_ctx *exec_ctx
+)
 {
 	int		cur_status;
 	int		final_status;
 	pid_t	cur_pid;
 	pid_t	prev_pid;
 
+	if (exec_ctx->last_fd != INVALID_FD)
+		close(exec_ctx->last_fd);
 	final_status = g_signal;
 	prev_pid = waitpid(-1, &final_status, 0);
 	while (prev_pid > 0)
@@ -103,5 +107,5 @@ void	execute_pipeline(
 					&exec_ctx, p_fd);
 		}
 	}
-	_wait_for_childrens();
+	_wait_for_childrens(&exec_ctx);
 }
