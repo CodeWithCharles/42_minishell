@@ -6,7 +6,7 @@
 /*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:51:54 by jcheron           #+#    #+#             */
-/*   Updated: 2025/02/19 14:32:29 by cpoulain         ###   ########.fr       */
+/*   Updated: 2025/02/19 14:38:01 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,11 @@ static void	append_var_value(char **result, char *var_name)
 	char	*var_value;
 
 	var_value = ft_getenv(var_name);
-	if (!var_value)
+	if (var_value)
 	{
-		append_str(result, "$", 1);
-		append_str(result, var_name, ft_strlen(var_name));
-		return ;
+		append_str(result, var_value, ft_strlen(var_value));
+		free(var_value);
 	}
-	append_str(result, var_value, ft_strlen(var_value));
-	free(var_value);
 }
 
 static char	extract_var_name(char *var_name, char **tmp)
